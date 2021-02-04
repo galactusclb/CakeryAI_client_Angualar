@@ -1,0 +1,12 @@
+
+@import '../../../shared_scss/colorPalette.scss';
+
+
+.main{
+    section {
+        h2 {
+            color: $primary-color;
+            font-size: 20px;
+        }
+    }
+}

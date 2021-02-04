@@ -1,0 +1,149 @@
+
+@import "../../shared_scss/colorPalette.scss";
+
+.main{
+    min-height: 100vh;
+
+    
+    .row>div{
+        min-height: 100vh;
+    }
+
+    .side-menu{
+        position: relative;
+        background: $primary-dark-1;
+        transition: all .3s;
+        color: #fff;
+        min-width: 250px;
+        max-width: 250px;
+        margin-left: 0;
+
+        a{
+            color: #fff;
+            text-decoration: none;
+        }
+
+        #sidebar{
+            transition: all .3s;
+
+            .active{
+                // margin-left: -20px;
+            }
+            .router-active{
+                color: $primary-color;
+                // background: lighten($color: $primary-dark-hover, $amount: 10) ;
+            }
+            ul.components{
+                padding: 20px 0;
+                border-bottom: 1px solid red;
+            }
+
+            p{
+                padding: 10px;
+            }
+
+            ul{
+                padding-left: 0;
+            }
+            ul li{
+                list-style: none;
+            }
+
+            ul li a{
+                padding: 10px;
+                font-size: 14px;
+                display: block;
+
+                .icon{
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 20px;
+                    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(121deg) brightness(109%) contrast(102%);
+                }
+
+                &:hover{
+                    // color: #fff;
+                    background: $primary-dark-hover;
+                }
+            }
+
+            ul li.active>a,a[aria-expanded="true"]{
+                color: #fff;
+                background: $primary-dark-2;
+            }
+
+            a[data-toggle="collapse"]{
+                position: relative;
+            }
+
+            .dropdown-toggle::after{
+                display: block;
+                position: absolute;
+                top: 50%;
+                right: 20%;
+                transform: translateY(-50%);
+            }
+
+            ul ul a{
+                font-size: 13px !important;
+                padding-left: 50px !important;
+                background: $primary-dark-2;
+            }
+        }
+    }
+    
+    .hide{
+        // display: none;
+        margin-left: -250px;
+    }
+
+    .show{
+        // display: block;
+        margin-left: 0;
+    }
+
+
+    .div-contents{
+        .app-navi{
+            display: flex;
+            align-items: center;
+            height: 64px;
+            background: #fff;
+            padding: 10px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            
+            .burger-menu{
+                cursor: pointer;
+                width: 25px;
+                height: 25px;
+
+                img{
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+
+            .header-logo{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                a{
+                    padding-left: 0;
+                    font-size: 18px;
+                    font-weight: bold;
+                    padding-right: 50px;
+                    margin-left: 10px;
+                    color: $black-2;
+                }
+
+                img{
+                    width: 24px;
+                    height: 24px;
+                }
+
+                
+            }
+        }
+    }
+}
