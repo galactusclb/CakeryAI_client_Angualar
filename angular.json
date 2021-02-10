@@ -126,5 +126,8 @@
       }
     }
   },
-  "defaultProject": "ngApp"
+  "defaultProject": "ngApp",
+  "cli": {
+    "analytics": "f636c906-0fba-4427-9a67-b2743e1de7b9"
+  }
 }

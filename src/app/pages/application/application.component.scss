@@ -3,10 +3,11 @@
 
 .main{
     min-height: 100vh;
-
+    position: relative;
     
     .row>div{
         min-height: 100vh;
+        
     }
 
     .side-menu{
@@ -25,6 +26,7 @@
 
         #sidebar{
             transition: all .3s;
+            position: fixed;
 
             .active{
                 // margin-left: -20px;
@@ -104,13 +106,17 @@
 
 
     .div-contents{
+        
         .app-navi{
+            position: fixed;
             display: flex;
             align-items: center;
             height: 64px;
+            width: 100%;
             background: #fff;
             padding: 10px 0;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 10;
             
             .burger-menu{
                 cursor: pointer;
@@ -147,3 +153,9 @@
         }
     }
 }
+
+
+
+// @include media-breakpoint-down(sm) {
+    
+//   }

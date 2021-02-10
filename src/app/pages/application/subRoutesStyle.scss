@@ -1,8 +1,8 @@
-
-@import '../subRoutesStyle.scss';
-
+@import '../../shared_scss/colorPalette.scss';
 
 .main{
+    padding-top: 85px;
+
     section {
         h2 {
             color: $primary-color;
