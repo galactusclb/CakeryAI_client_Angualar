@@ -16,7 +16,6 @@ export class ApplicationComponent implements OnInit {
 
   getSidemenuStatus() {
     const status = localStorage.getItem('side-menu');
-    console.log(status);
 
     const menu = document.getElementById('side-menu')
 

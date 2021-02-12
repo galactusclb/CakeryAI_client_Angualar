@@ -1,0 +1,31 @@
+<div class="container main p-0" style="">
+    <section class="" >
+        <div class="row" >
+            <div class="col-lg-4 mx-auto div-message" >
+                <div class="message-header">
+                    <h5>Welcome to Cakery AI</h5>
+                </div>
+                <div class="message-body" *ngIf="step == 0">
+                    <img src="../../../assets/icons/svg/angel.svg" alt="">
+                    <h4 class="status mt-3">Waiting!</h4>
+                    <label for="">waiting for verifying the account</label>
+                    <div class="verifying">
+
+                    </div>
+                </div>
+                <div class="message-body success" *ngIf="step == 1">
+                    <img src="../../../assets/icons/svg/laughing.svg" alt="">
+                    <h4 class="status mt-3">Congratulations!</h4>
+                    <label for="">Your account has been confirmed</label>
+                    <button class="btn mt-3" routerLink="/login">Go to Login <i class="bi bi-arrow-right"></i></button>
+                </div>
+                <div class="message-body faild" *ngIf="step == 2">
+                    <img src="../../../assets/icons/svg/sad.svg" alt="">
+                    <h4 class="status mt-3">Oh Snap!</h4>
+                    <p >the link has expired or invalid</p>
+                    <button class="btn mt-3" routerLink="/register">Back to Register <i class="bi bi-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

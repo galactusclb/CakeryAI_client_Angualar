@@ -19,6 +19,7 @@
         max-width: 250px;
         margin-left: 0;
 
+
         a{
             color: #fff;
             text-decoration: none;
@@ -27,7 +28,11 @@
         #sidebar{
             transition: all .3s;
             position: fixed;
+            min-width: inherit;
+            max-width: inherit;
 
+            
+            
             .active{
                 // margin-left: -20px;
             }

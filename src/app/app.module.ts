@@ -12,6 +12,11 @@ import { ApplicationComponent } from './pages/application/application.component'
 import { DashboardComponent } from './pages/application/dashboard/dashboard.component';
 import { ProfileComponent } from './pages/application/profile/profile.component';
 import { PredictComponent } from './pages/application/predict/predict.component';
+import { TrainComponent } from './pages/application/predict/train/train.component';
+import { AuthService } from './services/auth.service';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +29,19 @@ import { PredictComponent } from './pages/application/predict/predict.component'
     ApplicationComponent,
     DashboardComponent,
     ProfileComponent,
-    PredictComponent
+    PredictComponent,
+    TrainComponent,
+    ConfirmAccountComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

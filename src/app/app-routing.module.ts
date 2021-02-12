@@ -7,6 +7,8 @@ import { ApplicationComponent } from './pages/application/application.component'
 import { DashboardComponent } from './pages/application/dashboard/dashboard.component';
 import { ProfileComponent } from './pages/application/profile/profile.component';
 import { PredictComponent } from './pages/application/predict/predict.component';
+import { TrainComponent } from './pages/application/predict/train/train.component';
+import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
 
 const routes: Routes = [
   {
@@ -27,13 +29,18 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
+    path: "confirm/:token",
+    component: ConfirmAccountComponent
+  },
+  {
     path: "app",
     component: ApplicationComponent,
     children: [
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
       { path: "dashboard", component: DashboardComponent },
       { path: "profile", component: ProfileComponent },
-      { path: "predict", component: PredictComponent }
+      { path: "predict", component: PredictComponent },
+      { path: "train", component: TrainComponent }
     ]
   }
 ];

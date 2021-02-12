@@ -14,11 +14,11 @@
                         </div>
                         <div class="form-group mt-3">
                             <label for="">Username</label>
-                            <input type="text" class="form-control">
+                            <input type="text" [(ngModel)]="details['userName']" name="userName" class="form-control">
                         </div>
                         <div class="form-group mt-3">
                             <label for="">Password</label>
-                            <input type="password" class="form-control">
+                            <input type="password" [(ngModel)]="details['password']" name="password" class="form-control">
                         </div>
                         <div class="form-check mt-4">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -27,7 +27,7 @@
                             </label>
                         </div>
                         <div class="form-group mt-4">
-                            <button class="btn btn-signup" routerLink="/app">Login</button>
+                            <button class="btn btn-signup" (click)="loginUser()">Login</button>
                         </div>
                         <div class="form-group div-suggest-login mt-3">
                             <span class="">

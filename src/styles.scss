@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+
 *{
     box-sizing: border-box;
 }
@@ -16,7 +20,7 @@ body{
     // overflow-y: scroll;
 }
 
-input:focus {
+button,input:focus {
     // border-color: #FF0000;
     // box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
     box-shadow: none !important;

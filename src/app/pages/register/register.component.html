@@ -14,23 +14,23 @@
                         </div>
                         <div class="form-group mt-3">
                             <label for="">Username</label>
-                            <input type="text" class="form-control">
+                            <input type="text" [(ngModel)]="details['userName']" name="userName" class="form-control">
                         </div>
                         <div class="form-group mt-3">
                             <label for="">Email</label>
-                            <input type="email" class="form-control" autocomplete="off">
+                            <input type="email" [(ngModel)]="details['email']" name="email" class="form-control" autocomplete="off">
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mt-3">
                                     <label for="">Password</label>
-                                    <input type="password" class="form-control">
+                                    <input type="password" [(ngModel)]="details['password']" name="password" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mt-3">
                                     <label for="">Confirm</label>
-                                    <input type="password" class="form-control">
+                                    <input type="password" [(ngModel)]="details['cPassword']" name="cPassword" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                             </label>
                         </div>
                         <div class="form-group mt-4">
-                            <button class="btn btn-signup">Create account</button>
+                            <button class="btn btn-signup" (click)="register()">Create account</button>
                         </div>
                         <div class="form-group div-suggest-login mt-3">
                             <span class="">
