@@ -9,44 +9,46 @@ import { ProfileComponent } from './pages/application/profile/profile.component'
 import { PredictComponent } from './pages/application/predict/predict.component';
 import { TrainComponent } from './pages/application/predict/train/train.component';
 import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
-    path: "",
-    redirectTo: "home",
-    pathMatch: "full"
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
-    path: "home",
-    component: HomeComponent
+    path: 'home',
+    component: HomeComponent,
   },
   {
-    path: "login",
-    component: LoginComponent
+    path: 'login',
+    component: LoginComponent,
   },
   {
-    path: "register",
-    component: RegisterComponent
+    path: 'register',
+    component: RegisterComponent,
   },
   {
-    path: "confirm/:token",
-    component: ConfirmAccountComponent
+    path: 'confirm/:token',
+    component: ConfirmAccountComponent,
   },
   {
-    path: "app",
+    path: 'app',
     component: ApplicationComponent,
     children: [
-      { path: "", redirectTo: "dashboard", pathMatch: "full" },
-      { path: "dashboard", component: DashboardComponent },
-      { path: "profile", component: ProfileComponent },
-      { path: "predict", component: PredictComponent },
-      { path: "train", component: TrainComponent }
-    ]
-  }
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'predict', component: PredictComponent },
+      { path: 'train', component: TrainComponent },
+    ],
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

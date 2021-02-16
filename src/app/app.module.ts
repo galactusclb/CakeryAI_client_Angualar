@@ -1,5 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './services/auth.guard';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,10 +19,8 @@ import { DashboardComponent } from './pages/application/dashboard/dashboard.comp
 import { ProfileComponent } from './pages/application/profile/profile.component';
 import { PredictComponent } from './pages/application/predict/predict.component';
 import { TrainComponent } from './pages/application/predict/train/train.component';
-import { AuthService } from './services/auth.service';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,17 +35,18 @@ import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account
     ProfileComponent,
     PredictComponent,
     TrainComponent,
-    ConfirmAccountComponent
+    ConfirmAccountComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, BrowserAnimationsModule],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

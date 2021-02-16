@@ -1,141 +1,139 @@
-@import '../../shared_scss/colorPalette.scss';
+@import "../../shared_scss/colorPalette.scss";
 
-
-h5{
-    // text-align: center;
+h5 {
+  // text-align: center;
 }
 
-.container-fluid{
-    overflow-x: hidden;
+.container-fluid {
+  overflow-x: hidden;
 }
 
 .div-side-img {
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  overflow: hidden;
 
+  img {
     width: 100%;
     height: 100%;
-    max-height: 100vh;
-    overflow: hidden;
-
-    img{
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-    }
+    display: block;
+    object-fit: cover;
+  }
 }
 
-.div-login{
-    height: 100vh;
+.div-login {
+  height: 100vh;
 
-    &>div{
-        margin-top: 100px !important;
-    }
+  & > div {
+    margin-top: 100px !important;
+  }
 }
 
 .form-group {
-    label{
-        color: $black-2;
-        font-size: 16px;
-    }
-    input{
-        margin-top: 5px;
-        background: #F6F6F6;
-        // border: 1px solid #C2C2C2;
-        border: none;
-        color: rgb(143, 143, 143);
-    }
+  label {
+    color: $black-2;
+    font-size: 16px;
+  }
+  input {
+    margin-top: 5px;
+    background: #f6f6f6;
+    // border: 1px solid #C2C2C2;
+    border: none;
+    color: rgb(143, 143, 143);
+  }
 }
 
-.div-privacypolicy{
-    display: flex;
+.div-privacypolicy {
+  display: flex;
 
-    input[type=checkbox]{
-        background: red;
-    }
+  input[type="checkbox"] {
+    background: red;
+  }
 }
 
-.form-check{
-    label{
-        font-size: 14px;
-        color: $gray-text;
-    }
-}
-
-.btn-signup{
-    background: $primary-color;
-    color: #fff;
-    font-weight: bold;
+.form-check {
+  label {
     font-size: 14px;
-    width: 100%;
-    padding: 10px 10px;
-    border-radius: .5rem;
-}
-
-.a-login{
-    color: $primary-color;
-    text-decoration: none;
-    font-weight: bold;
-
-    &:hover{
-        text-decoration: underline;
-    }
-}
-
-.div-suggest-login{
     color: $gray-text;
-    font-size: 15px;
-    text-align: center;
+  }
 }
 
-.divider{
-    position: relative;
-
-    div{
-        position: relative;
-        height: 1px;
-        width: 100%;
-        background: #7272729c;
-        border-radius: .25rem;
-        z-index: -1;
-        // background: $gray-text;
-    }
-    label{
-        position: absolute;
-        display: inline;
-        color: $gray-text;
-        background: #fff;
-        top:-12px;
-        left: 50%;
-        transform: translate(-50%);
-        padding: 0px 10px;
-    }
+.btn-signup {
+  background: $primary-color;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 0.5rem;
 }
 
-.div-other-logins{
+.a-login {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.div-suggest-login {
+  color: $gray-text;
+  font-size: 15px;
+  text-align: center;
+}
+
+.divider {
+  position: relative;
+
+  div {
     position: relative;
+    height: 1px;
     width: 100%;
+    background: #7272729c;
+    border-radius: 0.25rem;
+    z-index: -1;
+    // background: $gray-text;
+  }
+  label {
+    position: absolute;
+    display: inline;
+    color: $gray-text;
     background: #fff;
-    border-radius: .5rem;
-    border: 1px solid #7272729c;
-    padding: 7px 15px;
-    // text-align: center;
-    cursor: pointer;
-    
-    div{
-        position: relative;
-        display: inline;
-        left: 60px;
-        top: -2px;
-        img{
-            width: 20px;
-        }
+    top: -12px;
+    left: 50%;
+    transform: translate(-50%);
+    padding: 0px 10px;
+  }
+}
+
+.div-other-logins {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  border-radius: 0.5rem;
+  border: 1px solid #7272729c;
+  padding: 7px 15px;
+  // text-align: center;
+  cursor: pointer;
+
+  div {
+    position: relative;
+    display: inline;
+    left: 60px;
+    top: -2px;
+    img {
+      width: 20px;
     }
-    span{
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        // margin-left: 20px;
-        font-size: 15px;
-        color: $gray-text;
-    }
+  }
+  span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    // margin-left: 20px;
+    font-size: 15px;
+    color: $gray-text;
+  }
 }

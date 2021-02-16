@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { tap,catchError, mapTo } from "rxjs/operators";
-import * as moment from "moment";
+import { tap, catchError, mapTo } from 'rxjs/operators';
+import * as moment from 'moment';
 import { Router } from '@angular/router';
 
-import { environment } from "../../environments/environment";
+import { environment } from '../../environments/environment';
 
 const BACKEND_URL = environment.baseUrl;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  private _registerUrl = BACKEND_URL + 'registerUser';
+  private _confirmUrl = BACKEND_URL + 'confirmemail';
+  private _loginUrl = BACKEND_URL + 'loginUser';
+  private _getPermisionUserUrl = BACKEND_URL + 'getPermisionUser';
 
-  private _registerUrl = BACKEND_URL + "registerUser";
-  private _confirmUrl = BACKEND_URL + "confirmemail";
-  private _loginUrl = BACKEND_URL + "loginUser";
-  private _getPermisionUserUrl = BACKEND_URL + "getPermisionUser"
+  private _xd = BACKEND_URL + 'xd';
 
-  
   private token: string;
   private tokenTimer: any;
   private userId: string;
@@ -27,18 +27,21 @@ export class AuthService {
   private role: string;
   private isAuthenticated = false;
 
-
   private newLogin = new BehaviorSubject(false); //1
   newLoginStatus = this.newLogin.asObservable(); //2
-  
-  constructor(private http: HttpClient, private _router: Router) { }
 
-  
+  constructor(private http: HttpClient, private _router: Router) {}
+
   registerUser(user) {
     return this.http.post<any>(this._registerUrl, user);
   }
+
+  testxd() {
+    return this.http.get<any>(this._xd);
+  }
+
   confirm(details) {
-    return this.http.post<any>(this._confirmUrl, {token : details});
+    return this.http.post<any>(this._confirmUrl, { token: details });
   }
 
   loginUser(details): Observable<any> {
@@ -70,9 +73,7 @@ export class AuthService {
         }
       }),
       mapTo(true),
-      catchError(
-        (this.errorHandler)
-      )
+      catchError(this.errorHandler)
     );
   }
 
@@ -83,7 +84,7 @@ export class AuthService {
     this.userId = null;
     clearTimeout(this.tokenTimer);
     this.getLoginStatus(true); //5
-    this._router.navigate(["/login"]);
+    this._router.navigate(['/login']);
   }
 
   private setAuthTimer(duration: number) {
@@ -98,22 +99,22 @@ export class AuthService {
     userName: string,
     role: string
   ) {
-    localStorage.setItem("token", token);
-    localStorage.setItem("expiration", expirationDate.toISOString());
+    localStorage.setItem('token', token);
+    localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem(
-      "userAuth",
+      'userAuth',
       JSON.stringify({ userName: userName, role: role })
     );
   }
 
   errorHandler(error: HttpErrorResponse) {
-    return throwError(error || "Something went wrong.Please try again later.");
+    return throwError(error || 'Something went wrong.Please try again later.');
   }
 
   private clearAuthData() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expiration");
-    localStorage.removeItem("userAuth");
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
+    localStorage.removeItem('userAuth');
   }
 
   getLoginStatus(newLoginInstance: boolean) {
@@ -127,7 +128,7 @@ export class AuthService {
 
     if (this.loggedIn()) {
       if (this.getUserAuth()) {
-        if (user.role === "admin") {
+        if (user.role === 'admin') {
           // console.log("admin " + true);
           return true;
         }
@@ -137,11 +138,11 @@ export class AuthService {
   }
 
   getUserAuth() {
-    return JSON.parse(localStorage.getItem("userAuth"));
+    return JSON.parse(localStorage.getItem('userAuth'));
   }
 
   getPermisionUser() {
-    return this.http.get<any>(this._getPermisionUserUrl)
+    return this.http.get<any>(this._getPermisionUserUrl);
   }
 
   getPermision() {
@@ -149,16 +150,16 @@ export class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem("token");
+    return localStorage.getItem('token');
   }
 
   loggedIn() {
-    if (!!localStorage.getItem("token")) {
+    if (!!localStorage.getItem('token')) {
       var now = moment(new Date());
-      var end = moment(localStorage.getItem("expiration"));
+      var end = moment(localStorage.getItem('expiration'));
       var duration = moment.duration(end.diff(now, 'seconds'));
-      this.setAuthTimer(duration['_milliseconds'])
+      this.setAuthTimer(duration['_milliseconds']);
     }
-    return !!localStorage.getItem("token");
+    return !!localStorage.getItem('token');
   }
 }

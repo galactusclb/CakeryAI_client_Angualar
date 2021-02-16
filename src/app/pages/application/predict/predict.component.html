@@ -1,117 +1,144 @@
 <div class="main px-5">
-    <section>
-        <h2>Prediction</h2>
-        <div class="row mt-5 pt-2 div-progress" style="height: 100px">
-            <div class="col-lg-8 mx-auto">
-                <div class="row div-steps">
-                    <div class="col-3 step">
-                        <div class="line">
-                            <div class="fill"></div>
-                            <div class="circle" style="z-index: 1;">
-                                1
-                                <div class="title">
-                                    Upload summary
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 step">
-                        <div class="line">
-                            <div class="fill"></div>
-                            <div class="circle" style="z-index: 1;">
-                                2
-                                <div class="title">
-                                    Mapping
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 step">
-                        <div class="line">
-                            <div class="fill"></div>
-                            <div class="circle" style="z-index: 1;">
-                                3
-                                <div class="title">
-                                    Training
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 step">
-                        <div class="line">
-                            <div class="fill"></div>
-                        </div>
-                    </div>
-                </div>
+  <section>
+    <h2>Prediction</h2>
+    <div class="row mt-5 pt-2 div-progress" style="height: 100px">
+      <div class="col-lg-8 mx-auto">
+        <div class="row div-steps">
+          <div class="col-3 step">
+            <div class="line">
+              <div class="fill"></div>
+              <div class="circle" style="z-index: 1">
+                1
+                <div class="title">Upload summary</div>
+              </div>
             </div>
+          </div>
+          <div class="col-3 step">
+            <div class="line">
+              <div class="fill"></div>
+              <div class="circle" style="z-index: 1">
+                2
+                <div class="title">Mapping</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 step">
+            <div class="line">
+              <div class="fill"></div>
+              <div class="circle" style="z-index: 1">
+                3
+                <div class="title">Training</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 step">
+            <div class="line">
+              <div class="fill"></div>
+            </div>
+          </div>
         </div>
-        <div class="row div-upload pt-5" >
-            <div class="col-md-8 mx-auto" *ngIf="sectionUploading">
-                <h2>Upload a new sales report for train your model</h2>
-                <p class="upload-description">
-                    (File accepted: .csv, .xlsx - Max file size: 1MB for free subscribe plan limit)
-                </p>
-                <!-- <input #imageInput type="file" accept="image/*" name="" id=""> -->
-                <div class="file-upload">
-
-                    <div class="image-upload-wrap" id="image-upload-section">
-                        <input class="file-upload-input" type='file' accept=".xlsx, .xls, .csv" #fileInput (change)="processFile(fileInput)" />
-                        <img src="../../../../assets/icons/svg/cloud-computing upload.svg" alt="">
-                        <div class="drag-text">
-                            <h3>Drag and drop a file or select add file</h3>
-                        </div>
-                        <button class="file-upload-btn" type="button">Choose file</button>
-                    </div>
-                    <!-- <div class="file-upload-content" id="image-preview-section">
+      </div>
+    </div>
+    <div class="row div-upload pt-5">
+      <div class="col-md-8 mx-auto" *ngIf="sectionUploading">
+        <h2>Upload a new sales report for train your model</h2>
+        <p class="upload-description">
+          (File accepted: .csv, .xlsx - Max file size: 1MB for free subscribe
+          plan limit)
+        </p>
+        <!-- <input #imageInput type="file" accept="image/*" name="" id=""> -->
+        <div class="file-upload">
+          <div class="image-upload-wrap" id="image-upload-section">
+            <input
+              class="file-upload-input"
+              type="file"
+              accept=".xlsx, .xls, .csv"
+              #fileInput
+              (change)="processFile(fileInput)"
+            />
+            <img
+              src="../../../../assets/icons/svg/cloud-computing upload.svg"
+              alt=""
+            />
+            <div class="drag-text">
+              <h3>Drag and drop a file or select add file</h3>
+            </div>
+            <button class="file-upload-btn" type="button">Choose file</button>
+          </div>
+          <!-- <div class="file-upload-content" id="image-preview-section">
                         <img class="file-upload-image"  [src]="image_preview" alt="your image" />
                         <div class="image-title-wrap">
                             <button type="button" class="remove-image" (click)="removeFile()">Remove <span class="image-title">Uploaded
                                     Image</span></button>
                         </div>
                     </div> -->
-                </div>
-            </div>
-            <div class="col-md-8 section_Mapping mb-5 mx-auto" *ngIf="sectionMapping && csv_header">
-                
-                <!-- <span *ngFor="let item of csv_header" class="badge bg-warning mx-1">{{item}}</span> -->
-                <h5 class="mt-4">Table of content details of the uploaded file</h5>
-                <table class="table table-striped mt-2" style="text-align: start;">
-                    <thead class="thead-light">
-                        <tr >
-                            <th *ngFor="let item of csv_header">{{item}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let line of lines">
-                            <td>{{line[0]}}</td>
-                            <td>{{line[1]}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="row div-column-selection">
-                    <p class="mt-5 mb-3" style="text-align: start;">please, select the month/date column and category column which you need to get the prediction</p>
-                    <div class="col-md mt-1">
-                        <span>Month</span>
-                        <select name="" id="" class="form-select" aria-label="Default select example">
-                            <option value=""  *ngFor="let item of csv_header">{{item}}</option>
-                        </select>
-                    </div>
-                    <div class="col-md mt-1">
-                        <span>Predict</span>
-                        <select name="" id="" class="form-select">
-                            <option value="" *ngFor="let item of csv_header">{{item}}</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-lg-4 mt-3 ms-auto">
-                        <button class="neu" style="color: #a91e2c;" (click)="backToUpload()">Back</button>
-                        <button class="neu ms-4 ">Next</button>
-                    </div>
-                </div>
-            </div>
         </div>
-    </section>
+      </div>
+      <div
+        class="col-md-8 section_Mapping mb-5 mx-auto"
+        *ngIf="sectionMapping && csv_header"
+      >
+        <!-- <span *ngFor="let item of csv_header" class="badge bg-warning mx-1">{{item}}</span> -->
+        <h5 class="mt-4">Table of content details of the uploaded file</h5>
+        <table class="table table-striped mt-2" style="text-align: start">
+          <thead class="thead-light">
+            <tr>
+              <th *ngFor="let item of csv_header">{{ item }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let line of lines">
+              <td>{{ line[0] }}</td>
+              <td>{{ line[1] }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <form action="" class="form">
+          <div class="row div-column-selection">
+            <p class="mt-5 mb-3" style="text-align: start">
+              please, select the month/date column and category column which you
+              need to get the prediction
+            </p>
+            <div class="col-md mt-1">
+              <span>Month</span>
+              <select
+                [(ngModel)]="selectedColumn['month']"
+                name="month"
+                id=""
+                class="form-select"
+                aria-label="Default select example"
+              >
+                <option *ngFor="let item of csv_header" [ngValue]="item">
+                  {{ item }}
+                </option>
+              </select>
+            </div>
+            <div class="col-md mt-1">
+              <span>Predict</span>
+              <select
+                name="predict"
+                [(ngModel)]="selectedColumn['predict']"
+                id=""
+                class="form-select"
+              >
+                <option *ngFor="let item of csv_header" [ngValue]="item">
+                  {{ item }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
+
+        <div class="row">
+          <div class="col-lg-4 mt-3 ms-auto">
+            <button class="neu" style="color: #a91e2c" (click)="backToUpload()">
+              Back
+            </button>
+            <button class="neu ms-4" (click)="uploadReport()">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
