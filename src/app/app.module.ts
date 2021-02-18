@@ -21,6 +21,7 @@ import { PredictComponent } from './pages/application/predict/predict.component'
 import { TrainComponent } from './pages/application/predict/train/train.component';
 import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TrainComponent,
     ConfirmAccountComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
+  ],
   providers: [
     AuthService,
     AuthGuard,

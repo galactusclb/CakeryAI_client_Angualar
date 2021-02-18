@@ -5,30 +5,32 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  details = {}
+  details = {};
 
-  constructor(private _auth:AuthService, private _router:Router) { }
+  errorMessage: any;
 
-  ngOnInit(): void {
-  }
+  constructor(private _auth: AuthService, private _router: Router) {}
 
-  loginUser(){
+  ngOnInit(): void {}
+
+  loginUser() {
     this._auth.loginUser(this.details).subscribe(
-      res=>{
+      (res) => {
         console.log(res);
         if (res === true) {
-          this._auth.getLoginStatus(true)
-          this._router.navigate(["/app"])
+          this._auth.getLoginStatus(true);
+          this._router.navigate(['/app']);
         } else {
-          alert(res.error.message)
+          alert(res.error.message);
         }
       },
-      err=>{
+      (err) => {
         console.log(err);
+        this.errorMessage = err.error.message;
       }
-    )
+    );
   }
 }

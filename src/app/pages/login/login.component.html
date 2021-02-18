@@ -1,72 +1,96 @@
 <div class="container-fluid p-0">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="div-side-img">
-                <img src="../../../assets/img/close-up-whisk-with-egg-baking-flour-table.jpg" alt="">
-            </div>
-        </div>
-        <div class="col-md-7">
-            <div class="row div-login">
-                <div class="col-md-6 m-auto">
-                    <form action="" class="form mb-3">
-                        <div class="form-group">
-                            <h5>Login</h5>
-                        </div>
-                        <div class="form-group mt-3">
-                            <label for="">Username</label>
-                            <input type="text" [(ngModel)]="details['userName']" name="userName" class="form-control">
-                        </div>
-                        <div class="form-group mt-3">
-                            <label for="">Password</label>
-                            <input type="password" [(ngModel)]="details['password']" name="password" class="form-control">
-                        </div>
-                        <div class="form-check mt-4">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Keep me logged in
-                            </label>
-                        </div>
-                        <div class="form-group mt-4">
-                            <button class="btn btn-signup" (click)="loginUser()">Login</button>
-                        </div>
-                        <div class="form-group div-suggest-login mt-3">
-                            <span class="">
-                                Don't have an account yet ?
-                                <a routerLink="/register" class="a-login">Register</a>
-                            </span>
-                        </div>
-                        <div class="form-group div-suggest-login mt-3">
-                            <span class="">
-                                <a href="" class="a-login">Forget password ?</a>
-                            </span>
-                        </div>
-                        <div class="divider my-3">
-                            <label>or</label>
-                            <div></div>
-                        </div>
-                        <div class="form-group mt-4">
-                            <div class="div-other-logins">
-                                <div>
-                                    <img src="../../../assets/icons/svg/google.svg" alt="">
-                                </div>
-                                <span>
-                                    Continue with Google
-                                </span>
-                            </div>
-                        </div>
-                        <div class="form-group mt-4">
-                            <div class="div-other-logins">
-                                <div>
-                                    <img src="../../../assets/icons/svg/facebook.svg" alt="">
-                                </div>
-                                <span>
-                                    Continue with Facebook
-                                </span>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="div-side-img">
+        <img
+          src="../../../assets/img/close-up-whisk-with-egg-baking-flour-table.jpg"
+          alt=""
+        />
+      </div>
     </div>
+    <div class="col-md-7">
+      <div class="row div-login">
+        <div class="col-md-6 m-auto">
+          <form action="" class="form mb-3">
+            <div class="form-group">
+              <h5>Login</h5>
+            </div>
+            <div
+              class="form-group has-danger error-message"
+              *ngIf="errorMessage"
+            >
+              <div class="form-control-feedback">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              <label for="">Username</label>
+              <input
+                type="text"
+                [(ngModel)]="details['userName']"
+                name="userName"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group mt-3">
+              <label for="">Password</label>
+              <input
+                type="password"
+                [(ngModel)]="details['password']"
+                name="password"
+                class="form-control"
+              />
+            </div>
+            <div class="form-check mt-4">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Keep me logged in
+              </label>
+            </div>
+            <div class="form-group mt-4">
+              <button class="btn btn-signup" (click)="loginUser()">
+                Login
+              </button>
+            </div>
+            <div class="form-group div-suggest-login mt-3">
+              <span class="">
+                Don't have an account yet ?
+                <a routerLink="/register" class="a-login">Register</a>
+              </span>
+            </div>
+            <div class="form-group div-suggest-login mt-3">
+              <span class="">
+                <a href="" class="a-login">Forget password ?</a>
+              </span>
+            </div>
+            <div class="divider my-3">
+              <label>or</label>
+              <div></div>
+            </div>
+            <div class="form-group mt-4">
+              <div class="div-other-logins">
+                <div>
+                  <img src="../../../assets/icons/svg/google.svg" alt="" />
+                </div>
+                <span> Continue with Google </span>
+              </div>
+            </div>
+            <div class="form-group mt-4">
+              <div class="div-other-logins">
+                <div>
+                  <img src="../../../assets/icons/svg/facebook.svg" alt="" />
+                </div>
+                <span> Continue with Facebook </span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

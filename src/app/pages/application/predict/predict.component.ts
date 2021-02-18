@@ -148,12 +148,12 @@ export class PredictComponent implements OnInit {
     const formData = new FormData();
 
     formData.append('report', this.file);
+    formData.append('headers', JSON.stringify(this.csv_header));
+    formData.append('selectedColumn', JSON.stringify(this.selectedColumn));
 
-    for (var key in this.selectedColumn) {
-      formData.append(key, this.selectedColumn[key]);
-    }
-
-    // formData.append('selectedColumns', this.selectedColumn);
+    // for (var key in this.selectedColumn) {
+    //   formData.append(key, this.selectedColumn[key]);
+    // }
 
     this._uploadFile.uploadReport(formData).subscribe(
       (res) => {
@@ -164,9 +164,9 @@ export class PredictComponent implements OnInit {
               Math.round((res.loaded / res.total) * 100) +
               '%'
           );
-          this.selectedFile.progress = Math.round(
-            (res.loaded / res.total) * 100
-          );
+          // this.selectedFile.progress = Math.round(
+          //   (res.loaded / res.total) * 100
+          // );
         } else if (res.type === HttpEventType.Response) {
           console.log(res);
           // this.onSuccess()

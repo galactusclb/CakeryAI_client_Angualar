@@ -2,6 +2,8 @@
 
 h5 {
   // text-align: center;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .container-fluid {
@@ -28,6 +30,13 @@ h5 {
   & > div {
     margin-top: 100px !important;
   }
+}
+
+.error-message {
+  background: #ffe0e0;
+  color: #f93636;
+  text-align: center;
+  padding: 9px 10px;
 }
 
 .form-group {

@@ -68,7 +68,13 @@ export class AuthService {
 
           console.log(expirationDate);
 
-          this.saveAuthData(token, expirationDate, this.userName, this.role);
+          this.saveAuthData(
+            token,
+            expirationDate,
+            this.userId,
+            this.userName,
+            this.role
+          );
           // this._router.navigate(['/dashboard'])
         }
       }),
@@ -96,6 +102,7 @@ export class AuthService {
   private saveAuthData(
     token: string,
     expirationDate: Date,
+    userId: String,
     userName: string,
     role: string
   ) {
@@ -103,7 +110,7 @@ export class AuthService {
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem(
       'userAuth',
-      JSON.stringify({ userName: userName, role: role })
+      JSON.stringify({ userId: userId, userName: userName, role: role })
     );
   }
 

@@ -1,17 +1,23 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router, ActivatedRoute, NavigationEnd, ActivationEnd } from '@angular/router';
+import {
+  Router,
+  ActivatedRoute,
+  NavigationEnd,
+  ActivationEnd,
+} from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   title = 'Analytics';
   currentRoute: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     // this.Activatedroute.parent.subscribe((queryParams) => {
@@ -21,16 +27,19 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof ActivationEnd) {
         // console.log(event.snapshot);
-        const path = event.snapshot['_routerState']['url']
+        const path = event.snapshot['_routerState']['url'];
         //console.log(path);
 
         if (path && path.includes('/app/')) {
-          this.currentRoute = true
+          this.currentRoute = true;
         } else this.currentRoute = false;
       }
-    })
+    });
+
+    addEventListener('offline', (e) => {
+      this._snackBar.open('please check your internet connection', 'ok', {
+        duration: 5000,
+      });
+    });
   }
-
-
-
 }
