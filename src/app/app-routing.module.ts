@@ -10,6 +10,8 @@ import { PredictComponent } from './pages/application/predict/predict.component'
 import { TrainComponent } from './pages/application/predict/train/train.component';
 import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
 import { AuthGuard } from './services/auth.guard';
+import { PredictGenerateComponent } from './pages/application/predict/predict-generate/predict-generate.component';
+import { IngredientsComponent } from './pages/application/predict/ingredients/ingredients.component';
 
 const routes: Routes = [
   {
@@ -41,7 +43,9 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'predict', component: PredictComponent },
+      { path: 'ingredients', component: IngredientsComponent },
       { path: 'train', component: TrainComponent },
+      { path: 'output', component: PredictGenerateComponent },
     ],
     canActivate: [AuthGuard],
   },

@@ -1,61 +1,96 @@
 <div class="container-fluid main">
-    <div class="row">
-        <div class="col-md-2 side-menu px-0" id="side-menu" style="">
-            <nav id="sidebar">
-                <div class="sidebar-header">
-                    <h5>Sidebar</h5>
-                </div>
-                <ul class="lisst-unstyled components">
-                    <p>Navigation</p>
-                    <li [class.active]="!isActive('dashboard')">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-
-                            <img src="../../../assets/icons/svg/dashboard.svg" alt="" class="icon">
-                            Dashboard
-                        </a>
-                        <ul class="collapse lisst-unstyled" id="homeSubmenu">
-                            <li>
-                                <a [routerLink]="['/app/dashboard']" routerLinkActive="router-active">Dashboard</a>
-                            </li>
-                            <li>
-                                <a [routerLink]="['/app/profile']" routerLinkActive="router-active">Profile</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/app/predict']" routerLinkActive="router-active">
-                            <img src="../../../assets/icons/svg/cloud-computing upload.svg" alt="" class="icon">
-                            Predictions
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <img src="../../../assets/icons/svg/user.svg" alt="" class="icon">
-                            Prediction
-                        </a>
-                        <ul class="collapse lisst-unstyled" id="pageSubmenu">
-                            <li>
-                                <a [routerLink]="['/app/predict']">Upload</a>
-                            </li>
-                            <li>
-                                <a [routerLink]="['/app/train']">Train</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
+  <div class="row">
+    <div class="col-md-2 side-menu px-0" id="side-menu" style="">
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <h5>Sidebar</h5>
         </div>
-        <div class="col-md px-0 div-contents" style="">
-            <div class="app-navi px-5">
-                <div class="burger-menu" (click)="sidemenu()">
-                    <img src="../../../assets/icons/svg/list.svg" alt="">
-                </div>
-                <div class="header-logo ms-4">
-                    <img src="../../../../assets/icons/svg/bxs-cake.svg" alt="">
-                    <a class="navbar-brand" routerLink="">Analysis Blast</a>
-                </div>
-            </div>
-            <router-outlet></router-outlet>
-        </div>
+        <ul class="lisst-unstyled components">
+          <p>Navigation</p>
+          <li [class.active]="!isActive('dashboard')">
+            <a
+              href="#homeSubmenu"
+              data-toggle="collapse"
+              aria-expanded="false"
+              class="dropdown-toggle"
+            >
+              <img
+                src="../../../assets/icons/svg/dashboard.svg"
+                alt=""
+                class="icon"
+              />
+              Dashboard
+            </a>
+            <ul class="collapse lisst-unstyled" id="homeSubmenu">
+              <li>
+                <a
+                  [routerLink]="['/app/dashboard']"
+                  routerLinkActive="router-active"
+                  >Dashboard</a
+                >
+              </li>
+              <li>
+                <a
+                  [routerLink]="['/app/profile']"
+                  routerLinkActive="router-active"
+                  >Profile</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a [routerLink]="['/app/predict']" routerLinkActive="router-active">
+              <img
+                src="../../../assets/icons/svg/cloud-computing upload.svg"
+                alt=""
+                class="icon"
+              />
+              Predictions
+            </a>
+          </li>
+          <li>
+            <a
+              href="#pageSubmenu"
+              data-toggle="collapse"
+              aria-expanded="false"
+              class="dropdown-toggle"
+            >
+              <img
+                src="../../../assets/icons/svg/user.svg"
+                alt=""
+                class="icon"
+              />
+              Prediction
+            </a>
+            <ul class="collapse lisst-unstyled" id="pageSubmenu">
+              <li>
+                <a [routerLink]="['/app/predict']">Upload</a>
+              </li>
+              <li>
+                <a [routerLink]="['/app/ingredients']">Ingredients</a>
+              </li>
+              <li>
+                <a [routerLink]="['/app/train']">Train</a>
+              </li>
+              <li>
+                <a [routerLink]="['/app/output']">Predictions</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
     </div>
+    <div class="col-md px-0 div-contents" style="">
+      <div class="app-navi px-5">
+        <div class="burger-menu" (click)="sidemenu()">
+          <img src="../../../assets/icons/svg/list.svg" alt="" />
+        </div>
+        <div class="header-logo ms-4">
+          <img src="../../../../assets/icons/svg/bxs-cake.svg" alt="" />
+          <a class="navbar-brand" routerLink="">Analysis Blast</a>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

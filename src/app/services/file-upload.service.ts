@@ -13,6 +13,8 @@ export class FileUploadService {
   private _changereportsactivesettings =
     BACKEND_URL + 'changereportsactivesettings';
   private _deletereport = BACKEND_URL + 'delete-report';
+  private _addingredientsdetails = BACKEND_URL + 'addingredientsdetails';
+  private _getIngredientsDetails = BACKEND_URL + 'getingredientsdetails';
 
   constructor(private http: HttpClient) {}
 
@@ -43,5 +45,13 @@ export class FileUploadService {
 
   changeReportsActiveSettings(data: any) {
     return this.http.put<any>(this._changereportsactivesettings, data);
+  }
+
+  addIngredientsDetails(data: any) {
+    return this.http.post<any>(this._addingredientsdetails, data);
+  }
+
+  getIngredientsDetails() {
+    return this.http.get<any>(this._getIngredientsDetails);
   }
 }

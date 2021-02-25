@@ -1,0 +1,21 @@
+<div class="main px-5">
+  <section>
+    <h2>Prediction</h2>
+    <div class="col-lg-10 table-responsive mx-auto">
+      <table class="table mt-2" style="text-align: start">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" *ngFor="let item of ingredientsDetails['header']">
+              {{ item }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let line of ingredientsDetails['data']">
+            <td *ngFor="let item of line">{{ item }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

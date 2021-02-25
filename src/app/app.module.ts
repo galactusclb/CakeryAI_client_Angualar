@@ -22,6 +22,8 @@ import { TrainComponent } from './pages/application/predict/train/train.componen
 import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PredictGenerateComponent } from './pages/application/predict/predict-generate/predict-generate.component';
+import { IngredientsComponent } from './pages/application/predict/ingredients/ingredients.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     PredictComponent,
     TrainComponent,
     ConfirmAccountComponent,
+    PredictGenerateComponent,
+    IngredientsComponent,
   ],
   imports: [
     BrowserModule,
