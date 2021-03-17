@@ -2,7 +2,12 @@
   <section>
     <h2>Ingredients</h2>
     <div class="row div-upload pt-5">
-      <div class="col-md-11 table-responsive mb-5 mx-auto">
+      <div class="col-md-11 table-responsive mb-5" *ngIf="sectionDisplay === 0">
+        <div class="table-option mb-4">
+          <button class="btn btn-talbe-button py-1" (click)="openUpload()">
+            <i class="bi bi-plus"></i> New Details
+          </button>
+        </div>
         <table class="table mt-2" style="text-align: start">
           <thead class="thead-light">
             <tr>
@@ -18,43 +23,52 @@
           </tbody>
         </table>
       </div>
-      <div class="col-md-8 mx-auto" *ngIf="sectionUploading">
-        <h2>Upload Ingredients report for generate monthly summary</h2>
-        <p class="upload-description">
-          (File accepted: .csv, .xlsx - Max file size: 1MB for free subscribe
-          plan limit)
-        </p>
-        <!-- <input #imageInput type="file" accept="image/*" name="" id=""> -->
-        <div class="file-upload">
-          <div class="image-upload-wrap" id="image-upload-section">
-            <input
-              class="file-upload-input"
-              type="file"
-              accept=".xlsx, .xls, .csv"
-              #fileInput
-              (change)="processFile(fileInput)"
-            />
-            <img
-              src="../../../../assets/icons/svg/cloud-computing upload.svg"
-              alt=""
-            />
-            <div class="drag-text">
-              <h3>Drag and drop a file or select add file</h3>
+      <div *ngIf="sectionDisplay === 1">
+        <div style="float: left">
+          <label><i class="bi bi-arrow-return-left"></i> Back to details</label>
+        </div>
+        <div class="row">
+          <div class="col-md-8 mx-auto">
+            <h2>Upload Ingredients report for generate monthly summary</h2>
+            <p class="upload-description">
+              (File accepted: .csv, .xlsx - Max file size: 1MB for free
+              subscribe plan limit)
+            </p>
+            <!-- <input #imageInput type="file" accept="image/*" name="" id=""> -->
+            <div class="file-upload">
+              <div class="image-upload-wrap" id="image-upload-section">
+                <input
+                  class="file-upload-input"
+                  type="file"
+                  accept=".xlsx, .xls, .csv"
+                  #fileInput
+                  (change)="processFile(fileInput)"
+                />
+                <img
+                  src="../../../../assets/icons/svg/cloud-computing upload.svg"
+                  alt=""
+                />
+                <div class="drag-text">
+                  <h3>Drag and drop a file or select add file</h3>
+                </div>
+                <button class="file-upload-btn" type="button">
+                  Choose file
+                </button>
+              </div>
+              <!-- <div class="file-upload-content" id="image-preview-section">
+                              <img class="file-upload-image"  [src]="image_preview" alt="your image" />
+                              <div class="image-title-wrap">
+                                  <button type="button" class="remove-image" (click)="removeFile()">Remove <span class="image-title">Uploaded
+                                          Image</span></button>
+                              </div>
+                          </div> -->
             </div>
-            <button class="file-upload-btn" type="button">Choose file</button>
           </div>
-          <!-- <div class="file-upload-content" id="image-preview-section">
-                          <img class="file-upload-image"  [src]="image_preview" alt="your image" />
-                          <div class="image-title-wrap">
-                              <button type="button" class="remove-image" (click)="removeFile()">Remove <span class="image-title">Uploaded
-                                      Image</span></button>
-                          </div>
-                      </div> -->
         </div>
       </div>
       <div
         class="col-md-8 section_Mapping mb-5 mx-auto"
-        *ngIf="sectionMapping && csv_header"
+        *ngIf="sectionDisplay === 2 && csv_header"
       >
         <!-- <span *ngFor="let item of csv_header" class="badge bg-warning mx-1">{{item}}</span> -->
         <h2 class="mt-4">Table of content details of Ingredient details</h2>

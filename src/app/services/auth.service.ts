@@ -18,8 +18,6 @@ export class AuthService {
   private _loginUrl = BACKEND_URL + 'loginUser';
   private _getPermisionUserUrl = BACKEND_URL + 'getPermisionUser';
 
-  private _xd = BACKEND_URL + 'xd';
-
   private token: string;
   private tokenTimer: any;
   private userId: string;
@@ -34,10 +32,6 @@ export class AuthService {
 
   registerUser(user) {
     return this.http.post<any>(this._registerUrl, user);
-  }
-
-  testxd() {
-    return this.http.get<any>(this._xd);
   }
 
   confirm(details) {

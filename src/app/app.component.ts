@@ -1,11 +1,5 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { Location } from '@angular/common';
-import {
-  Router,
-  ActivatedRoute,
-  NavigationEnd,
-  ActivationEnd,
-} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivationEnd } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -36,7 +30,7 @@ export class AppComponent implements OnInit {
       }
     });
 
-    addEventListener('offline', (e) => {
+    addEventListener('offline', () => {
       this._snackBar.open('please check your internet connection', 'ok', {
         duration: 5000,
       });

@@ -23,8 +23,7 @@ export class IngredientsComponent implements OnInit {
   csv_header = [];
   lines: any = [];
 
-  sectionUploading: boolean = true;
-  sectionMapping: boolean = false;
+  sectionDisplay: number = 0;
 
   details = {};
   ingredientsDetails = [];
@@ -45,6 +44,10 @@ export class IngredientsComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  openUpload() {
+    this.sectionDisplay = 1;
   }
 
   processFile(imageInput: any) {
@@ -92,8 +95,7 @@ export class IngredientsComponent implements OnInit {
         this.details['data'] = this.lines;
         console.log(this.details);
 
-        this.sectionUploading = false;
-        this.sectionMapping = true;
+        this.sectionDisplay = 2;
       });
 
       // reader.readAsDataURL(file);
@@ -120,7 +122,6 @@ export class IngredientsComponent implements OnInit {
 
   backToUpload() {
     this.csv_header = [];
-    this.sectionUploading = true;
-    this.sectionMapping = false;
+    this.sectionDisplay = 0;
   }
 }
