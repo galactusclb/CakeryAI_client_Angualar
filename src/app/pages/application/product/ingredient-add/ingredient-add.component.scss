@@ -1,0 +1,89 @@
+@import "../../subRoutesStyle.scss";
+
+.div-form {
+  display: block;
+  .form-group {
+    label {
+      color: $gray-text;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    // input:focus {
+    //   border-color: $primary-color;
+    // }
+    // input::selection {
+    //   background: $primary-color;
+    // }
+
+    // input::-webkit-datetime-edit-day-field:focus,
+    // input::-webkit-datetime-edit-month-field:focus,
+    // input::-webkit-datetime-edit-year-field:focus {
+    //   background-color: $primary-color;
+    //   color: white;
+    // }
+  }
+
+  .form-check {
+    display: inline-block;
+    width: unset;
+    margin-left: 18px;
+
+    & > * {
+      cursor: pointer;
+    }
+
+    .form-check-input:checked {
+      background-color: $primary-color;
+      border-color: $primary-color;
+    }
+
+    &:nth-child(1) {
+      margin-left: 0px;
+    }
+  }
+
+  //   .form-footer {
+  //     display: block;
+  //     background: red;
+  //     position: relative;
+
+  //     .footer-right {
+  //       position: absolute;
+  //       right: 0;
+  //       //   display: block;
+  //       //   float: right;
+
+  //       button {
+  //         background: $theme-color-1;
+  //         color: #fff;
+  //         padding: 5px 18px;
+  //       }
+  //     }
+  //   }
+}
+.form-footer {
+  height: 45px;
+
+  .footer-right {
+    display: block;
+    // float: right;
+    // margin-right: 60px;
+
+    button {
+      color: #fff;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+
+    .btn-cancel {
+      text-decoration: underline;
+      color: $primary-dark-2;
+    }
+
+    .btn-done {
+      background: $primary-color;
+      padding: 7px 15px;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
@@ -10,11 +10,17 @@ const BACKEND_URL = environment.baseUrl;
 export class FileUploadService {
   private _uploadReport = BACKEND_URL + 'upload-report';
   private _getuserreports = BACKEND_URL + 'getuserreports';
-  private _changereportsactivesettings =
+  private _changereportsactivesettingsUrl =
     BACKEND_URL + 'changereportsactivesettings';
+  private _trainModelUrl = BACKEND_URL + 'trainmodel';
   private _deletereport = BACKEND_URL + 'delete-report';
   private _addingredientsdetails = BACKEND_URL + 'addingredientsdetails';
   private _getIngredientsDetails = BACKEND_URL + 'getingredientsdetails';
+  private _getactivatedmodeldetailsUrl =
+    BACKEND_URL + 'getactivatedmodeldetails';
+  private _getProductsDetailsUrl = BACKEND_URL + 'getproductsdetails';
+  private _getProductDetailsByProductUrl =
+    BACKEND_URL + 'getproductdetailsbyproduct';
 
   constructor(private http: HttpClient) {}
 
@@ -43,8 +49,12 @@ export class FileUploadService {
     });
   }
 
+  trainModel(data: any) {
+    return this.http.put<any>(this._trainModelUrl, data);
+  }
+
   changeReportsActiveSettings(data: any) {
-    return this.http.put<any>(this._changereportsactivesettings, data);
+    return this.http.put<any>(this._changereportsactivesettingsUrl, data);
   }
 
   addIngredientsDetails(data: any) {
@@ -53,5 +63,17 @@ export class FileUploadService {
 
   getIngredientsDetails() {
     return this.http.get<any>(this._getIngredientsDetails);
+  }
+
+  getActivatedModelDetails() {
+    return this.http.get<any>(this._getactivatedmodeldetailsUrl);
+  }
+
+  getProductsDetails() {
+    return this.http.get<any>(this._getProductsDetailsUrl);
+  }
+
+  getProductDetailsByProduct(id: any) {
+    return this.http.get<any>(`${this._getProductDetailsByProductUrl}/${id}`);
   }
 }

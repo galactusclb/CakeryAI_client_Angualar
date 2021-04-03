@@ -1,5 +1,98 @@
 @import "../../subRoutesStyle.scss";
 
+.div-card {
+  position: relative;
+  padding: 0 0;
+  border-radius: 0.45rem;
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+  background: #fff;
+  // height: 300px;
+  font-family: "DM Sans";
+
+  .card-header {
+    background: #fff;
+    padding: 0.8rem 1rem;
+    font-weight: bold;
+  }
+
+  .card-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+
+    label {
+      text-decoration: none;
+      position: relative;
+      font-size: 13px;
+
+      &:after {
+        content: "";
+
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+
+        border-width: 0 0 1px;
+        border-style: solid;
+      }
+    }
+    .button {
+      background: #fff;
+    }
+  }
+
+  .card-body select {
+    max-width: 180px;
+    cursor: pointer;
+
+    &:focus {
+      // border-color: #FF0000;
+      // box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+      box-shadow: none !important;
+    }
+  }
+
+  .div-cakes-list {
+    height: 150px;
+    overflow-y: auto;
+  }
+
+  .div-products {
+    display: list-item;
+    list-style: none;
+    height: 340px;
+    overflow-y: auto;
+
+    .product-item {
+      display: flex;
+      flex-direction: row;
+
+      img {
+        width: 5em;
+        height: 5em;
+      }
+
+      .product-details {
+        p {
+          text-transform: capitalize;
+        }
+        span {
+          i.success {
+            color: $success;
+          }
+
+          i.bad {
+            color: $red-2;
+          }
+        }
+      }
+    }
+  }
+}
+
 table {
   border-radius: 0.75rem;
   box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);

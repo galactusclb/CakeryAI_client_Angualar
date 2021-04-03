@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./application.component.scss'],
 })
 export class ApplicationComponent implements OnInit {
+  username: any = 'chanaka';
+  currentRole: any = 'admin';
+
   constructor(private router: Router) {}
 
   ngOnInit(): void {

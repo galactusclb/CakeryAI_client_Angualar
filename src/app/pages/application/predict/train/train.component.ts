@@ -59,6 +59,22 @@ export class TrainComponent implements OnInit {
     }
   }
 
+  trainModel(_id: string) {
+    if (!this.httpLoading) {
+      this.httpLoading = true;
+      this._upload.trainModel({ _id: _id }).subscribe(
+        (res) => {
+          this.getUploadedReportsByUserId(this.userId);
+          this.httpLoading = false;
+        },
+        (err) => {
+          console.log(err);
+          this.httpLoading = false;
+        }
+      );
+    }
+  }
+
   deleteReport(_id: string) {
     if (confirm('Are you sure to delete this report?')) {
       this._upload.deleteReport(_id).subscribe(

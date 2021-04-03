@@ -50,6 +50,19 @@
   }
 }
 
+table {
+  th {
+    background: #f9fafb;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 600;
+    padding: 0.92857143em 0.78571429em;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.1) !important;
+  }
+  td {
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+
 .toggle-btn {
   width: 50px;
   height: 25px;

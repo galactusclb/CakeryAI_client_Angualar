@@ -11,7 +11,7 @@
                 <th scope="col">UploadedFile</th>
                 <th scope="col">SelectedCategory</th>
                 <th scope="col">Status</th>
-                <th scope="col">Accurecy</th>
+                <th scope="col">Accuracy</th>
                 <th scope="col">Activate</th>
                 <th scope="col"></th>
               </tr>
@@ -78,7 +78,14 @@
                         >Delete</a
                       >
                     </li>
-                    <li><a class="dropdown-item" href="#">Train</a></li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        [ngClass]="{ disabled: item['status'] == 'training' }"
+                        (click)="trainModel(item['_id'])"
+                        >Train
+                      </a>
+                    </li>
                     <li>
                       <a
                         class="dropdown-item"

@@ -2,26 +2,34 @@
   <div class="row">
     <div class="col-md-2 side-menu px-0" id="side-menu" style="">
       <nav id="sidebar">
-        <div class="sidebar-header">
+        <div class="sidebar-header mt-4 ps-3">
           <h5>Sidebar</h5>
         </div>
         <ul class="lisst-unstyled components">
-          <p>Navigation</p>
-          <li [class.active]="!isActive('dashboard')">
+          <!-- <p>Navigation</p> -->
+          <li [class.active]="isActive('dashboard')">
             <a
               href="#homeSubmenu"
-              data-toggle="collapse"
+              data-bs-toggle="collapse"
+              aria-controls="collapseExample"
               aria-expanded="false"
               class="dropdown-toggle"
+              [attr.aria-expanded]="isActive('dashboard') ? true : false"
             >
-              <img
+              <!-- <img
                 src="../../../assets/icons/svg/dashboard.svg"
                 alt=""
                 class="icon"
-              />
+              /> -->
+              <i class="bi bi-house-door-fill"></i>
               Dashboard
             </a>
-            <ul class="collapse lisst-unstyled" id="homeSubmenu">
+            <ul
+              class="collapse lisst-unstyled"
+              id="homeSubmenu"
+              data-bs-parent="#sidebar"
+              [class.show]="isActive('dashboard')"
+            >
               <li>
                 <a
                   [routerLink]="['/app/dashboard']"
@@ -38,36 +46,62 @@
               </li>
             </ul>
           </li>
-          <li>
-            <a [routerLink]="['/app/predict']" routerLinkActive="router-active">
-              <img
-                src="../../../assets/icons/svg/cloud-computing upload.svg"
-                alt=""
-                class="icon"
-              />
-              Predictions
-            </a>
-          </li>
-          <li>
+          <li [class.active]="isActive('expenditure')">
             <a
               href="#pageSubmenu"
-              data-toggle="collapse"
+              data-bs-toggle="collapse"
+              aria-controls="collapseExample"
               aria-expanded="false"
               class="dropdown-toggle"
+              [attr.aria-expanded]="isActive('expenditure') ? true : false"
             >
-              <img
+              <!-- <img
                 src="../../../assets/icons/svg/user.svg"
                 alt=""
                 class="icon"
-              />
-              Prediction
+              /> -->
+              <i class="bi bi-brightness-high-fill"></i>
+              Daily
             </a>
-            <ul class="collapse lisst-unstyled" id="pageSubmenu">
+            <ul
+              class="collapse lisst-unstyled"
+              id="pageSubmenu"
+              data-bs-parent="#sidebar"
+              [class.show]="isActive('expenditure')"
+            >
               <li>
-                <a [routerLink]="['/app/predict']">Upload</a>
+                <a [routerLink]="['/app/breakages']">Breakages</a>
               </li>
               <li>
-                <a [routerLink]="['/app/ingredients']">Ingredients</a>
+                <a [routerLink]="['/app/expenditure']">Expenditure</a>
+              </li>
+            </ul>
+          </li>
+          <li [class.active]="isActive('employee')">
+            <a
+              href="#payroll"
+              data-bs-toggle="collapse"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+              class="dropdown-toggle"
+              [attr.aria-expanded]="isActive('employee') ? true : false"
+            >
+              <!-- <img
+                src="../../../assets/icons/svg/user.svg"
+                alt=""
+                class="icon"
+              /> -->
+              <i class="bi bi-credit-card-2-front-fill"></i>
+              Prediction
+            </a>
+            <ul
+              class="collapse lisst-unstyled"
+              id="payroll"
+              data-bs-parent="#sidebar"
+              [class.show]="isActive('employee')"
+            >
+              <li>
+                <a [routerLink]="['/app/predict']">Upload</a>
               </li>
               <li>
                 <a [routerLink]="['/app/train']">Train</a>
@@ -77,18 +111,80 @@
               </li>
             </ul>
           </li>
+          <li [class.active]="isActive('products')">
+            <a
+              href="#products"
+              data-bs-toggle="collapse"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+              class="dropdown-toggle"
+              [attr.aria-expanded]="isActive('products') ? true : false"
+            >
+              <!-- <img
+                src="../../../assets/icons/svg/user.svg"
+                alt=""
+                class="icon"
+              /> -->
+              <i class="bi bi-cart-fill"></i>
+              Products
+            </a>
+            <ul
+              class="collapse lisst-unstyled"
+              id="products"
+              data-bs-parent="#sidebar"
+              [class.show]="isActive('products')"
+            >
+              <li>
+                <a [routerLink]="['/app/products/list']">Products</a>
+              </li>
+              <li>
+                <a [routerLink]="['/app/products/ingredients']">Ingredients</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
     </div>
     <div class="col-md px-0 div-contents" style="">
-      <div class="app-navi px-5">
+      <div class="app-navi ps-5">
         <div class="burger-menu" (click)="sidemenu()">
-          <img src="../../../assets/icons/svg/list.svg" alt="" />
+          <!-- <img src="../../../assets/icons/svg/list.svg" alt="" /> -->
+          <i class="bi bi-list"></i>
         </div>
         <div class="header-logo ms-4">
-          <img src="../../../../assets/icons/svg/bxs-cake.svg" alt="" />
-          <a class="navbar-brand" routerLink="">Analysis Blast</a>
+          <i class="bi bi-tsunami"></i>
+          <a class="navbar-brand" routerLink="">Cakery AI</a>
         </div>
+        <ul class="nav navbar-nav navbar-right user-log ms-auto">
+          <div class="nav-item dropdown mr-3">
+            <a
+              href="#"
+              data-toggle="dropdown"
+              class="nav-link dropdown-toggle user-action"
+              ><img
+                src="../../../../assets/img/eminem.jpg"
+                class="avatar"
+                alt="Avatar"
+              />
+              <div style="display: flex; flex-direction: column">
+                <!-- <span> {{ username }}</span>
+                <small>{{ currentRole }}</small> -->
+                <span> {{ username }}</span>
+                <small>{{ currentRole }}</small>
+              </div>
+              <b class="caret"></b>
+            </a>
+            <div class="dropdown-menu">
+              <!-- <a class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+              <a class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a>
+              <a class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a> 
+              <div class="dropdown-divider"></div>-->
+              <a style="cursor: pointer" class="dropdown-item"
+                ><i class="material-icons">&#xE8AC;</i> Logout</a
+              >
+            </div>
+          </div>
+        </ul>
       </div>
       <router-outlet></router-outlet>
     </div>

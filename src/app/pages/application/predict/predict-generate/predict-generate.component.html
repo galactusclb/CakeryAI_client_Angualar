@@ -1,7 +1,98 @@
-<div class="main px-5">
+<div class="main px-5 pb-5">
   <section>
     <h2>Prediction</h2>
-    <div class="col-lg-10 table-responsive mx-auto">
+    <div class="row mt-4">
+      <!-- <div class="col-md-5" *ngIf="modelInfo['status'] == 'training'">
+        <p>
+          Your active model is being trained. So wait until the model is
+          finished the train or activate another training completed model to get
+          predicted.
+        </p>
+        <a routerLink="/app/train" class="btn btn-primary stretched-link"
+          >Go to pre-trained models</a
+        >
+      </div> -->
+      <!-- <div class="col-md-5">
+        <form action="" class="form">
+          <div class="row mt-3">
+            <div class="col-md-5 form-group">
+              <label for="month">Month</label>
+              <input
+                type="month"
+                name="month"
+                class="form-control mt-2"
+                [attr.min]="minMonth"
+                [attr.max]="maxMonth"
+              />
+            </div>
+          </div>
+        </form>
+      </div> -->
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-8 div-card">
+        <div class="card-header">Forecast Visualization</div>
+        <div class="card-body">
+          <select
+            class="form-select form-select-sm"
+            aria-label=".form-select-sm example"
+          >
+            <option selected>All</option>
+            <option *ngFor="let item of products">{{ item[1] }}</option>
+          </select>
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      <div class="col-md-3 ms-3 div-card">
+        <div class="card-header mb-3 ps-4">Pinned Cakes</div>
+        <div class="div-products">
+          <div
+            class="product-item px-4 py-2"
+            *ngFor="let item of products; let i = index"
+          >
+            <img src="../../../../../assets/img/Image 3.png" alt="" />
+            <div class="product-details ms-3">
+              <p>
+                <a [routerLink]="['/app/product/' + i]">
+                  {{ item[1] }}
+                </a>
+              </p>
+              <span> 225 <i class="arrow up icon success"></i> </span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer py-2">
+          <div
+            class="ui animated button"
+            tabindex="0"
+            routerLink="/app/ingredients"
+          >
+            <div class="visible content">
+              <label for="">View More</label>
+            </div>
+            <div class="hidden content">
+              <i class="right arrow icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-4 div-card">
+        <div class="card-header mb-3 ps-4">Cakes</div>
+        <div class="container div-cakes-list">
+          <div class="row row-cols-2 mb-3">
+            <div class="col" *ngFor="let item of products">
+              {{ item[1] }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-lg-10 table-responsive mx-auto">
       <table class="table mt-2" style="text-align: start">
         <thead class="table-light">
           <tr>
@@ -16,6 +107,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
+    </div> -->
   </section>
 </div>

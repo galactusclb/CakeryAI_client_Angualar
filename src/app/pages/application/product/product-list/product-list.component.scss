@@ -1,24 +1,5 @@
 @import "../../subRoutesStyle.scss";
 
-$line-duration: 2;
-$circle-duation: 1;
-
-@function func_n-1($f) {
-  @return $f - 1;
-  // @return $f - $circle-duation ;
-}
-
-@mixin func_a($var) {
-  //3(n-1)
-  animation-delay: #{func_n-1($var) * ($line-duration + $circle-duation)}s;
-}
-
-@mixin func_b($var) {
-  //3(n-1)+2
-  // animation-delay: #{(func_n-1($var)*3)+2}s;
-  animation-delay: #{(func_n-1($var) * ($line-duration + $circle-duation)) + $line-duration}s;
-}
-
 .neu {
   padding: 8px 18px;
   border-radius: 7px;
@@ -38,6 +19,21 @@ $circle-duation: 1;
 table {
   border-radius: 0.75rem;
   box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+
+  th {
+    background: #f9fafb;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 600;
+    padding: 0.92857143em 0.78571429em;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.1) !important;
+  }
+  td {
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  td:nth-child(1) {
+    font-weight: bold;
+  }
 
   .btn-menu {
     border: none;
@@ -78,9 +74,10 @@ table {
       .btn-talbe-button {
         background: $primary-color;
         color: #fff;
+        transition: 0.3;
 
-        i {
-          font-size: 20px;
+        &:hover {
+          background: darken($color: $primary-color, $amount: 5);
         }
       }
     }

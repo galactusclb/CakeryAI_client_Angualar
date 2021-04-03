@@ -23,7 +23,13 @@ import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PredictGenerateComponent } from './pages/application/predict/predict-generate/predict-generate.component';
-import { IngredientsComponent } from './pages/application/predict/ingredients/ingredients.component';
+import { ProductComponent } from './pages/application/product/product.component';
+import { ProductListComponent } from './pages/application/product/product-list/product-list.component';
+import { ProductInfoComponent } from './pages/application/product/product-info/product-info.component';
+import { ProductAddByInsertComponent } from './pages/application/product/productAdd/product-add-by-insert/product-add-by-insert.component';
+import { ProductAddByUploadComponent } from './pages/application/product/productAdd/product-add-by-upload/product-add-by-upload.component';
+import { IngredientListComponent } from './pages/application/product/ingredient-list/ingredient-list.component';
+import { IngredientAddComponent } from './pages/application/product/ingredient-add/ingredient-add.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +46,13 @@ import { IngredientsComponent } from './pages/application/predict/ingredients/in
     TrainComponent,
     ConfirmAccountComponent,
     PredictGenerateComponent,
-    IngredientsComponent,
+    ProductComponent,
+    ProductListComponent,
+    ProductInfoComponent,
+    ProductAddByInsertComponent,
+    ProductAddByUploadComponent,
+    IngredientListComponent,
+    IngredientAddComponent,
   ],
   imports: [
     BrowserModule,

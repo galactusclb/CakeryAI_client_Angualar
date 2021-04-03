@@ -1,12 +1,37 @@
-@import '../../shared_scss/colorPalette.scss';
+@import "../../shared_scss/colorPalette.scss";
 
-.main{
-    padding-top: 85px;
+.main {
+  // padding-top: 85px;
+  padding-top: 20px;
 
-    section {
-        h2 {
-            color: $primary-color;
-            font-size: 20px;
-        }
+  section {
+    h2 {
+      color: $primary-color;
+      font-size: 20px;
     }
+  }
+}
+
+.neu {
+  padding: 8px 18px;
+  border-radius: 7px;
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  // border: none;
+  outline: none;
+  border-style: none;
+  // border-color: #d9d9d9;
+  box-shadow: 3px 3px 6px #d9d9d9, -3px -3px 6px #ffffff;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: inset 3px 3px 6px #d9d9d9, inset -3px -3px 6px #ffffff;
+  }
+}
+
+.neuo {
+  background-color: #fff;
+  padding: 1.5rem;
+  margin-bottom: 24px;
+  border: 1px solid #e7eaed;
+  border-radius: 0.25rem;
 }

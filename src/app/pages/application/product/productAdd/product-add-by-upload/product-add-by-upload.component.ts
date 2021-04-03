@@ -10,11 +10,11 @@ class uploadFileSnippet {
 }
 
 @Component({
-  selector: 'app-ingredients',
-  templateUrl: './ingredients.component.html',
-  styleUrls: ['./ingredients.component.scss'],
+  selector: 'app-product-add-by-upload',
+  templateUrl: './product-add-by-upload.component.html',
+  styleUrls: ['./product-add-by-upload.component.scss'],
 })
-export class IngredientsComponent implements OnInit {
+export class ProductAddByUploadComponent implements OnInit {
   file: File;
 
   selectedFile: uploadFileSnippet;
@@ -30,25 +30,7 @@ export class IngredientsComponent implements OnInit {
 
   constructor(private _file: FileUploadService) {}
 
-  ngOnInit(): void {
-    this.getIngredientDetails();
-  }
-
-  getIngredientDetails() {
-    this._file.getIngredientsDetails().subscribe(
-      (res) => {
-        console.log(res);
-        this.ingredientsDetails = res[0].ingredients_details;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
-  openUpload() {
-    this.sectionDisplay = 1;
-  }
+  ngOnInit(): void {}
 
   processFile(imageInput: any) {
     this.file = null;
@@ -95,7 +77,7 @@ export class IngredientsComponent implements OnInit {
         this.details['data'] = this.lines;
         console.log(this.details);
 
-        this.sectionDisplay = 2;
+        this.sectionDisplay = 1;
       });
 
       // reader.readAsDataURL(file);
@@ -113,15 +95,15 @@ export class IngredientsComponent implements OnInit {
     );
   }
 
-  removeFile() {
-    document.getElementById('image-upload-section').style.display = 'block';
-    document.getElementById('image-preview-section').style.display = 'none';
+  // removeFile() {
+  //   document.getElementById('image-upload-section').style.display = 'block';
+  //   document.getElementById('image-preview-section').style.display = 'none';
 
-    this.selectedFile = null;
-  }
+  //   this.selectedFile = null;
+  // }
 
-  backToUpload() {
-    this.csv_header = [];
-    this.sectionDisplay = 0;
-  }
+  // backToUpload() {
+  //   this.csv_header = [];
+  //   this.sectionDisplay = 0;
+  // }
 }

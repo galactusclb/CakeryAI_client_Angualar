@@ -11,7 +11,13 @@ import { TrainComponent } from './pages/application/predict/train/train.componen
 import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
 import { AuthGuard } from './services/auth.guard';
 import { PredictGenerateComponent } from './pages/application/predict/predict-generate/predict-generate.component';
-import { IngredientsComponent } from './pages/application/predict/ingredients/ingredients.component';
+import { ProductComponent } from './pages/application/product/product.component';
+import { ProductInfoComponent } from './pages/application/product/product-info/product-info.component';
+import { ProductListComponent } from './pages/application/product/product-list/product-list.component';
+import { ProductAddByInsertComponent } from './pages/application/product/productAdd/product-add-by-insert/product-add-by-insert.component';
+import { ProductAddByUploadComponent } from './pages/application/product/productAdd/product-add-by-upload/product-add-by-upload.component';
+import { IngredientListComponent } from './pages/application/product/ingredient-list/ingredient-list.component';
+import { IngredientAddComponent } from './pages/application/product/ingredient-add/ingredient-add.component';
 
 const routes: Routes = [
   {
@@ -43,8 +49,19 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'predict', component: PredictComponent },
-      { path: 'ingredients', component: IngredientsComponent },
       { path: 'train', component: TrainComponent },
+      {
+        path: 'products',
+        children: [
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: 'list', component: ProductListComponent },
+          { path: 'product/:id', component: ProductInfoComponent },
+          { path: 'new/form', component: ProductAddByInsertComponent },
+          { path: 'new/upload', component: ProductAddByUploadComponent },
+          { path: 'ingredients', component: IngredientListComponent },
+          { path: 'ingredients/new', component: IngredientAddComponent },
+        ],
+      },
       { path: 'output', component: PredictGenerateComponent },
     ],
     canActivate: [AuthGuard],
