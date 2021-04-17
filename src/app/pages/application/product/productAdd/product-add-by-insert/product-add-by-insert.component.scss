@@ -1,0 +1,53 @@
+@import "../../../subRoutesStyle.scss";
+
+:root {
+  counter-reset: headings;
+}
+
+.main {
+  padding-bottom: 70px;
+}
+
+.ingredients {
+  .title {
+    font-weight: bold;
+  }
+
+  .ingredients-list {
+    counter-increment: headings;
+
+    .ingredients-item {
+      &::before {
+        content: counter(headings);
+        display: inline-block;
+        min-width: 18px;
+      }
+    }
+  }
+
+  .ui.button {
+    font-size: 0.9rem;
+    transition: 0.3s;
+
+    &.delete {
+      &:hover {
+        color: #d01919;
+        background: #fff;
+        box-shadow: 0 0 0 1px #db2828 inset !important;
+      }
+    }
+
+    &.success {
+      &:hover {
+        color: #0ea432;
+        background: #fff;
+        box-shadow: 0 0 0 1px #0ea432 inset !important;
+      }
+    }
+  }
+}
+
+.page-footer {
+  border-top: 2px solid #e8e8e8;
+  padding-top: 15px;
+}

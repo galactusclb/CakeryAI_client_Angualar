@@ -1,19 +1,53 @@
 <div class="main px-5">
   <section>
     <h2>Products</h2>
+    <div class="page-option">
+      <div class="dropdown">
+        <button
+          class="ui active button"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="plus icon"></i>
+          Product
+        </button>
+        <ul
+          class="dropdown-menu dropdown-menu-end mt-1"
+          aria-labelledby="dropdownMenuButton1"
+        >
+          <li>
+            <a class="dropdown-item" routerLink="/app/products/new/form"
+              >Add Product</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="/app/products/new/upload"
+              >Import Products</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="row div-upload pt-5">
       <div
         class="col-md-11 table-responsive mx-auto mb-5"
         *ngIf="sectionDisplay === 0"
       >
         <div class="table-option mb-4">
-          <button
+          <!-- <button
             class="ui btn-talbe-button button"
             routerLink="/app/products/new/upload"
           >
             <i class="plus icon"></i>
             New Details
-          </button>
+          </button> -->
+          <!-- <div class="ui small basic icon buttons">
+            <button class="ui button"><i class="file icon"></i></button>
+            <button class="ui button"><i class="save icon"></i></button>
+            <button class="ui button"><i class="upload icon"></i></button>
+          </div> -->
         </div>
         <table class="table mt-2" style="text-align: start">
           <thead class="thead-light">

@@ -3,11 +3,32 @@
 .main {
   // padding-top: 85px;
   padding-top: 20px;
+  font-family: "DM sans";
 
   section {
     h2 {
       color: $primary-color;
       font-size: 20px;
+    }
+
+    .page-header {
+      border-bottom: 2px solid #e8e8e8;
+      padding-bottom: 12px;
+
+      & > * {
+        display: inline-block;
+      }
+
+      .btn-back {
+        border: solid 1.5px $primary-color;
+        padding: 3px 12px;
+        cursor: pointer;
+
+        i {
+          color: $primary-color;
+          font-size: 18px;
+        }
+      }
     }
   }
 }

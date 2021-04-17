@@ -1,1 +1,135 @@
-<p>product-add-by-insert works!</p>
+<div class="main px-5">
+  <section>
+    <div class="page-header">
+      <div class="btn-back" routerLink="/app/products/list">
+        <i class="bi bi-chevron-left"></i>
+      </div>
+      <h2 class="ms-3">Add Products</h2>
+    </div>
+    <div class="row page-body mt-2">
+      <div class="col-md-6">
+        <div class="row mt-3 me-2">
+          <div class="col-md form-group">
+            <label for="Product Name">Product Name</label>
+            <input
+              type="text"
+              name="productName"
+              [(ngModel)]="detials['productName']"
+              class="form-control mt-2"
+            />
+          </div>
+        </div>
+        <div class="ingredients">
+          <label class="mt-4">Ingredients Details</label>
+          <div class="row title mt-3">
+            <div class="col-6 form-group">
+              <label for="vendor">Ingredient</label>
+            </div>
+            <div class="col-2 form-group">
+              <label for="vendor">Measure</label>
+            </div>
+            <div class="col-2 form-group">
+              <label for="vendor">Amount</label>
+            </div>
+            <div class="col form-group">
+              <label for="vendor"></label>
+            </div>
+          </div>
+          <div class="row mt-4" *ngIf="ingredients.length == 0">
+            <div style="text-align: center">No ingredients added yet.</div>
+          </div>
+          <div
+            class="ingredients-list row mt-2"
+            *ngFor="let item of ingredients; let i = index"
+          >
+            <div class="ingredients-item col-6 form-group">
+              <span>{{ item["IngredientName"] }}</span>
+            </div>
+            <div class="col-2 form-group">
+              <label for="vendor">Kg</label>
+            </div>
+            <div class="col-2 form-group">
+              <span>{{ item["amount"] }}</span>
+            </div>
+            <div class="col form-group" (click)="removeItem(i)">
+              <button class="ui red icon button delete">
+                <i class="trash icon"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-6 form-group">
+              <input
+                type="text"
+                list="IngredientList"
+                name="IngredientName"
+                class="form-select"
+                [(ngModel)]="ingredientDetails['IngredientName']"
+                placeholder="Ingredient name"
+              />
+              <datalist name="" id="IngredientList">
+                <option value="Bill">Bill</option>
+                <option value="Expense">Expense</option>
+                <option value="Check">Check</option>
+              </datalist>
+              <!-- <input type="text" name="vendor" class="form-control" /> -->
+            </div>
+            <div class="col-2 form-group">
+              <label for="vendor">Kg</label>
+            </div>
+            <div class="col-2 form-group">
+              <input
+                type="number"
+                name="amount"
+                class="form-control"
+                [(ngModel)]="ingredientDetails['amount']"
+                placeholder="Amount"
+              />
+            </div>
+            <div class="col form-group">
+              <button
+                class="ui green icon button success"
+                (click)="addNewLine()"
+              >
+                <i class="add icon"></i>
+              </button>
+            </div>
+          </div>
+          <!-- <div
+            class="ui animated green button mt-3"
+            tabindex="0"
+            (click)="addNewLine()"
+          >
+            <div class="visible content">New</div>
+            <div class="hidden content">
+              <i class="right arrow icon"></i>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="row mt-3">
+          <div class="col-md form-group">
+            <label for="product image" style="display: block"
+              >Product Image</label
+            >
+            <div class="ui large rounded image mt-2">
+              <img class="" src="../../../../../../assets/img/fruitcake.jpg" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer ui clearing mt-5 me-4">
+      <div class="ui green right floated button" (click)="saveProduct()">
+        Save product
+      </div>
+      <div
+        class="ui basic right floated button"
+        routerLink="/app/products/list"
+      >
+        Cancel
+      </div>
+    </div>
+  </section>
+</div>

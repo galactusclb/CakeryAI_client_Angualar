@@ -21,6 +21,8 @@ export class FileUploadService {
   private _getProductsDetailsUrl = BACKEND_URL + 'getproductsdetails';
   private _getProductDetailsByProductUrl =
     BACKEND_URL + 'getproductdetailsbyproduct';
+  private _getSalesReportUrl = BACKEND_URL + 'getSalesReport';
+  private _getPredictonsByMonthUrl = BACKEND_URL + 'getPredictonsByMonth';
 
   constructor(private http: HttpClient) {}
 
@@ -75,5 +77,13 @@ export class FileUploadService {
 
   getProductDetailsByProduct(id: any) {
     return this.http.get<any>(`${this._getProductDetailsByProductUrl}/${id}`);
+  }
+
+  readCSVFileFromAWS() {
+    return this.http.get<any>(this._getSalesReportUrl);
+  }
+
+  getPredictonsByMonth() {
+    return this.http.get<any>(this._getPredictonsByMonthUrl);
   }
 }
