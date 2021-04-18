@@ -15,20 +15,64 @@
       border-bottom: 2px solid #e8e8e8;
       padding-bottom: 12px;
 
-      & > * {
+      .header-left {
         display: inline-block;
-      }
 
-      .btn-back {
-        border: solid 1.5px $primary-color;
-        padding: 3px 12px;
-        cursor: pointer;
+        & > * {
+          display: inline-block;
+        }
 
-        i {
-          color: $primary-color;
-          font-size: 18px;
+        .btn-back {
+          border: solid 2px $primary-color;
+          padding: 3px 12px;
+          cursor: pointer;
+          transition: 0.3s;
+
+          i {
+            color: $primary-color;
+            font-size: 18px;
+          }
+
+          &:hover {
+            background: $primary-color;
+
+            i {
+              color: white;
+            }
+          }
         }
       }
+
+      .header-right {
+        display: inline-block;
+        float: right;
+        // background: red;
+
+        button {
+          background: none;
+          color: $primary-color;
+          border: solid 2px $primary-color;
+          border-radius: 50px;
+          transition: 0.3s;
+
+          &.active,
+          &:hover {
+            background: $primary-color;
+            color: white;
+          }
+        }
+
+        .dropdown-menu {
+          li a {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .page-body {
+      position: relative;
+      padding-bottom: 25px;
     }
   }
 }

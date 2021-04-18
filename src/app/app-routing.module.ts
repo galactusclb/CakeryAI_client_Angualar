@@ -61,6 +61,7 @@ const routes: Routes = [
           { path: 'ingredients', component: IngredientListComponent },
           { path: 'ingredients/new', component: IngredientAddComponent },
         ],
+        canActivate: [AuthGuard],
       },
       { path: 'output', component: PredictGenerateComponent },
     ],

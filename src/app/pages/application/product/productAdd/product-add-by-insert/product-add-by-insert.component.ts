@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FileUploadService } from 'src/app/services/file-upload.service';
 
 @Component({
   selector: 'app-product-add-by-insert',
@@ -7,14 +8,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductAddByInsertComponent implements OnInit {
   detials = {};
+  ingredientsList = [];
   ingredients = [];
   ingredientDetails = {};
 
-  constructor() {}
+  http_loading: boolean = false;
+  success: boolean = false;
 
-  ngOnInit(): void {}
+  constructor(private _file: FileUploadService) {}
+
+  ngOnInit(): void {
+    this.getIngredientDetails();
+  }
+
+  changeSelect() {
+    // console.log(this.ingredientDetails);
+    this.ingredientsList.forEach((element) => {
+      if (
+        element['ingredients_details'] ==
+        this.ingredientDetails['ingredients_details']
+      ) {
+        this.ingredientDetails['_ingredientID'] = element['_id'];
+        this.ingredientDetails['measure_type'] = element['measure_type'];
+
+        console.log(this.ingredientDetails['_ingredientID']);
+      }
+    });
+
+    console.log(this.ingredientDetails);
+  }
 
   addNewLine() {
+    // console.log(this.ingredientDetails);
+
+    // this.ingredientsList.forEach((element) => {
+    //   if (element['_id'] == this.ingredientDetails['_ingredientID']) {
+    //     this.ingredientDetails['ingredientName'] =
+    //       element['ingredients_details'];
+    //   }
+    // });
+
+    // console.log(this.ingredientDetails);
+
     this.ingredients.push(this.ingredientDetails);
     this.ingredientDetails = {};
     console.log(this.ingredients);
@@ -29,8 +64,35 @@ export class ProductAddByInsertComponent implements OnInit {
     // }
   }
 
+  getIngredientDetails() {
+    this._file.getIngredientsDetails().subscribe(
+      (res) => {
+        console.log(res);
+        this.ingredientsList = res;
+        // this.ingredientsDetails = this.calc(res[0].ingredients_details);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
   saveProduct() {
-    this.detials['ingredients'] = this.ingredients;
-    console.log(this.detials);
+    this.success = false;
+    this.http_loading = true;
+
+    this.detials['ingredient'] = this.ingredients;
+
+    this._file.addproductsdetails(this.detials).subscribe(
+      (res) => {
+        console.log(res);
+        this.success = true;
+        this.http_loading = false;
+      },
+      (err) => {
+        console.log(err);
+        this.http_loading = false;
+      }
+    );
   }
 }

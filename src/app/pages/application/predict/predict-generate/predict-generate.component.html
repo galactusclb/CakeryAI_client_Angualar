@@ -41,6 +41,9 @@
             <option selected>All</option>
             <option *ngFor="let item of products">{{ item[1] }}</option>
           </select>
+          <div class="ui active inverted dimmer" *ngIf="httpLoading_chart">
+            <div class="ui text loader">Loading</div>
+          </div>
           <canvas id="myChart"></canvas>
         </div>
       </div>
@@ -80,12 +83,26 @@
     </div>
 
     <div class="row mt-4">
-      <div class="col-md-4 div-card">
-        <div class="card-header mb-3 ps-4">Cakes</div>
-        <div class="container div-cakes-list">
-          <div class="row row-cols-2 mb-3">
-            <div class="col" *ngFor="let item of products">
-              {{ item[1] }}
+      <div class="col-md-4 px-0">
+        <div class="div-card my-1">
+          <div class="card-header mb-3 ps-4">Cakes</div>
+          <div class="container div-cakes-list">
+            <div class="row row-cols-2 mb-3">
+              <div class="col" *ngFor="let item of products">
+                {{ item[1] }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 px-0">
+        <div class="div-card ms-3 my-1">
+          <div class="card-header mb-3 ps-4">Ingredients</div>
+          <div class="container div-cakes-list">
+            <div class="row row-cols-2 mb-3">
+              <div class="col" *ngFor="let item of ingredientsList">
+                {{ item["ingredients_details"] + " " + item["measure_type"] }}
+              </div>
             </div>
           </div>
         </div>

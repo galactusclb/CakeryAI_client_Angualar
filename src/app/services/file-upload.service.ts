@@ -18,9 +18,12 @@ export class FileUploadService {
   private _getIngredientsDetails = BACKEND_URL + 'getingredientsdetails';
   private _getactivatedmodeldetailsUrl =
     BACKEND_URL + 'getactivatedmodeldetails';
+  private _addproductsdetailsUrl = BACKEND_URL + 'addproductsdetails';
   private _getProductsDetailsUrl = BACKEND_URL + 'getproductsdetails';
   private _getProductDetailsByProductUrl =
     BACKEND_URL + 'getproductdetailsbyproduct';
+  private _updateproductUrl = BACKEND_URL + 'updateproduct';
+  private _deleteproductUrl = BACKEND_URL + 'deleteproduct';
   private _getSalesReportUrl = BACKEND_URL + 'getSalesReport';
   private _getPredictonsByMonthUrl = BACKEND_URL + 'getPredictonsByMonth';
 
@@ -71,12 +74,24 @@ export class FileUploadService {
     return this.http.get<any>(this._getactivatedmodeldetailsUrl);
   }
 
+  addproductsdetails(details) {
+    return this.http.post<any>(this._addproductsdetailsUrl, details);
+  }
+
+  updateproduct(data: any) {
+    return this.http.post<any>(this._updateproductUrl, data);
+  }
+
   getProductsDetails() {
     return this.http.get<any>(this._getProductsDetailsUrl);
   }
 
   getProductDetailsByProduct(id: any) {
     return this.http.get<any>(`${this._getProductDetailsByProductUrl}/${id}`);
+  }
+
+  deleteproduct(id: any) {
+    return this.http.get<any>(`${this._deleteproductUrl}/${id}`);
   }
 
   readCSVFileFromAWS() {

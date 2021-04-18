@@ -1,12 +1,28 @@
 <div class="main px-5">
   <section>
     <div class="page-header">
-      <div class="btn-back" routerLink="/app/products/list">
-        <i class="bi bi-chevron-left"></i>
+      <div class="header-left">
+        <div class="btn-back" routerLink="/app/products/list">
+          <i class="bi bi-chevron-left"></i>
+        </div>
+        <h2 class="ms-3">Add Products</h2>
       </div>
-      <h2 class="ms-3">Add Products</h2>
     </div>
     <div class="row page-body mt-2">
+      <div class="alert" *ngIf="success">
+        <div class="ui positive message">
+          <i class="close icon px-2 py-1" (click)="success = false"></i>
+          <p class="mt-0">
+            Product successfully added to the collection. Go to
+            <a routerLink="/app/products/list">
+              <b style="text-decoration: underline; cursor: pointer"
+                >Products</b
+              >
+            </a>
+            page to see all.
+          </p>
+        </div>
+      </div>
       <div class="col-md-6">
         <div class="row mt-3 me-2">
           <div class="col-md form-group">
@@ -43,10 +59,10 @@
             *ngFor="let item of ingredients; let i = index"
           >
             <div class="ingredients-item col-6 form-group">
-              <span>{{ item["IngredientName"] }}</span>
+              <span>{{ item["ingredientName"] }}</span>
             </div>
             <div class="col-2 form-group">
-              <label for="vendor">Kg</label>
+              <span>{{ item["measure_type"] }}</span>
             </div>
             <div class="col-2 form-group">
               <span>{{ item["amount"] }}</span>
@@ -59,7 +75,7 @@
           </div>
           <div class="row mt-4">
             <div class="col-6 form-group">
-              <input
+              <!-- <input
                 type="text"
                 list="IngredientList"
                 name="IngredientName"
@@ -68,14 +84,31 @@
                 placeholder="Ingredient name"
               />
               <datalist name="" id="IngredientList">
-                <option value="Bill">Bill</option>
-                <option value="Expense">Expense</option>
-                <option value="Check">Check</option>
-              </datalist>
+                <option value="">-- select ingredient --</option>
+                <option
+                  [value]="item['_id']"
+                >
+                  {{ item["ingredients_details"] }}
+                </option>
+              </datalist> -->
+              <select
+                class="form-select"
+                [(ngModel)]="ingredientDetails['ingredients_details']"
+                placeholder="Ingredient name"
+                (change)="changeSelect()"
+              >
+                <option
+                  *ngFor="let item of ingredientsList"
+                  [value]="item['ingredients_details']"
+                >
+                  {{ item["ingredients_details"] }}
+                </option>
+              </select>
+
               <!-- <input type="text" name="vendor" class="form-control" /> -->
             </div>
             <div class="col-2 form-group">
-              <label for="vendor">Kg</label>
+              {{ ingredientDetails["measure_type"] }}
             </div>
             <div class="col-2 form-group">
               <input
@@ -121,7 +154,11 @@
       </div>
     </div>
     <div class="page-footer ui clearing mt-5 me-4">
-      <div class="ui green right floated button" (click)="saveProduct()">
+      <div
+        class="ui green right floated button"
+        [ngClass]="{ 'loading disabled': http_loading }"
+        (click)="saveProduct()"
+      >
         Save product
       </div>
       <div

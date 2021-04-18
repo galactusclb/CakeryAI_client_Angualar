@@ -1,29 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "./app/shared_scss/colorPalette.scss";
 
-
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
-html,body{
-    padding: 0;
-    margin: 0;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
+html,
+body {
+  padding: 0;
+  margin: 0;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 }
 
-body{
-    font-family: "DM sans";
-    // scroll-snap-type: y mandatory;
-    // overflow-y: scroll;
+body {
+  font-family: "DM sans";
+  // scroll-snap-type: y mandatory;
+  // overflow-y: scroll;
 }
 
-button,input:focus {
-    // border-color: #FF0000;
-    // box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
-    box-shadow: none !important;
+button,
+input:focus {
+  // border-color: #FF0000;
+  // box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+  box-shadow: none !important;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+::selection {
+  background: $primary-color !important;
+  color: #fff;
+}
+
+input::selection {
+  background: $primary-color !important;
+  color: #fff;
+}
+
+input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus {
+  background-color: $primary-color;
+  color: white;
+}
+
+select:focus-visible {
+  border-color: $primary-color !important;
+}
+
+select option:checked {
+  background: $primary-color;
+  color: #fff;
+}
+
+// select option:hover,
+// select option:focus,
+// select option:active {
+//   background: linear-gradient(#000000, #000000);
+//   background-color: #000000 !important; /* for IE */
+//   color: #ffed00 !important;
+// }
+
+.form-check-input:checked {
+  background-color: $primary-color;
+  border-color: $primary-color;
+}

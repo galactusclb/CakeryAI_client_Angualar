@@ -12,8 +12,11 @@ import * as csv from 'csvtojson';
 })
 export class PredictGenerateComponent implements OnInit {
   ingredientsDetails = [];
+  ingredientsList = [];
   products = [];
   csvFile = [];
+
+  httpLoading_chart: boolean = false;
 
   cakes = {
     c00001: 114,
@@ -80,32 +83,23 @@ export class PredictGenerateComponent implements OnInit {
   }
 
   displayChart() {
+    this.httpLoading_chart = true;
     // https://cakery-ai-s3.s3-ap-southeast-1.amazonaws.com/CakeMonthlySaleReport.csv
 
     this._file.readCSVFileFromAWS().subscribe(
       async (res) => {
         const labels = [];
         const data = [];
-        // console.log(res);
 
-        // const gg = JSON.parse(res);
-        // console.log(res);
-
-        // res.forEach((element) => {
-        //   console.log(element[0]);
-        // });
-        // csvFile = res;
         const gg = [];
         await csv()
           .fromString(res)
           .subscribe(function (jsonObj) {
             //single json object will be emitted for each csv line
             // parse each json asynchronousely
-            // this.csvFile.push(jsonObj);
             gg.push(jsonObj);
-            // console.log(gg);
           });
-        // console.log(gg);
+
         gg.forEach((element) => {
           if (moment(element['Month']).format('YYYY') == '2020') {
             labels.push(element['Month']);
@@ -113,19 +107,14 @@ export class PredictGenerateComponent implements OnInit {
           }
         });
 
-        console.log(labels);
-        console.log(data);
-
-        this.generateChart(labels, data);
+        // this.generateChart(labels, data);
 
         this._file.getPredictonsByMonth().subscribe(
           (res) => {
-            console.log(res);
             // get next 12 months
             let months = [];
             let monthsRequired = 4;
 
-            console.log(labels[labels.length - 1]);
             const lastMonth = labels[labels.length - 1];
 
             for (let i = 1; i <= monthsRequired; i++) {
@@ -134,14 +123,9 @@ export class PredictGenerateComponent implements OnInit {
               );
             }
 
-            console.log(months);
             labels.push(...months);
 
             const predictedDate = [];
-
-            // data.forEach((element) => {
-            //   predictedDate.push(null);
-            // });
 
             for (let i = 0; i < data.length; i++) {
               if (i == data.length - 1) {
@@ -151,19 +135,21 @@ export class PredictGenerateComponent implements OnInit {
               }
             }
 
-            console.log(predictedDate);
-
             predictedDate.push(...res);
 
             this.generateChart(labels, data, predictedDate);
           },
           (err) => {
             console.log(err);
+            alert('sas 1');
+            this.httpLoading_chart = false;
           }
         );
       },
       (err) => {
         console.log(err);
+        alert('sas');
+        this.httpLoading_chart = false;
       }
     );
   }
@@ -205,6 +191,8 @@ export class PredictGenerateComponent implements OnInit {
       data: data,
       options: chartOptions,
     });
+
+    this.httpLoading_chart = false;
   }
 
   getActivatedModelDetails() {
@@ -222,8 +210,9 @@ export class PredictGenerateComponent implements OnInit {
   getIngredientDetails() {
     this._file.getIngredientsDetails().subscribe(
       (res) => {
-        // console.log(res);
-        this.ingredientsDetails = this.calc(res[0].ingredients_details);
+        console.log(res);
+        this.ingredientsList = res;
+        // this.ingredientsDetails = this.calc(res[0].ingredients_details);
       },
       (err) => {
         console.log(err);
@@ -234,8 +223,8 @@ export class PredictGenerateComponent implements OnInit {
   getProductsDetails() {
     this._file.getProductsDetails().subscribe(
       (res) => {
-        this.products = res['data'];
-        console.log(this.products);
+        // this.products = res['data'];
+        console.log(res);
       },
       (err) => {
         console.log(err);

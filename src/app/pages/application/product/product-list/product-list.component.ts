@@ -16,34 +16,67 @@ class uploadFileSnippet {
 })
 export class ProductListComponent implements OnInit {
   file: File;
-
   selectedFile: uploadFileSnippet;
+
   selectedColumn: any = {};
+  details = {};
 
   csv_header = [];
   lines: any = [];
+  products = [];
 
   sectionDisplay: number = 0;
 
-  details = {};
-  ingredientsDetails = [];
+  http_loading: boolean = false;
 
   constructor(private _file: FileUploadService) {}
 
   ngOnInit(): void {
-    this.getIngredientDetails();
+    this.getProductDetails();
   }
 
-  getIngredientDetails() {
-    this._file.getIngredientsDetails().subscribe(
+  getProductDetails() {
+    this.http_loading = true;
+    this._file.getProductsDetails().subscribe(
       (res) => {
         console.log(res);
-        this.ingredientsDetails = res[0].ingredients_details;
+        this.products = res;
+
+        this.products.forEach((element) => {
+          if (element['Ingredient']) {
+            element['Ingredient'] = JSON.parse(element['Ingredient']);
+            // console.log(element['Ingredient']);
+          }
+        });
+
+        this.http_loading = false;
+        // this.ingredientsDetails = res[0].ingredients_details;
       },
       (err) => {
+        this.http_loading = false;
         console.log(err);
       }
     );
+  }
+
+  deleteproduct(productId) {
+    if (
+      confirm(
+        'Are you sure you want to delete the product from collection? This action cannot be reversed.'
+      )
+    ) {
+      this.http_loading = true;
+
+      this._file.deleteproduct(productId).subscribe(
+        (res) => {
+          this.getProductDetails();
+        },
+        (err) => {
+          this.http_loading = false;
+          console.log(err);
+        }
+      );
+    }
   }
 
   // openUpload() {

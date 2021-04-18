@@ -1,76 +1,125 @@
 @import "../../subRoutesStyle.scss";
 
-.neu {
-  padding: 8px 18px;
-  border-radius: 7px;
-  // background: linear-gradient(145deg, #e6e6e6, #ffffff);
-  background: #ffffff;
-  // border: none;
-  outline: none;
-  border-style: none;
-  // border-color: #d9d9d9;
-  box-shadow: 3px 3px 6px #d9d9d9, -3px -3px 6px #ffffff;
-  transition: all 0.3s ease;
+// .header {
+//   h2 {
+//     display: inline-block;
+//     font-family: "DM sans";
+//     text-transform: capitalize;
+//   }
 
-  &:hover {
-    box-shadow: inset 3px 3px 6px #d9d9d9, inset -3px -3px 6px #ffffff;
-  }
+//   .top-right-button-container {
+//     float: right;
+//     position: relative;
+
+//     button {
+//       background: none;
+//       color: $primary-color;
+//       border: solid 2px $primary-color;
+//       border-radius: 50px;
+//     }
+
+//     .dropdown-menu {
+//       li a {
+//         cursor: pointer;
+//       }
+//     }
+//   }
+// }
+
+// .div-card {
+//   position: relative;
+//   //   padding: 0 0;
+//   border-radius: 0.45rem;
+//   box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+//   background: #fff;
+//   // height: 300px;
+//   font-family: "DM Sans";
+
+//   .card-header {
+//     background: #fff;
+//     // padding: 0.8rem 1rem;
+//     font-weight: bold;
+//   }
+
+//   .product-img {
+//     object-fit: cover;
+//     width: 100%;
+//   }
+
+//   .list {
+//     overflow-y: auto;
+//     margin-top: 0;
+//   }
+// }
+
+// .ingredients {
+//   font-family: "DM Sans";
+//   h4 {
+//     font-weight: bold;
+//   }
+// }
+
+:root {
+  counter-reset: headings;
 }
 
-.header {
-  h2 {
-    display: inline-block;
-    font-family: "DM sans";
-    text-transform: capitalize;
+.main {
+  padding-bottom: 70px;
+
+  input:read-only {
+    background-color: unset;
+    border-color: rgba($color: #000000, $alpha: 0);
   }
 
-  .top-right-button-container {
-    float: right;
-    position: relative;
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 25px;
+    text-align: center;
 
-    button {
-      background: none;
-      color: $primary-color;
-      border: solid 2px $primary-color;
-      border-radius: 50px;
+    span {
+      color: rgba($color: #000000, $alpha: 0.6);
     }
 
-    .dropdown-menu {
-      li a {
-        cursor: pointer;
+    button {
+      background: $primary-color;
+      color: white;
+      font-weight: normal;
+    }
+  }
+
+  .ingredients {
+    .title {
+      font-weight: bold;
+    }
+
+    .ingredients-list {
+      counter-increment: headings;
+
+      .ingredients-item {
+        &::before {
+          content: counter(headings);
+          display: inline-block;
+          min-width: 18px;
+        }
       }
     }
   }
-}
-.div-card {
-  position: relative;
-  //   padding: 0 0;
-  border-radius: 0.45rem;
-  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
-  background: #fff;
-  // height: 300px;
-  font-family: "DM Sans";
 
-  .card-header {
-    background: #fff;
-    // padding: 0.8rem 1rem;
-    font-weight: bold;
+  .ui.message {
+    button.icon {
+      width: unset;
+      height: unset;
+      cursor: pointer;
+      // margin: auto 5px;
+      margin-right: 5px;
+    }
   }
 
-  .product-img {
-    object-fit: cover;
-    width: 100%;
-  }
-
-  .list {
-    overflow-y: auto;
-    margin-top: 0;
-  }
-}
-
-.ingredients {
-  font-family: "DM Sans";
-  h4 {
-    font-weight: bold;
+  .page-footer {
+    border-top: 2px solid #e8e8e8;
+    padding-top: 15px;
   }
 }

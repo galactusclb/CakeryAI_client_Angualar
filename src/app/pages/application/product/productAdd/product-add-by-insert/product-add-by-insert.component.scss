@@ -8,6 +8,16 @@
   padding-bottom: 70px;
 }
 
+.alert {
+  .ui.message {
+    i.icon {
+      width: unset;
+      height: unset;
+      cursor: pointer;
+    }
+  }
+}
+
 .ingredients {
   .title {
     font-weight: bold;
