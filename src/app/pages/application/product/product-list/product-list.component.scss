@@ -1,21 +1,5 @@
 @import "../../subRoutesStyle.scss";
 
-.neu {
-  padding: 8px 18px;
-  border-radius: 7px;
-  background: linear-gradient(145deg, #e6e6e6, #ffffff);
-  // border: none;
-  outline: none;
-  border-style: none;
-  // border-color: #d9d9d9;
-  box-shadow: 3px 3px 6px #d9d9d9, -3px -3px 6px #ffffff;
-  transition: all 0.3s ease;
-
-  &:hover {
-    box-shadow: inset 3px 3px 6px #d9d9d9, inset -3px -3px 6px #ffffff;
-  }
-}
-
 table {
   position: relative;
   // border-radius: 0.75rem;
@@ -45,13 +29,8 @@ table {
     font-weight: bold;
   }
 
-  .btn-menu {
-    border: none;
-    background: none;
-    outline: none;
-  }
-  .dropdown-menu a {
-    cursor: pointer;
+  .thead-title {
+    font-size: 1.5rem;
   }
 
   .no-results {
@@ -78,7 +57,7 @@ table {
   section {
     .page-option {
       position: relative;
-      float: right;
+      // float: right;
     }
     .table-option {
       // display: flex;

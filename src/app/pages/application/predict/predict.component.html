@@ -75,7 +75,7 @@
         <table class="table table-striped mt-2" style="text-align: start">
           <thead class="thead-light">
             <tr>
-              <th *ngFor="let item of csv_header">{{ item }}</th>
+              <th *ngFor="let item of csv_header">{{ item["name"] }}</th>
             </tr>
           </thead>
           <tbody>
@@ -92,7 +92,7 @@
               please, select the month/date column and category column which you
               need to get the prediction
             </p>
-            <div class="col-md mt-1">
+            <!-- <div class="col-md mt-1">
               <span>Month</span>
               <select
                 [(ngModel)]="selectedColumn['month']"
@@ -118,6 +118,28 @@
                   {{ item }}
                 </option>
               </select>
+            </div> -->
+          </div>
+          <div class="row">
+            <div
+              class="col-md-6"
+              *ngFor="let item of csv_header; let i = index"
+            >
+              <span>{{ item["name"] }}</span>
+              <select
+                [(ngModel)]="item['mappedProductID']"
+                [name]="item['mappedProductID'] + '_' + i"
+                class="form-select"
+                aria-label="Default select example"
+              >
+                <option value="Month">Month</option>
+                <option
+                  *ngFor="let product of productsList"
+                  [ngValue]="product['_id']"
+                >
+                  {{ product["productName"] }}
+                </option>
+              </select>
             </div>
           </div>
         </form>
@@ -128,6 +150,7 @@
               Back
             </button>
             <button class="neu ms-4" (click)="uploadReport()">Next</button>
+            <button class="neu ms-4" (click)="uploadReport2()">check</button>
           </div>
         </div>
       </div>

@@ -20,6 +20,7 @@ export class FileUploadService {
     BACKEND_URL + 'getactivatedmodeldetails';
   private _addproductsdetailsUrl = BACKEND_URL + 'addproductsdetails';
   private _getProductsDetailsUrl = BACKEND_URL + 'getproductsdetails';
+  private _getproductsnameUrl = BACKEND_URL + 'getproductsname';
   private _getProductDetailsByProductUrl =
     BACKEND_URL + 'getproductdetailsbyproduct';
   private _updateproductUrl = BACKEND_URL + 'updateproduct';
@@ -84,6 +85,10 @@ export class FileUploadService {
 
   getProductsDetails() {
     return this.http.get<any>(this._getProductsDetailsUrl);
+  }
+
+  getproductsName() {
+    return this.http.get<any>(this._getproductsnameUrl);
   }
 
   getProductDetailsByProduct(id: any) {

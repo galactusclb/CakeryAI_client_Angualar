@@ -25,12 +25,28 @@ export class PredictComponent implements OnInit {
   csv_header = [];
   lines: any = [];
 
+  productsList = [];
+
   sectionUploading: boolean = true;
   sectionMapping: boolean = false;
 
   constructor(private _uploadFile: FileUploadService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getproductsname();
+  }
+
+  getproductsname() {
+    this._uploadFile.getproductsName().subscribe(
+      (res) => {
+        console.log(res);
+        this.productsList = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   processFile(imageInput: any) {
     this.file = null;
@@ -52,11 +68,22 @@ export class PredictComponent implements OnInit {
         this.csv_header = [];
         // console.log(this.csv_header);
 
+        let HeadersList = [];
+
         if (allTextLines[0].includes(';')) {
-          this.csv_header = allTextLines[0].split(';');
+          HeadersList = allTextLines[0].split(';');
         } else {
-          this.csv_header = allTextLines[0].split(',');
+          HeadersList = allTextLines[0].split(',');
         }
+
+        HeadersList.forEach((element) => {
+          this.csv_header.push({
+            name: element,
+            mappedProductID: '',
+          });
+        });
+
+        console.log(this.csv_header);
 
         this.lines = [];
 
@@ -142,6 +169,10 @@ export class PredictComponent implements OnInit {
 
       // reader.readAsDataURL(file);
     }
+  }
+
+  uploadReport2() {
+    console.log(this.csv_header);
   }
 
   uploadReport() {

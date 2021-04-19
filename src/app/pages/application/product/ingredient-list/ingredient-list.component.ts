@@ -9,6 +9,8 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 export class IngredientListComponent implements OnInit {
   ingredientsDetails = [];
 
+  http_loading: boolean = false;
+
   constructor(private _file: FileUploadService) {}
 
   ngOnInit(): void {
@@ -16,13 +18,16 @@ export class IngredientListComponent implements OnInit {
   }
 
   getIngredientDetails() {
+    this.http_loading = true;
     this._file.getIngredientsDetails().subscribe(
       (res) => {
         console.log(res);
         this.ingredientsDetails = res;
+        this.http_loading = false;
       },
       (err) => {
         console.log(err);
+        this.http_loading = false;
       }
     );
   }

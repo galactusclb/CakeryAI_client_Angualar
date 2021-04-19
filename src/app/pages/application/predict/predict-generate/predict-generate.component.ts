@@ -223,7 +223,7 @@ export class PredictGenerateComponent implements OnInit {
   getProductsDetails() {
     this._file.getProductsDetails().subscribe(
       (res) => {
-        // this.products = res['data'];
+        this.products = res;
         console.log(res);
       },
       (err) => {
