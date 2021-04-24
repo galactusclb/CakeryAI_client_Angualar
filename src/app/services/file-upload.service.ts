@@ -103,7 +103,11 @@ export class FileUploadService {
     return this.http.get<any>(this._getSalesReportUrl);
   }
 
-  getPredictonsByMonth() {
-    return this.http.get<any>(this._getPredictonsByMonthUrl);
+  getPredictonsByMonth(productID) {
+    return this.http.get<any>(this._getPredictonsByMonthUrl, {
+      params: {
+        productID,
+      },
+    });
   }
 }

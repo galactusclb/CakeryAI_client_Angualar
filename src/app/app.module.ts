@@ -30,6 +30,8 @@ import { ProductAddByInsertComponent } from './pages/application/product/product
 import { ProductAddByUploadComponent } from './pages/application/product/productAdd/product-add-by-upload/product-add-by-upload.component';
 import { IngredientListComponent } from './pages/application/product/ingredient-list/ingredient-list.component';
 import { IngredientAddComponent } from './pages/application/product/ingredient-add/ingredient-add.component';
+import { TestingUiComponent } from './testing-ui/testing-ui.component';
+import { UserComponent } from './pages/application/user/user.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { IngredientAddComponent } from './pages/application/product/ingredient-a
     ProductAddByUploadComponent,
     IngredientListComponent,
     IngredientAddComponent,
+    TestingUiComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

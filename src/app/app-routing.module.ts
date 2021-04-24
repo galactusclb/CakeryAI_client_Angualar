@@ -18,6 +18,7 @@ import { ProductAddByInsertComponent } from './pages/application/product/product
 import { ProductAddByUploadComponent } from './pages/application/product/productAdd/product-add-by-upload/product-add-by-upload.component';
 import { IngredientListComponent } from './pages/application/product/ingredient-list/ingredient-list.component';
 import { IngredientAddComponent } from './pages/application/product/ingredient-add/ingredient-add.component';
+import { TestingUiComponent } from './testing-ui/testing-ui.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,7 @@ const routes: Routes = [
     component: ApplicationComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'test', component: TestingUiComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'predict', component: PredictComponent },

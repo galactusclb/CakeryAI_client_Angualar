@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-application',
@@ -7,13 +8,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./application.component.scss'],
 })
 export class ApplicationComponent implements OnInit {
+  role: boolean = false;
+
   username: any = 'chanaka';
   currentRole: any = 'admin';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private _auth: AuthService) {
+    this._auth.newLoginStatus.subscribe((status) => {
+      if (status == true) {
+        this.displayUser();
+        this.checkRole();
+      }
+    });
+  }
 
   ngOnInit(): void {
+    this.checkRole();
+    this.displayUser();
     this.getSidemenuStatus();
+  }
+
+  getisLogged(): boolean {
+    return this._auth.loggedIn();
+  }
+
+  displayUser() {
+    if (this._auth.loggedIn()) {
+      const user = this._auth.getUserAuth();
+      // console.log("user auth " + user.userName);
+      this.currentRole = user.role;
+      this.username = user.userName;
+    }
+  }
+
+  checkRole() {
+    this.role = this._auth.checkAuthorization();
   }
 
   getSidemenuStatus() {
@@ -46,5 +75,9 @@ export class ApplicationComponent implements OnInit {
     // console.log(this.router.isActive('/app/' + path, true));
 
     return this.router.isActive('/app/' + path, true);
+  }
+
+  logOut() {
+    this._auth.logout();
   }
 }

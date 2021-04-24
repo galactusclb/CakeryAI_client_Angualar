@@ -29,6 +29,8 @@ export class PredictComponent implements OnInit {
 
   sectionUploading: boolean = true;
   sectionMapping: boolean = false;
+  sectionSuccess: boolean = false;
+  success: boolean = false;
 
   constructor(private _uploadFile: FileUploadService) {}
 
@@ -171,11 +173,8 @@ export class PredictComponent implements OnInit {
     }
   }
 
-  uploadReport2() {
-    console.log(this.csv_header);
-  }
-
   uploadReport() {
+    // if (confirm('Are you sure you want to upload this file ?')) {
     const formData = new FormData();
 
     formData.append('report', this.file);
@@ -200,6 +199,10 @@ export class PredictComponent implements OnInit {
           // );
         } else if (res.type === HttpEventType.Response) {
           console.log(res);
+          this.success = true;
+          this.sectionUploading = false;
+          this.sectionMapping = false;
+          this.sectionSuccess = true;
           // this.onSuccess()
           // this.getFiles()
         }
@@ -209,6 +212,7 @@ export class PredictComponent implements OnInit {
         // this.onError()
       }
     );
+    // }
   }
 
   removeFile() {
@@ -222,5 +226,6 @@ export class PredictComponent implements OnInit {
     this.csv_header = [];
     this.sectionUploading = true;
     this.sectionMapping = false;
+    this.sectionSuccess = false;
   }
 }

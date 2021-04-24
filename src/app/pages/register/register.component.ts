@@ -4,24 +4,34 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+  details = {};
 
-  details = {}
+  errorMessage: any;
 
-  constructor(private _auth: AuthService) { }
+  http_loading: boolean = false;
+  success: boolean = false;
+
+  constructor(private _auth: AuthService) {}
 
   ngOnInit(): void {}
 
-  register(){
+  register() {
+    this.http_loading = true;
+    // this.errorMessage = null;
     this._auth.registerUser(this.details).subscribe(
-      res=>{
+      (res) => {
+        this.http_loading = false;
         console.log(res);
+        this.success = true;
       },
-      err=>{
-        console.log(err);        
+      (err) => {
+        this.http_loading = false;
+        console.log(err);
+        this.errorMessage = err.error;
       }
-    )
+    );
   }
 }

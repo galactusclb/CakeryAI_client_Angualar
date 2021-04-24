@@ -61,6 +61,21 @@ table {
   td {
     color: rgba(0, 0, 0, 0.87);
   }
+
+  .table-noresults {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #b6b6b6;
+
+    p {
+      margin-bottom: 5px;
+    }
+    span {
+      font-weight: normal;
+    }
+  }
 }
 
 .toggle-btn {

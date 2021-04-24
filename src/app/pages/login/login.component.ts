@@ -12,14 +12,18 @@ export class LoginComponent implements OnInit {
 
   errorMessage: any;
 
+  http_loading: boolean = false;
+
   constructor(private _auth: AuthService, private _router: Router) {}
 
   ngOnInit(): void {}
 
   loginUser() {
+    this.http_loading = true;
     this._auth.loginUser(this.details).subscribe(
       (res) => {
         console.log(res);
+        this.http_loading = false;
         if (res === true) {
           this._auth.getLoginStatus(true);
           this._router.navigate(['/app']);
@@ -29,6 +33,7 @@ export class LoginComponent implements OnInit {
       },
       (err) => {
         console.log(err);
+        this.http_loading = false;
         this.errorMessage = err.error.message;
       }
     );

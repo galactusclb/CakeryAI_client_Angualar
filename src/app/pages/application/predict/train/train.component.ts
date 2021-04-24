@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { AuthService } from 'src/app/services/auth.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 
@@ -34,6 +35,14 @@ export class TrainComponent implements OnInit {
       (res) => {
         console.log(res);
         this.data = res;
+
+        this.data.forEach((element) => {
+          if (element?.['timestamp']) {
+            element['timestamp'] = moment(element['timestamp']).format(
+              'YYYY/MM/DD, H:mm '
+            );
+          }
+        });
       },
       (err) => {
         console.log(err);

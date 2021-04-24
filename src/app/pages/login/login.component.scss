@@ -76,6 +76,20 @@ h5 {
   width: 100%;
   padding: 10px 10px;
   border-radius: 0.5rem;
+
+  &:hover {
+    background: darken($color: $primary-color, $amount: 5);
+    color: #fff;
+  }
+
+  &:disabled {
+    background: $primary-color;
+  }
+
+  &:focus {
+    background: $primary-color;
+    color: #fff;
+  }
 }
 
 .a-login {

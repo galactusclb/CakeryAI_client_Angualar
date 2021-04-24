@@ -27,6 +27,10 @@ export class PredictGenerateComponent implements OnInit {
   minMonth: String;
   maxMonth: String;
 
+  selectedProduct: any;
+
+  error_chart: any;
+
   constructor(private _file: FileUploadService) {}
 
   ngOnInit(): void {
@@ -79,10 +83,10 @@ export class PredictGenerateComponent implements OnInit {
     //   },
     // });
 
-    this.displayChart();
+    // this.displayChart();
   }
 
-  displayChart() {
+  displayChart(productID) {
     this.httpLoading_chart = true;
     // https://cakery-ai-s3.s3-ap-southeast-1.amazonaws.com/CakeMonthlySaleReport.csv
 
@@ -109,7 +113,7 @@ export class PredictGenerateComponent implements OnInit {
 
         // this.generateChart(labels, data);
 
-        this._file.getPredictonsByMonth().subscribe(
+        this._file.getPredictonsByMonth(productID).subscribe(
           (res) => {
             // get next 12 months
             let months = [];
@@ -141,7 +145,22 @@ export class PredictGenerateComponent implements OnInit {
           },
           (err) => {
             console.log(err);
-            alert('sas 1');
+            if (err.status == 400) {
+              this.error_chart = {
+                text_p: 'Mapped Error',
+                text_span:
+                  'you should need to add products before get the prediction',
+                btn_lable: 'Go to Files',
+                route: '/app/train',
+              };
+            }
+
+            console.log(this.error_chart);
+
+            var canvas = document.getElementById('myChart');
+            while (canvas.firstChild) {
+              canvas.firstChild.remove();
+            }
             this.httpLoading_chart = false;
           }
         );
@@ -221,10 +240,28 @@ export class PredictGenerateComponent implements OnInit {
   }
 
   getProductsDetails() {
+    this.httpLoading_chart = true;
+
     this._file.getProductsDetails().subscribe(
-      (res) => {
+      async (res) => {
         this.products = res;
         console.log(res);
+
+        if (this.products.length) {
+          this.selectedProduct = this.products[0]?.['_id'];
+
+          await this.displayChart(this.selectedProduct);
+        } else {
+          this.error_chart = {
+            text_p: 'You do not have any products',
+            text_span: 'you should need to add products before get a predict',
+            btn_lable: 'Go to Products',
+            route: '/app/products/new/form',
+          };
+          this.httpLoading_chart = false;
+        }
+
+        console.log(this.selectedProduct);
       },
       (err) => {
         console.log(err);

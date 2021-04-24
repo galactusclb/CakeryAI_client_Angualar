@@ -32,50 +32,85 @@
 
     <div class="row mt-4">
       <div class="col-md-8 div-card">
-        <div class="card-header">Forecast Visualization</div>
-        <div class="card-body">
-          <select
-            class="form-select form-select-sm"
-            aria-label=".form-select-sm example"
-          >
-            <option selected>All</option>
-            <option *ngFor="let item of products">{{ item[1] }}</option>
-          </select>
-          <div class="ui active inverted dimmer" *ngIf="httpLoading_chart">
-            <div class="ui text loader">Loading</div>
+        <div class="mx-2 card-box">
+          <div class="card-header">Forecast Visualization</div>
+          <div class="card-body">
+            <select
+              class="form-select"
+              [(ngModel)]="selectedProduct"
+              (change)="displayChart(selectedProduct)"
+              *ngIf="products.length"
+            >
+              <option
+                [attr.selected]="products.length"
+                *ngIf="products.length"
+                [ngValue]=""
+              >
+                All
+              </option>
+              <option
+                [attr.selected]="products.length == 0"
+                *ngIf="products.length == 0"
+                disabled
+                style="color: rgba(0, 0, 0, 0.63)"
+              >
+                No products available
+              </option>
+              <option *ngFor="let item of products" [ngValue]="item['_id']">
+                {{ item["productName"] }}
+              </option>
+            </select>
+            <div class="ui active inverted dimmer" *ngIf="httpLoading_chart">
+              <div class="ui text loader">Loading</div>
+            </div>
+            <canvas id="myChart" *ngIf="!error_chart"></canvas>
+            <!-- chart error alert -->
+            <div class="noresults my-5 px-2 py-3" *ngIf="error_chart">
+              <i class="birthday cake huge icon"></i>
+              <p class="mt-3">{{ error_chart["text_p"] || "Chart Error" }}</p>
+              <span>{{ error_chart["text_span"] }}</span>
+              <button
+                class="ui button mt-4"
+                [routerLink]="error_chart['route']"
+              >
+                <i class="upload icon"></i>
+                {{ error_chart["btn_lable"] || "See more" }}
+              </button>
+            </div>
           </div>
-          <canvas id="myChart"></canvas>
         </div>
       </div>
-      <div class="col-md-3 ms-3 div-card">
-        <div class="card-header mb-3 ps-4">Pinned Cakes</div>
-        <div class="div-products">
-          <div
-            class="product-item px-4 py-2"
-            *ngFor="let item of products; let i = index"
-          >
-            <img src="../../../../../assets/img/Image 3.png" alt="" />
-            <div class="product-details ms-3">
-              <p>
-                <a [routerLink]="['/app/products/product', item['_id']]">
-                  {{ item["productName"] }}
-                </a>
-              </p>
-              <span> 225 <i class="arrow up icon success"></i> </span>
+      <div class="col-md-4 div-card">
+        <div class="mx-2 card-box">
+          <div class="card-header mb-3 ps-4">Pinned Cakes</div>
+          <div class="div-products">
+            <div
+              class="product-item px-4 py-2"
+              *ngFor="let item of products; let i = index"
+            >
+              <img src="../../../../../assets/img/Image 3.png" alt="" />
+              <div class="product-details ms-3">
+                <p>
+                  <a [routerLink]="['/app/products/product', item['_id']]">
+                    {{ item["productName"] }}
+                  </a>
+                </p>
+                <span> 225 <i class="arrow up icon success"></i> </span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card-footer py-2">
-          <div
-            class="ui animated button"
-            tabindex="0"
-            routerLink="/app/ingredients"
-          >
-            <div class="visible content">
-              <label for="">View More</label>
-            </div>
-            <div class="hidden content">
-              <i class="right arrow icon"></i>
+          <div class="card-footer py-2" *ngIf="products.length">
+            <div
+              class="ui animated button"
+              tabindex="0"
+              routerLink="/app/ingredients"
+            >
+              <div class="visible content">
+                <label for="">View More</label>
+              </div>
+              <div class="hidden content">
+                <i class="right arrow icon"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -85,11 +120,28 @@
     <div class="row mt-4">
       <div class="col-md-4 px-0">
         <div class="div-card my-1">
-          <div class="card-header mb-3 ps-4">Cakes</div>
-          <div class="container div-cakes-list">
-            <div class="row row-cols-2 mb-3">
-              <div class="col" *ngFor="let item of products">
-                {{ item["productName"] }}
+          <div class="mx-2 card-box card-box-mini">
+            <div class="card-header mb-3 ps-4">Cakes</div>
+            <div class="container div-cakes-list">
+              <div class="row mb-3">
+                <div class="col" *ngFor="let item of products">
+                  {{ item["productName"] }}
+                </div>
+                <div class="noresults mt-4" *ngIf="products.length == 0">
+                  <i class="birthday cake big icon"></i>
+                  <p class="mt-3">You do not have any products</p>
+                  <span
+                    >all products uploaded on this account will appear
+                    here</span
+                  >
+                  <!-- <button
+                    class="ui button mt-4"
+                    [routerLink]="error_chart['route']"
+                  >
+                    <i class="upload icon"></i>
+                    {{ error_chart["btn_lable"] || "See more" }}
+                  </button> -->
+                </div>
               </div>
             </div>
           </div>
@@ -97,11 +149,25 @@
       </div>
       <div class="col-md-4 px-0">
         <div class="div-card ms-3 my-1">
-          <div class="card-header mb-3 ps-4">Ingredients</div>
-          <div class="container div-cakes-list">
-            <div class="row row-cols-2 mb-3">
-              <div class="col" *ngFor="let item of ingredientsList">
-                {{ item["ingredients_details"] + " " + item["measure_type"] }}
+          <div class="mx-2 card-box card-box-mini">
+            <div class="card-header mb-3 ps-4">Ingredients</div>
+            <div class="container div-cakes-list">
+              <div class="row mb-3">
+                <div class="col" *ngFor="let item of ingredientsList">
+                  {{ item["ingredients_details"] + " " + item["measure_type"] }}
+                </div>
+                <div class="noresults mt-4" *ngIf="ingredientsList.length == 0">
+                  <i class="birthday cake big icon"></i>
+                  <p class="mt-3">You do not have any ingredients</p>
+                  <span>all ingredients will appear here</span>
+                  <button
+                    class="ui button mt-4"
+                    [routerLink]="'/app/products/ingredients'"
+                  >
+                    <i class="upload icon"></i>
+                    Go to Ingredients
+                  </button>
+                </div>
               </div>
             </div>
           </div>
