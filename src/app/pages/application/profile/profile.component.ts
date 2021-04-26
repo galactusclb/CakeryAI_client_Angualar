@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  gg: boolean = false;
+
   constructor(private _auth: AuthService) {}
 
   ngOnInit(): void {}

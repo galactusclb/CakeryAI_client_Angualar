@@ -10,8 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ApplicationComponent implements OnInit {
   role: boolean = false;
 
-  username: any = 'chanaka';
-  currentRole: any = 'admin';
+  username: any;
+  currentRole: any;
 
   constructor(private router: Router, private _auth: AuthService) {
     this._auth.newLoginStatus.subscribe((status) => {

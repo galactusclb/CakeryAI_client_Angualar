@@ -31,7 +31,8 @@
     overflow: hidden;
 
     &.card-box-mini {
-      height: 250px;
+      height: 300px;
+      // background: red;
     }
   }
   .card-header {
@@ -81,7 +82,7 @@
   }
 
   .div-cakes-list {
-    height: 150px;
+    // height: 200px;
     overflow-y: auto;
   }
 

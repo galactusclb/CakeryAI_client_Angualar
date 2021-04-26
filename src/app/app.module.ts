@@ -31,8 +31,9 @@ import { ProductAddByUploadComponent } from './pages/application/product/product
 import { IngredientListComponent } from './pages/application/product/ingredient-list/ingredient-list.component';
 import { IngredientAddComponent } from './pages/application/product/ingredient-add/ingredient-add.component';
 import { TestingUiComponent } from './testing-ui/testing-ui.component';
-import { UserComponent } from './pages/application/user/user.component';
-
+import { UserAccountComponent } from './pages/application/profile/user-account/user-account.component';
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
+import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,9 @@ import { UserComponent } from './pages/application/user/user.component';
     IngredientListComponent,
     IngredientAddComponent,
     TestingUiComponent,
-    UserComponent,
+    UserAccountComponent,
+    PasswordResetComponent,
+    ForgetPasswordComponent,
   ],
   imports: [
     BrowserModule,

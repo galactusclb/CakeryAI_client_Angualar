@@ -1,12 +1,26 @@
+@import "../subRoutesStyle.scss";
 
-@import '../subRoutesStyle.scss';
+.main {
+  section {
+    h2 {
+      color: inherit;
+      font-size: 1.23em;
+      margin-bottom: 0;
+      border-bottom: solid 2px rgba($color: #000000, $alpha: 0);
+      padding-bottom: 5px;
+      margin-bottom: -2px;
+      transition: 0.3s;
+      cursor: pointer;
 
-
-.main{
-    section {
-        h2 {
-            color: $primary-color;
-            font-size: 20px;
-        }
+      &.active {
+        border-bottom: solid 2px $primary-color;
+        color: $primary-color;
+      }
     }
+
+    .page-header {
+      // border-bottom: 2px solid #e8e8e8;
+      padding-bottom: 0;
+    }
+  }
 }

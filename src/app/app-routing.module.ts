@@ -19,6 +19,9 @@ import { ProductAddByUploadComponent } from './pages/application/product/product
 import { IngredientListComponent } from './pages/application/product/ingredient-list/ingredient-list.component';
 import { IngredientAddComponent } from './pages/application/product/ingredient-add/ingredient-add.component';
 import { TestingUiComponent } from './testing-ui/testing-ui.component';
+import { UserAccountComponent } from './pages/application/profile/user-account/user-account.component';
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
+import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 
 const routes: Routes = [
   {
@@ -43,15 +46,23 @@ const routes: Routes = [
     component: ConfirmAccountComponent,
   },
   {
+    path: 'forgetpassword',
+    component: ForgetPasswordComponent,
+  },
+  {
+    path: 'passwordreset',
+    component: PasswordResetComponent,
+  },
+  {
     path: 'app',
     component: ApplicationComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'test', component: TestingUiComponent },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'profile', component: ProfileComponent },
       { path: 'predict', component: PredictComponent },
       { path: 'train', component: TrainComponent },
+
       {
         path: 'products',
         children: [
@@ -64,6 +75,14 @@ const routes: Routes = [
           { path: 'ingredients/new', component: IngredientAddComponent },
         ],
         canActivate: [AuthGuard],
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        children: [
+          { path: '', redirectTo: 'user', pathMatch: 'full' },
+          { path: 'user', component: UserAccountComponent },
+        ],
       },
       { path: 'output', component: PredictGenerateComponent },
     ],

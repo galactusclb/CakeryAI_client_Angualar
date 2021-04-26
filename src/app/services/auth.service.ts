@@ -16,7 +16,14 @@ export class AuthService {
   private _registerUrl = BACKEND_URL + 'registerUser';
   private _confirmUrl = BACKEND_URL + 'confirmemail';
   private _loginUrl = BACKEND_URL + 'loginUser';
+  private _forgetPasswordUrl = BACKEND_URL + 'forgetpassword';
+  private _resetpasswordUrl = BACKEND_URL + 'resetpassword';
   private _getPermisionUserUrl = BACKEND_URL + 'getPermisionUser';
+  private _getuserdetailsUrl = BACKEND_URL + 'getuserdetails';
+  private _checkusernameUrl = BACKEND_URL + 'checkusername';
+  private _updateUserNameUrl = BACKEND_URL + 'updateusername';
+  private _updateUserPersonalDetailsUrl =
+    BACKEND_URL + 'updateuserpersonaldetails';
 
   private token: string;
   private tokenTimer: any;
@@ -162,5 +169,30 @@ export class AuthService {
       this.setAuthTimer(duration['_milliseconds']);
     }
     return !!localStorage.getItem('token');
+  }
+
+  // EXTRA
+  forgetPassword(user) {
+    return this.http.post<any>(this._forgetPasswordUrl, user);
+  }
+
+  resetPassword(details) {
+    return this.http.post<any>(this._resetpasswordUrl, details);
+  }
+
+  getuserdetails() {
+    return this.http.get<any>(this._getuserdetailsUrl);
+  }
+
+  checkUserName(details) {
+    return this.http.post<any>(this._checkusernameUrl, details);
+  }
+
+  updateUserName(details) {
+    return this.http.post<any>(this._updateUserNameUrl, details);
+  }
+
+  updateUserPersonalDetails(details) {
+    return this.http.post<any>(this._updateUserPersonalDetailsUrl, details);
   }
 }

@@ -1,5 +1,46 @@
 <div class="main px-5">
-    <section>
-        <h2>Profile</h2>
-    </section>
+  <section>
+    <div class="page-header">
+      <div class="header-left">
+        <h2
+          class="px-3"
+          routerLink="/app/profile/user"
+          routerLinkActive="active"
+        >
+          Profile
+        </h2>
+        <h2
+          class="px-3"
+          routerLink="/app/profile/subscription"
+          routerLinkActive="active"
+        >
+          Subscription
+        </h2>
+      </div>
+      <!-- <div class="header-right">
+        <button
+          class="ui button px-4 py-2"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="plus icon"></i>
+          Actions
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" routerLink="/app/products/new/form"
+              >Add Product</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="/app/products/new/upload"
+              >Import Products</a
+            >
+          </li>
+        </ul>
+      </div> -->
+    </div>
+    <router-outlet></router-outlet>
+  </section>
 </div>
