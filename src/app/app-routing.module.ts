@@ -29,6 +29,7 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  { path: 'test', component: TestingUiComponent },
   {
     path: 'home',
     component: HomeComponent,

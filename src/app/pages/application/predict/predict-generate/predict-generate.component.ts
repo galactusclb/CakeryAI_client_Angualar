@@ -117,7 +117,7 @@ export class PredictGenerateComponent implements OnInit {
           (res) => {
             // get next 12 months
             let months = [];
-            let monthsRequired = 4;
+            let monthsRequired = 12;
 
             const lastMonth = labels[labels.length - 1];
 
