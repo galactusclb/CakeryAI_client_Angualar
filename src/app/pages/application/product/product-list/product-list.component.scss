@@ -101,26 +101,25 @@ table {
     .ui.table {
       .ingretientsTag {
         span {
-          color: #5a9abe;
+          color: #db2828;
           position: relative;
-          cursor: pointer;
           margin-left: 3px;
           text-transform: capitalize;
 
-          &::after {
-            // position: absolute;
-            content: ",";
-            display: inline-block;
-            margin-left: 2px;
-          }
+          // &::after {
+          //   // position: absolute;
+          //   content: ",";
+          //   display: inline-block;
+          //   margin-left: 2px;
+          // }
 
-          &:nth-last-child(1)::after {
-            content: unset;
-          }
+          // &:nth-last-child(1)::after {
+          //   content: unset;
+          // }
 
-          &:hover {
-            text-decoration: underline;
-          }
+          // &:hover {
+          //   text-decoration: underline;
+          // }
         }
       }
       // tfoot th {

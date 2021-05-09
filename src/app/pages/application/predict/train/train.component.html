@@ -10,9 +10,8 @@
                 <th scope="col">#</th>
                 <th scope="col">UploadedFile</th>
                 <th scope="col">Date</th>
-                <th scope="col">SelectedCategory</th>
+                <th scope="col">Mapped products</th>
                 <th scope="col">Status</th>
-                <th scope="col">Accuracy</th>
                 <th scope="col">Activate</th>
                 <th scope="col"></th>
               </tr>
@@ -42,9 +41,18 @@
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ item["uploadedFile"] }}</td>
                 <td>{{ item["timestamp"] }}</td>
-                <td>Sales</td>
+                <td>
+                  <a
+                    class="ui yellow label"
+                    [routerLink]="
+                      '/app/products/product/' + product['mappedProductID']
+                    "
+                    *ngFor="let product of item['mappedProducts']"
+                  >
+                    {{ product["name"] }}
+                  </a>
+                </td>
                 <td>{{ item["status"] }}</td>
-                <td>{{ item["accuracy"] }}%</td>
                 <td>
                   <!-- {{ item["activate"] }} -->
                   <div

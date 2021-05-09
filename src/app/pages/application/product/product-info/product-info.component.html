@@ -2,7 +2,7 @@
   <div class="ui breadcrumb">
     <a class="section">Home</a>
     <i class="right angle icon divider"></i>
-    <a class="section">List</a>
+    <a class="section" routerLink="/app/products/list">List</a>
     <i class="right angle icon divider"></i>
     <div class="active section">Product</div>
   </div>
@@ -91,20 +91,20 @@
       </div>
       <div class="col-md-6">
         <div class="row mt-3 me-2">
-          <div class="col-md form-group">
-            <label for="Product Name">Product Name</label>
+          <div class="col-md form-group div-card">
+            <label class="title" for="Product Name">Product Name</label>
             <input
               type="text"
               name="productName"
               [(ngModel)]="details['productName']"
-              class="form-control mt-2"
+              class="form-control mt-2 ms-3"
               [readonly]="!edit"
             />
           </div>
         </div>
         <div class="ingredients">
-          <label class="mt-4">Ingredients Details</label>
-          <div class="row title mt-3">
+          <label class="mt-4 title">Ingredients Details</label>
+          <div class="row subTitle mt-3 ms-3">
             <div class="col-6 form-group">
               <label for="vendor">Ingredient</label>
             </div>
@@ -118,11 +118,11 @@
               <label for="vendor"></label>
             </div>
           </div>
-          <div class="row mt-4" *ngIf="ingredients.length == 0">
+          <div class="row mt-4 ms-3" *ngIf="ingredients.length == 0">
             <div style="text-align: center">No ingredients added yet.</div>
           </div>
           <div
-            class="ingredients-list row mt-2"
+            class="ingredients-list row mt-2 ms-3"
             *ngFor="let item of ingredients; let i = index"
           >
             <div class="ingredients-item col-6 form-group">
@@ -140,7 +140,7 @@
               </button>
             </div>
           </div>
-          <div class="row mt-4" *ngIf="edit">
+          <div class="row mt-4 ms-3" *ngIf="edit">
             <div class="col-6 form-group">
               <!-- <input
                 type="text"
@@ -253,6 +253,62 @@
         (click)="edit = false; getProductsDetails()"
       >
         Cancel
+      </div>
+    </div>
+    <!-- display predictions -->
+    <div class="row page-body mt-2" *ngIf="!notFound">
+      <!-- <div class="ui inverted dimmer" [ngClass]="{ active: http_loading }">
+        <div class="ui text loader">Loading</div>
+      </div> -->
+      <div class="col-md-6 mt-4">
+        <div class="row mt-3">
+          <div class="col-md form-group div-card">
+            <label class="title" for="product prediction"
+              >Prediction for June</label
+            >
+            <h4 class="ms-3 mt-2" *ngIf="!prediction['text_p']">
+              Estimated <b>{{ details["productName"] || "product" }}</b> count
+
+              <button
+                class="ui teal loading button ms-3"
+                [class.loading]="prediction['loading'] == true"
+              >
+                <i class="birthday cake icon"></i> {{ prediction["predict"] }}
+              </button>
+            </h4>
+            <div
+              class="row mt-2 ms-3 productPrediction"
+              style="flex-direction: column"
+              *ngIf="prediction['predict']"
+            >
+              <div class="col my-2" *ngFor="let item of ingredients">
+                <button class="ui yellow label me-2">
+                  {{ item["ingredients_details"] }}
+                </button>
+                <span>{{ item["predicted"] }} {{ item["measure_type"] }}</span>
+              </div>
+            </div>
+          </div>
+          <!-- when error occured -->
+          <div class="noresults my-5 px-2 py-3" *ngIf="prediction['text_p']">
+            <i class="birthday cake huge icon"></i>
+            <p class="mt-3">
+              {{
+                prediction["text_p"] ||
+                  "This Product is not mapped with activate sales report"
+              }}
+            </p>
+            <span>{{ prediction["text_span"] }}</span>
+            <button
+              class="ui button mt-4"
+              [routerLink]="prediction['route']"
+              *ngIf="prediction['btn_lable']"
+            >
+              <i class="upload icon"></i>
+              {{ prediction["btn_lable"] || "See more" }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </section>

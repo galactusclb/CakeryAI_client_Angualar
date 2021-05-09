@@ -42,6 +42,16 @@ export class TrainComponent implements OnInit {
               'YYYY/MM/DD, H:mm '
             );
           }
+
+          element['headers'] = JSON.parse(element?.['headers']);
+          element['mappedProducts'] = [];
+          element['headers'].forEach((product) => {
+            if (product['mappedProductID'] != 'Month') {
+              element?.['mappedProducts'].push(product);
+            }
+          });
+
+          console.log(element?.['mappedProducts']);
         });
       },
       (err) => {

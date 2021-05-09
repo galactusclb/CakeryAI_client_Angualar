@@ -22,6 +22,8 @@ export class ProductInfoComponent implements OnInit {
   productId: number;
   productName: any;
 
+  prediction = {};
+
   constructor(
     private Activatedroute: ActivatedRoute,
     private router: Router,
@@ -64,6 +66,7 @@ export class ProductInfoComponent implements OnInit {
             this.details['Ingredient'] = JSON.parse(this.details['Ingredient']);
             this.ingredients = this.details['Ingredient'] || [];
           }
+          this.getPrediction();
           console.log(this.details);
         }
 
@@ -85,6 +88,42 @@ export class ProductInfoComponent implements OnInit {
       },
       (err) => {
         console.log(err);
+      }
+    );
+  }
+
+  getPrediction() {
+    this.prediction['loading'] = true;
+    this._file.getPredictonsByMonth(this.productId, 1).subscribe(
+      (res) => {
+        console.log(this.ingredients);
+        console.log(res);
+        res[0] = res[0]?.toFixed(2);
+        this.prediction = {
+          predict: res[0],
+          loading: false,
+        };
+        this.calcPredictedIngredients();
+      },
+      (err) => {
+        console.log(err);
+        this.prediction['loading'] = false;
+
+        if (err.status == 400) {
+          this.prediction = {
+            text_p: 'Mapped Error',
+            text_span:
+              'This product has not been mapped with your activated sales report',
+            btn_lable: 'Go to Files',
+            route: '/app/train',
+          };
+        } else if (err.status == 500) {
+          this.prediction = {
+            text_p: 'Mapped Error',
+            text_span: 'Something wend wrong. contact support',
+            btn_lable: '',
+          };
+        }
       }
     );
   }
@@ -154,6 +193,13 @@ export class ProductInfoComponent implements OnInit {
   removeQueryparamsFromURL() {
     this.router.navigate([], {
       queryParams: {},
+    });
+  }
+
+  calcPredictedIngredients() {
+    this.ingredients.forEach((element) => {
+      element['predicted'] =
+        element['amount'] * 1 * this.prediction['predict'] * 1;
     });
   }
 }

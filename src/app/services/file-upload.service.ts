@@ -26,6 +26,8 @@ export class FileUploadService {
   private _updateproductUrl = BACKEND_URL + 'updateproduct';
   private _deleteproductUrl = BACKEND_URL + 'deleteproduct';
   private _getSalesReportUrl = BACKEND_URL + 'getSalesReport';
+  private _getpreviousSaleswithpredictUrl =
+    BACKEND_URL + 'getpreviousSaleswithpredict';
   private _getPredictonsByMonthUrl = BACKEND_URL + 'getPredictonsByMonth';
 
   constructor(private http: HttpClient) {}
@@ -103,10 +105,19 @@ export class FileUploadService {
     return this.http.get<any>(this._getSalesReportUrl);
   }
 
-  getPredictonsByMonth(productID) {
+  getPreviousSalesWithPredict(productID) {
+    return this.http.get<any>(this._getpreviousSaleswithpredictUrl, {
+      params: {
+        productID,
+      },
+    });
+  }
+
+  getPredictonsByMonth(productID, monthsCount: any = 1) {
     return this.http.get<any>(this._getPredictonsByMonthUrl, {
       params: {
         productID,
+        months: monthsCount,
       },
     });
   }

@@ -28,6 +28,7 @@ export class PredictGenerateComponent implements OnInit {
   maxMonth: String;
 
   selectedProduct: any;
+  monthsCount: number = 2;
 
   error_chart: any;
 
@@ -39,85 +40,25 @@ export class PredictGenerateComponent implements OnInit {
     this.getIngredientDetails();
     this.minMonth = moment().format('YYYY-MM');
     this.maxMonth = moment().add(3, 'month').format('YYYY-MM');
-
-    console.log(moment().format('YYYY'));
-
-    // new Chart('myChart', {
-    //   type: 'bar',
-    //   data: {
-    //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //     datasets: [
-    //       {
-    //         label: '# of Votes',
-    //         data: [12, 19, 3, 5, 2, 3],
-    //         backgroundColor: [
-    //           'rgba(255, 99, 132, 0.2)',
-    //           'rgba(54, 162, 235, 0.2)',
-    //           'rgba(255, 206, 86, 0.2)',
-    //           'rgba(75, 192, 192, 0.2)',
-    //           'rgba(153, 102, 255, 0.2)',
-    //           'rgba(255, 159, 64, 0.2)',
-    //         ],
-    //         borderColor: [
-    //           'rgba(255,99,132,1)',
-    //           'rgba(54, 162, 235, 1)',
-    //           'rgba(255, 206, 86, 1)',
-    //           'rgba(75, 192, 192, 1)',
-    //           'rgba(153, 102, 255, 1)',
-    //           'rgba(255, 159, 64, 1)',
-    //         ],
-    //         borderWidth: 1,
-    //       },
-    //     ],
-    //   },
-    //   options: {
-    //     scales: {
-    //       yAxes: [
-    //         {
-    //           ticks: {
-    //             beginAtZero: true,
-    //           },
-    //         },
-    //       ],
-    //     },
-    //   },
-    // });
-
-    // this.displayChart();
   }
 
   displayChart(productID) {
     this.httpLoading_chart = true;
-    // https://cakery-ai-s3.s3-ap-southeast-1.amazonaws.com/CakeMonthlySaleReport.csv
 
-    this._file.readCSVFileFromAWS().subscribe(
+    this._file.getPreviousSalesWithPredict(productID).subscribe(
       async (res) => {
-        const labels = [];
-        const data = [];
+        console.log(res);
 
-        const gg = [];
-        await csv()
-          .fromString(res)
-          .subscribe(function (jsonObj) {
-            //single json object will be emitted for each csv line
-            // parse each json asynchronousely
-            gg.push(jsonObj);
-          });
+        let labels = res['labels'] || [];
+        let data = res['data'] || [];
 
-        gg.forEach((element) => {
-          if (moment(element['Month']).format('YYYY') == '2020') {
-            labels.push(element['Month']);
-            data.push(element['Sales']);
-          }
-        });
-
-        // this.generateChart(labels, data);
-
-        this._file.getPredictonsByMonth(productID).subscribe(
+        this._file.getPredictonsByMonth(productID, this.monthsCount).subscribe(
           (res) => {
             // get next 12 months
+            console.log(res);
+
             let months = [];
-            let monthsRequired = 12;
+            let monthsRequired = this.monthsCount;
 
             const lastMonth = labels[labels.length - 1];
 
@@ -153,27 +94,42 @@ export class PredictGenerateComponent implements OnInit {
                 btn_lable: 'Go to Files',
                 route: '/app/train',
               };
+            } else if (err.status == 500) {
+              this.error_chart = {
+                text_p: 'Mapped Error',
+                text_span: 'Something wend wrong. contact support',
+                btn_lable: '',
+              };
             }
 
             console.log(this.error_chart);
 
-            var canvas = document.getElementById('myChart');
-            while (canvas.firstChild) {
-              canvas.firstChild.remove();
-            }
+            // var canvas = document.getElementById('myChart');
+
+            // if (canvas) {
+            //   while (canvas.firstChild) {
+            //     canvas.firstChild.remove();
+            //   }
+            // }
             this.httpLoading_chart = false;
           }
         );
       },
       (err) => {
         console.log(err);
-        alert('sas');
+        // alert('sas');
+        this.error_chart = {
+          text_p: 'Something went wrong',
+          text_span: 'Try again later',
+          btn_lable: '',
+        };
+        this.generateChart([], [], []);
         this.httpLoading_chart = false;
       }
     );
   }
 
-  generateChart(labels, sales, sales2 = []) {
+  generateChart(labels, sales, sales2) {
     const data = {
       labels: labels,
       datasets: [

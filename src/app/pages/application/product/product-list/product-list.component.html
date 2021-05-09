@@ -104,9 +104,18 @@
                 </a>
               </td>
               <td class="ingretientsTag">
-                <span *ngFor="let ingredient of item['Ingredient']">{{
+                <a
+                  class="ui teal label"
+                  *ngFor="let ingredient of item['Ingredient']"
+                >
+                  {{ ingredient["ingredients_details"] }}
+                </a>
+                <span *ngIf="item['Ingredient'].length == 0">
+                  No ingredients attached
+                </span>
+                <!-- <span *ngFor="let ingredient of item['Ingredient']">{{
                   ingredient["ingredients_details"]
-                }}</span>
+                }}</span> -->
               </td>
               <td>
                 <button
