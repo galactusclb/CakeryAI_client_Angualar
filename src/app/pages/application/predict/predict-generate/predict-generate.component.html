@@ -1,6 +1,6 @@
 <div class="main px-5 pb-5">
   <section>
-    <h2>Prediction</h2>
+    <h2>Dashboard</h2>
     <div class="row mt-4">
       <!-- <div class="col-md-5" *ngIf="modelInfo['status'] == 'training'">
         <p>
@@ -28,6 +28,70 @@
           </div>
         </form>
       </div> -->
+    </div>
+    <div class="row div-summary-info">
+      <div class="col-md-3">
+        <div class="ui segment summary px-4 py-4">
+          <div
+            class="ui inverted dimmer"
+            [class.active]="httpLoading_summary['products']['loading']"
+          >
+            <div class="ui loader"></div>
+          </div>
+          <h4 class="my-2">
+            {{ products.length }}
+          </h4>
+          <p class="mt-2">Products</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="ui segment summary px-4 py-4">
+          <div
+            class="ui inverted dimmer"
+            [class.active]="httpLoading_summary['ingredients']['loading']"
+          >
+            <div class="ui loader"></div>
+          </div>
+          <h4 class="my-2">
+            {{ ingredientsList.length }}
+          </h4>
+          <p class="mt-2">Ingredients</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="ui segment summary px-4 py-4">
+          <div
+            class="ui inverted dimmer"
+            [class.active]="httpLoading_summary['activeReport']['loading']"
+          >
+            <div class="ui loader"></div>
+          </div>
+          <label class="mb-2" style="color: red" *ngIf="!modelInfo"
+            >No active report</label
+          >
+          <h4
+            class="my-2 active-report"
+            [routerLink]="'/app/train'"
+            [queryParams]="{ _id: modelInfo['_id'] }"
+            *ngIf="modelInfo"
+          >
+            {{ modelInfo["uploadedFile"] }}
+          </h4>
+          <p class="mt-2">Active Report</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="ui segment summary px-4 py-4">
+          <div
+            class="ui inverted dimmer"
+            [class.active]="httpLoading_summary['totalReports']['loading']"
+          >
+            <div class="ui loader"></div>
+          </div>
+          <h4 class="my-2">{{ totalReports }}</h4>
+          <p class="mt-2">Uploaded Reports</p>
+        </div>
+      </div>
     </div>
 
     <div class="row mt-4">
@@ -150,6 +214,7 @@
                 <div
                   class="ui yellow image label"
                   *ngFor="let item of products"
+                  [routerLink]="'/app/products/product/' + item['_id']"
                 >
                   {{ item["productName"] }}
                 </div>

@@ -16,7 +16,10 @@ export class PredictGenerateComponent implements OnInit {
   products = [];
   csvFile = [];
 
+  totalReports: number = 0;
+
   httpLoading_chart: boolean = false;
+  httpLoading_summary: any = {};
 
   cakes = {
     c00001: 114,
@@ -40,93 +43,102 @@ export class PredictGenerateComponent implements OnInit {
     this.getIngredientDetails();
     this.minMonth = moment().format('YYYY-MM');
     this.maxMonth = moment().add(3, 'month').format('YYYY-MM');
+    this.getUploadedReportsByUserId();
   }
 
   displayChart(productID) {
     this.httpLoading_chart = true;
 
-    this._file.getPreviousSalesWithPredict(productID).subscribe(
-      async (res) => {
-        console.log(res);
+    console.log('Mapped : ' + productID + ' : ');
+    if (!this.checkproductInActivatedReport(productID)) {
+      this.httpLoading_chart = false;
+      this.generateChart([], [], []);
+    } else {
+      this._file.getPreviousSalesWithPredict(productID).subscribe(
+        async (res) => {
+          console.log(res);
 
-        let labels = res['labels'] || [];
-        let data = res['data'] || [];
+          let labels = res['labels'] || [];
+          let data = res['data'] || [];
 
-        this._file.getPredictonsByMonth(productID, this.monthsCount).subscribe(
-          (res) => {
-            // get next 12 months
-            console.log(res);
+          this._file
+            .getPredictonsByMonth(productID, this.monthsCount)
+            .subscribe(
+              (res) => {
+                // get next 12 months
+                console.log(res);
 
-            let months = [];
-            let monthsRequired = this.monthsCount;
+                let months = [];
+                let monthsRequired = this.monthsCount;
 
-            const lastMonth = labels[labels.length - 1];
+                const lastMonth = labels[labels.length - 1];
 
-            for (let i = 1; i <= monthsRequired; i++) {
-              months.push(
-                moment(lastMonth).add(i, 'months').format('YYYY-MM-01')
-              );
-            }
+                for (let i = 1; i <= monthsRequired; i++) {
+                  months.push(
+                    moment(lastMonth).add(i, 'months').format('YYYY-MM-01')
+                  );
+                }
 
-            labels.push(...months);
+                labels.push(...months);
 
-            const predictedDate = [];
+                const predictedDate = [];
 
-            for (let i = 0; i < data.length; i++) {
-              if (i == data.length - 1) {
-                predictedDate.push(data[i]);
-              } else {
-                predictedDate.push(null);
+                for (let i = 0; i < data.length; i++) {
+                  if (i == data.length - 1) {
+                    predictedDate.push(data[i]);
+                  } else {
+                    predictedDate.push(null);
+                  }
+                }
+
+                predictedDate.push(...res);
+
+                this.generateChart(labels, data, predictedDate);
+              },
+              (err) => {
+                console.log(err);
+                if (err.status == 400) {
+                  this.error_chart = {
+                    text_p: 'Mapped Error',
+                    text_span:
+                      'you should need to add products before get the prediction',
+                    btn_lable: 'Go to Files',
+                    route: '/app/train',
+                  };
+                } else if (err.status == 500) {
+                  this.error_chart = {
+                    text_p: 'Mapped Error',
+                    text_span: 'Something wend wrong. contact support',
+                    btn_lable: '',
+                  };
+                }
+
+                console.log(this.error_chart);
+
+                // var canvas = document.getElementById('myChart');
+
+                // if (canvas) {
+                //   while (canvas.firstChild) {
+                //     canvas.firstChild.remove();
+                //   }
+                // }
+                this.httpLoading_chart = false;
               }
-            }
-
-            predictedDate.push(...res);
-
-            this.generateChart(labels, data, predictedDate);
-          },
-          (err) => {
-            console.log(err);
-            if (err.status == 400) {
-              this.error_chart = {
-                text_p: 'Mapped Error',
-                text_span:
-                  'you should need to add products before get the prediction',
-                btn_lable: 'Go to Files',
-                route: '/app/train',
-              };
-            } else if (err.status == 500) {
-              this.error_chart = {
-                text_p: 'Mapped Error',
-                text_span: 'Something wend wrong. contact support',
-                btn_lable: '',
-              };
-            }
-
-            console.log(this.error_chart);
-
-            // var canvas = document.getElementById('myChart');
-
-            // if (canvas) {
-            //   while (canvas.firstChild) {
-            //     canvas.firstChild.remove();
-            //   }
-            // }
-            this.httpLoading_chart = false;
-          }
-        );
-      },
-      (err) => {
-        console.log(err);
-        // alert('sas');
-        this.error_chart = {
-          text_p: 'Something went wrong',
-          text_span: 'Try again later',
-          btn_lable: '',
-        };
-        this.generateChart([], [], []);
-        this.httpLoading_chart = false;
-      }
-    );
+            );
+        },
+        (err) => {
+          console.log(err);
+          // alert('sas');
+          this.error_chart = {
+            text_p: 'Something went wrong',
+            text_span: 'Try again later',
+            btn_lable: '',
+          };
+          this.generateChart([], [], []);
+          this.httpLoading_chart = false;
+        }
+      );
+    }
   }
 
   generateChart(labels, sales, sales2) {
@@ -171,32 +183,60 @@ export class PredictGenerateComponent implements OnInit {
   }
 
   getActivatedModelDetails() {
+    this.httpLoading_summary['activeReport'] = {
+      loading: true,
+    };
+
     this._file.getActivatedModelDetails().subscribe(
       (res) => {
         this.modelInfo = res[0];
         console.log(this.modelInfo);
+
+        if (this.modelInfo?.['headers']) {
+          this.modelInfo['headers'] = JSON.parse(this.modelInfo?.['headers']);
+        }
+        this.httpLoading_summary['activeReport'] = {
+          loading: false,
+        };
       },
       (err) => {
         console.log(err);
+        this.httpLoading_summary['activeReport'] = {
+          loading: false,
+        };
       }
     );
   }
 
   getIngredientDetails() {
+    this.httpLoading_summary['ingredients'] = {
+      loading: true,
+    };
+
     this._file.getIngredientsDetails().subscribe(
       (res) => {
         console.log(res);
         this.ingredientsList = res;
+        this.httpLoading_summary['ingredients'] = {
+          loading: false,
+        };
         // this.ingredientsDetails = this.calc(res[0].ingredients_details);
       },
       (err) => {
         console.log(err);
+        this.httpLoading_summary['ingredients'] = {
+          loading: false,
+        };
       }
     );
   }
 
   getProductsDetails() {
     this.httpLoading_chart = true;
+    // for loading effect
+    this.httpLoading_summary['products'] = {
+      loading: true,
+    };
 
     this._file.getProductsDetails().subscribe(
       async (res) => {
@@ -216,11 +256,39 @@ export class PredictGenerateComponent implements OnInit {
           };
           this.httpLoading_chart = false;
         }
-
+        this.httpLoading_summary['products'] = {
+          loading: false,
+        };
         console.log(this.selectedProduct);
       },
       (err) => {
         console.log(err);
+        this.httpLoading_summary['products'] = {
+          loading: false,
+        };
+      }
+    );
+  }
+
+  // get uploaded reports count
+  getUploadedReportsByUserId() {
+    this.httpLoading_summary['totalReports'] = {
+      loading: true,
+    };
+
+    this._file.getuserreports().subscribe(
+      (res) => {
+        this.totalReports = res.length;
+
+        this.httpLoading_summary['totalReports'] = {
+          loading: false,
+        };
+      },
+      (err) => {
+        console.log(err);
+        this.httpLoading_summary['totalReports'] = {
+          loading: false,
+        };
       }
     );
   }
@@ -260,5 +328,17 @@ export class PredictGenerateComponent implements OnInit {
     ingre['data'] = data;
     console.log(data);
     return ingre;
+  }
+
+  checkproductInActivatedReport(productID) {
+    let mapped = false;
+
+    this.modelInfo?.['headers'].forEach((element) => {
+      if (element['mappedProductID'] == productID) {
+        mapped = true;
+      }
+    });
+
+    return mapped;
   }
 }

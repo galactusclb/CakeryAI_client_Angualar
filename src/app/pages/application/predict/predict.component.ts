@@ -27,6 +27,8 @@ export class PredictComponent implements OnInit {
 
   productsList = [];
 
+  lastMonthDetails: string = '';
+
   sectionUploading: boolean = true;
   sectionMapping: boolean = false;
   sectionSuccess: boolean = false;
@@ -105,6 +107,10 @@ export class PredictComponent implements OnInit {
         }
         console.table(this.lines);
 
+        const last_element = allTextLines[allTextLines.length - 1];
+        console.log(last_element);
+        this.lastMonthDetails = last_element;
+
         this.sectionUploading = false;
         this.sectionMapping = true;
 
@@ -180,6 +186,7 @@ export class PredictComponent implements OnInit {
     formData.append('report', this.file);
     formData.append('headers', JSON.stringify(this.csv_header));
     formData.append('selectedColumn', JSON.stringify(this.selectedColumn));
+    formData.append('lastMonthDetails', this.lastMonthDetails);
 
     // for (var key in this.selectedColumn) {
     //   formData.append(key, this.selectedColumn[key]);

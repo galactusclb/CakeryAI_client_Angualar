@@ -203,7 +203,7 @@
           </div>
           <!-- no any ingredients available alert -->
           <div class="row mt-5" *ngIf="ingredientsList.length == 0">
-            <div class="ui teal icon message">
+            <div class="ui yellow icon message">
               <!-- <i class="close icon"></i> -->
               <!-- <button class="close icon negative ui button">
                 <i class="plus icon"></i>
@@ -264,8 +264,18 @@
         <div class="row mt-3">
           <div class="col-md form-group div-card">
             <label class="title" for="product prediction"
-              >Prediction for June</label
-            >
+              >Prediction for {{ modelInfo["lastMonth"] }}
+              <span style="font-size: 0.8em"
+                >based on
+                <a
+                  routerLink="/app/train"
+                  [queryParams]="{ _id: modelInfo['_id'] }"
+                >
+                  this
+                </a>
+                activated sales report</span
+              >
+            </label>
             <h4 class="ms-3 mt-2" *ngIf="!prediction['text_p']">
               Estimated <b>{{ details["productName"] || "product" }}</b> count
 

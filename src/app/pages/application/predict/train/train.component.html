@@ -11,6 +11,7 @@
                 <th scope="col">UploadedFile</th>
                 <th scope="col">Date</th>
                 <th scope="col">Mapped products</th>
+                <th scope="col">Last month</th>
                 <th scope="col">Status</th>
                 <th scope="col">Activate</th>
                 <th scope="col"></th>
@@ -37,7 +38,10 @@
                   </div>
                 </td>
               </tr>
-              <tr *ngFor="let item of data; let i = index">
+              <tr
+                *ngFor="let item of data; let i = index"
+                [class.table-warning]="item['highlightReport']"
+              >
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ item["uploadedFile"] }}</td>
                 <td>{{ item["timestamp"] }}</td>
@@ -49,9 +53,10 @@
                     "
                     *ngFor="let product of item['mappedProducts']"
                   >
-                    {{ product["name"] }}
+                    {{ product["productName"] || product["name"] }}
                   </a>
                 </td>
+                <td>{{ item["lastMonth"] }}</td>
                 <td>{{ item["status"] }}</td>
                 <td>
                   <!-- {{ item["activate"] }} -->
@@ -107,57 +112,6 @@
                   </ul>
                 </td>
               </tr>
-
-              <!-- <tr>
-                <th scope="row">1</th>
-                <td>CakeMonthlySaleReport.csv</td>
-                <td>Sales</td>
-                <td>complete</td>
-                <td>97%</td>
-                <td>false</td>
-                <td>
-                  <button
-                    class="btn-menu"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Delete</a></li>
-                    <li><a class="dropdown-item" href="#">Train</a></li>
-                    <li><a class="dropdown-item" href="#">Activate</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="#">Change</a></li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>CakeMonthlySaleReport2.csv</td>
-                <td>Sales</td>
-                <td>Initial</td>
-                <td>Not available</td>
-                <td>false</td>
-                <td>
-                  <button
-                    class="btn-menu"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Delete</a></li>
-                    <li><a class="dropdown-item" href="#">Train</a></li>
-                    <li><a class="dropdown-item" href="#">Activate</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="#">Change</a></li>
-                  </ul>
-                </td>
-              </tr> -->
             </tbody>
           </table>
         </div>

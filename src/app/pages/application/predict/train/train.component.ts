@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { AuthService } from 'src/app/services/auth.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -9,18 +10,31 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
   styleUrls: ['./train.component.scss'],
 })
 export class TrainComponent implements OnInit {
-  constructor(private _upload: FileUploadService, private _auth: AuthService) {}
+  constructor(
+    private _upload: FileUploadService,
+    private _auth: AuthService,
+    private Activatedroute: ActivatedRoute
+  ) {}
 
   userId: any;
   data: any = [];
+  productList: any = [];
+
   httpLoading: boolean = false;
 
+  highlightReport: any = '';
+
   ngOnInit(): void {
+    this.getProductDetails();
     this.getUserDetails();
 
     if (this.userId) {
       this.getUploadedReportsByUserId(this.userId);
     }
+
+    this.Activatedroute.queryParams.subscribe((queryParams) => {
+      this.highlightReport = queryParams['_id'];
+    });
   }
 
   getUserDetails() {
@@ -48,16 +62,54 @@ export class TrainComponent implements OnInit {
           element['headers'].forEach((product) => {
             if (product['mappedProductID'] != 'Month') {
               element?.['mappedProducts'].push(product);
+
+              // set mapped product name for csv column products
+              element?.['mappedProducts'].forEach((product) => {
+                product['productName'] = this.getMappedProductName(
+                  product['mappedProductID']
+                );
+              });
             }
           });
 
-          console.log(element?.['mappedProducts']);
+          const lastMonthDetails = element?.['lastMonthDetails'].split(',');
+
+          element['lastMonth'] = moment(lastMonthDetails[0]).format(
+            'MMMM YYYY'
+          );
+
+          if (this.highlightReport == element['_id']) {
+            element['highlightReport'] = true;
+          }
         });
       },
       (err) => {
         console.log(err);
       }
     );
+  }
+
+  getProductDetails() {
+    this._upload.getProductsDetails().subscribe(
+      (res) => {
+        console.log(res);
+        this.productList = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getMappedProductName(productID) {
+    let name = '';
+
+    this.productList.forEach((element) => {
+      if (element['_id'] == productID) {
+        name = element['productName'];
+      }
+    });
+    return name;
   }
 
   changeReportsActiveSettings(_id: string, active: number) {
@@ -83,6 +135,8 @@ export class TrainComponent implements OnInit {
       this.httpLoading = true;
       this._upload.trainModel({ _id: _id }).subscribe(
         (res) => {
+          console.log(res);
+
           this.getUploadedReportsByUserId(this.userId);
           this.httpLoading = false;
         },

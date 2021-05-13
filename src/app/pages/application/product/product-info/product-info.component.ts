@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 export class ProductInfoComponent implements OnInit {
   details = {};
   ingredientDetails = { ingredients_details: '' };
+  modelInfo: any = {};
 
   ingredients = [];
   ingredientsList = [];
@@ -50,6 +52,7 @@ export class ProductInfoComponent implements OnInit {
 
     this.getProductsDetails();
     this.getIngredientList();
+    this.getActivatedModelDetails();
   }
 
   getProductsDetails() {
@@ -88,6 +91,28 @@ export class ProductInfoComponent implements OnInit {
       },
       (err) => {
         console.log(err);
+      }
+    );
+  }
+
+  getActivatedModelDetails() {
+    this._file.getActivatedModelDetails().subscribe(
+      (res) => {
+        this.modelInfo = res[0];
+        console.log(this.modelInfo);
+
+        const lastMonthDetails =
+          this.modelInfo?.['lastMonthDetails'].split(',');
+
+        this.modelInfo['lastMonth'] = moment(lastMonthDetails[0]).format(
+          'MMMM YYYY'
+        );
+      },
+      (err) => {
+        console.log(err);
+        // this.httpLoading_summary['activeReport'] = {
+        //   loading: false,
+        // };
       }
     );
   }

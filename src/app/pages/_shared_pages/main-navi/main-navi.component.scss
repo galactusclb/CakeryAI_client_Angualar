@@ -34,9 +34,10 @@
   .navbar-brand:focus {
     padding-left: 0;
     font-size: 18px;
-    font-weight: bold;
+    // font-weight: bold;
     padding-right: 50px;
     margin-left: 10px;
+    // color: $white-3;
   }
 
   .navbar-brand b {

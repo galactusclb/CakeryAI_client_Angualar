@@ -49,7 +49,7 @@ export class FileUploadService {
     return this.http.delete<any>(`${this._deletereport}/${data}`);
   }
 
-  getuserreports(data: any) {
+  getuserreports(data: any = '') {
     return this.http.get<any>(this._getuserreports, {
       params: {
         userId: data,
