@@ -57,8 +57,12 @@ export class FileUploadService {
     });
   }
 
-  trainModel(data: any) {
-    return this.http.put<any>(this._trainModelUrl, data);
+  trainModel(reportID: any) {
+    return this.http.get<any>(this._trainModelUrl, {
+      params: {
+        reportID: reportID,
+      },
+    });
   }
 
   changeReportsActiveSettings(data: any) {

@@ -133,7 +133,9 @@ export class TrainComponent implements OnInit {
   trainModel(_id: string) {
     if (!this.httpLoading) {
       this.httpLoading = true;
-      this._upload.trainModel({ _id: _id }).subscribe(
+      console.log(_id);
+
+      this._upload.trainModel(_id).subscribe(
         (res) => {
           console.log(res);
 
