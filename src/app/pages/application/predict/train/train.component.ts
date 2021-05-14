@@ -16,7 +16,7 @@ export class TrainComponent implements OnInit {
     private Activatedroute: ActivatedRoute
   ) {}
 
-  userId: any;
+  // userId: any;
   data: any = [];
   productList: any = [];
 
@@ -28,26 +28,41 @@ export class TrainComponent implements OnInit {
     this.getProductDetails();
     this.getUserDetails();
 
-    if (this.userId) {
-      this.getUploadedReportsByUserId(this.userId);
-    }
+    // if (this.userId) {
+    //   this.getUploadedReportsByUserId(this.userId);
+    // }
+
+    this.getUploadedReportsByUserId();
+    this.getPredictionPro();
 
     this.Activatedroute.queryParams.subscribe((queryParams) => {
       this.highlightReport = queryParams['_id'];
     });
   }
+  getPredictionPro() {
+    this._upload.getPredictionPro().subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   getUserDetails() {
     if (this._auth.loggedIn()) {
       const user = this._auth.getUserAuth();
-      this.userId = user.userId;
+      // this.userId = user.userId;
     }
   }
 
-  getUploadedReportsByUserId(userId: string) {
-    this._upload.getuserreports(userId).subscribe(
+  getUploadedReportsByUserId() {
+    this.httpLoading = true;
+
+    this._upload.getuserreports().subscribe(
       (res) => {
-        console.log(res);
+        console.log('sas', res);
         this.data = res;
 
         this.data.forEach((element) => {
@@ -82,9 +97,12 @@ export class TrainComponent implements OnInit {
             element['highlightReport'] = true;
           }
         });
+
+        this.httpLoading = false;
       },
       (err) => {
         console.log(err);
+        this.httpLoading = false;
       }
     );
   }
@@ -119,7 +137,7 @@ export class TrainComponent implements OnInit {
         .changeReportsActiveSettings({ _id: _id, active: active })
         .subscribe(
           (res) => {
-            this.getUploadedReportsByUserId(this.userId);
+            this.getUploadedReportsByUserId();
             this.httpLoading = false;
           },
           (err) => {
@@ -131,30 +149,30 @@ export class TrainComponent implements OnInit {
   }
 
   trainModel(_id: string) {
-    if (!this.httpLoading) {
-      this.httpLoading = true;
-      console.log(_id);
+    // if (!this.httpLoading) {
+    //   this.httpLoading = true;
+    console.log(_id);
 
-      this._upload.trainModel(_id).subscribe(
-        (res) => {
-          console.log(res);
+    this._upload.trainModel(_id).subscribe(
+      (res) => {
+        console.log(res);
 
-          this.getUploadedReportsByUserId(this.userId);
-          this.httpLoading = false;
-        },
-        (err) => {
-          console.log(err);
-          this.httpLoading = false;
-        }
-      );
-    }
+        this.getUploadedReportsByUserId();
+        // this.httpLoading = false;
+      },
+      (err) => {
+        console.log(err);
+        this.httpLoading = false;
+      }
+    );
+    // }
   }
 
   deleteReport(_id: string) {
     if (confirm('Are you sure to delete this report?')) {
       this._upload.deleteReport(_id).subscribe(
         (res) => {
-          this.getUploadedReportsByUserId(this.userId);
+          this.getUploadedReportsByUserId();
         },
         (err) => {
           console.log(err);

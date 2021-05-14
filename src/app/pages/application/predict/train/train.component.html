@@ -3,9 +3,32 @@
     <h2>Train</h2>
     <div class="div-model">
       <div class="row">
-        <div class="col-lg-9 table-responsive mx-auto">
-          <table class="table">
-            <thead class="table-light">
+        <div
+          class="col-lg-10 table-responsive mx-auto mb-5"
+          style="position: relative"
+        >
+          <div class="ui inverted dimmer" [class.active]="httpLoading">
+            <div class="ui text loader">Loading</div>
+          </div>
+          <table
+            class="ui celled compact striped table"
+            style="text-align: start"
+          >
+            <thead>
+              <tr>
+                <th colspan="7" class="thead-title">List of Products</th>
+                <th class="one wide">
+                  <div class="ui small basic icon buttons">
+                    <button
+                      class="ui icon button"
+                      style="background: white !important"
+                      (click)="getUploadedReportsByUserId()"
+                    >
+                      <i class="sync icon"></i>
+                    </button>
+                  </div>
+                </th>
+              </tr>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">UploadedFile</th>
@@ -19,7 +42,7 @@
             </thead>
             <tbody>
               <tr *ngIf="data.length == 0">
-                <td colspan="6">
+                <td colspan="8">
                   <div class="table-noresults px-2 py-3">
                     <i class="grav huge icon"></i>
                     <p class="mt-3">
@@ -47,7 +70,7 @@
                 <td>{{ item["timestamp"] }}</td>
                 <td>
                   <a
-                    class="ui yellow label"
+                    class="ui yellow label mb-1"
                     [routerLink]="
                       '/app/products/product/' + product['mappedProductID']
                     "
@@ -57,7 +80,15 @@
                   </a>
                 </td>
                 <td>{{ item["lastMonth"] }}</td>
-                <td>{{ item["status"] }}</td>
+                <td>
+                  <span
+                    ><i
+                      class="spinner loading icon"
+                      *ngIf="item['status'] == 'training'"
+                    ></i>
+                    {{ item["status"] }}</span
+                  >
+                </td>
                 <td>
                   <!-- {{ item["activate"] }} -->
                   <div

@@ -13,6 +13,7 @@ export class FileUploadService {
   private _changereportsactivesettingsUrl =
     BACKEND_URL + 'changereportsactivesettings';
   private _trainModelUrl = BACKEND_URL + 'trainmodel';
+  private _getpredictionproUrl = BACKEND_URL + 'getpredictionpro';
   private _deletereport = BACKEND_URL + 'delete-report';
   private _addingredientsdetails = BACKEND_URL + 'addingredientsdetails';
   private _getIngredientsDetails = BACKEND_URL + 'getingredientsdetails';
@@ -124,5 +125,10 @@ export class FileUploadService {
         months: monthsCount,
       },
     });
+  }
+
+  // pro users
+  getPredictionPro() {
+    return this.http.get<any>(this._getpredictionproUrl);
   }
 }
