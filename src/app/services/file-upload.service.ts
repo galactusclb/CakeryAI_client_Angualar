@@ -128,7 +128,11 @@ export class FileUploadService {
   }
 
   // pro users
-  getPredictionPro() {
-    return this.http.get<any>(this._getpredictionproUrl);
+  getPredictionPro(productID: any) {
+    return this.http.get<any>(this._getpredictionproUrl, {
+      params: {
+        productID,
+      },
+    });
   }
 }

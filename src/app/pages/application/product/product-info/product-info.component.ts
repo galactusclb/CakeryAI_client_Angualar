@@ -70,6 +70,7 @@ export class ProductInfoComponent implements OnInit {
             this.ingredients = this.details['Ingredient'] || [];
           }
           this.getPrediction();
+
           console.log(this.details);
         }
 
@@ -226,5 +227,19 @@ export class ProductInfoComponent implements OnInit {
       element['predicted'] =
         element['amount'] * 1 * this.prediction['predict'] * 1;
     });
+  }
+
+  // pro users' prediction
+  getPredictionPro() {
+    console.log('predicting....');
+
+    this._file.getPredictionPro(this.productId).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

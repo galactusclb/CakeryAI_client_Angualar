@@ -33,21 +33,10 @@ export class TrainComponent implements OnInit {
     // }
 
     this.getUploadedReportsByUserId();
-    this.getPredictionPro();
 
     this.Activatedroute.queryParams.subscribe((queryParams) => {
       this.highlightReport = queryParams['_id'];
     });
-  }
-  getPredictionPro() {
-    this._upload.getPredictionPro().subscribe(
-      (res) => {
-        console.log(res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
   }
 
   getUserDetails() {

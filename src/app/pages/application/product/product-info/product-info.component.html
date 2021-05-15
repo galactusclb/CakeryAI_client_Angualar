@@ -44,6 +44,24 @@
           <i class="bi bi-chevron-left"></i>
         </div>
         <h2 class="ms-3">{{ edit ? "Edit" : !edit ? "View" : "" }} Products</h2>
+
+        <div class="toggle-btn ms-3">
+          <!-- [ngClass]="{ active: item['activate'] == 1 }" -->
+          <div class="circle"></div>
+          <!-- (click)="
+                        changeReportsActiveSettings(
+                          item['_id'],
+                          !item['activate']
+                        )
+                      " -->
+        </div>
+        <button
+          class="ui labeled basic icon button"
+          (click)="getPredictionPro()"
+        >
+          <i class="chess king yellow icon"></i>
+          Prediction
+        </button>
       </div>
       <div class="header-right" *ngIf="!notFound">
         <button
