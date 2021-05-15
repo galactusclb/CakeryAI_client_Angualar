@@ -109,6 +109,14 @@
       transition: all 400ms ease-in-out;
       cursor: pointer;
     }
+
+    &.active {
+      background: #51aa1b;
+
+      & > .circle {
+        margin-left: 25px;
+      }
+    }
   }
 
   .div-card {

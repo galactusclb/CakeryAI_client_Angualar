@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { AuthService } from 'src/app/services/auth.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 
 @Component({
@@ -21,6 +22,8 @@ export class ProductInfoComponent implements OnInit {
   edit: boolean = false;
   notFound: boolean = false;
 
+  subscriptionLevel: number;
+  pro_function: boolean = false;
   productId: number;
   productName: any;
 
@@ -29,7 +32,8 @@ export class ProductInfoComponent implements OnInit {
   constructor(
     private Activatedroute: ActivatedRoute,
     private router: Router,
-    private _file: FileUploadService
+    private _file: FileUploadService,
+    private _auth: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -38,18 +42,11 @@ export class ProductInfoComponent implements OnInit {
     });
 
     this.Activatedroute.queryParams.subscribe((queryParams) => {
-      console.log(queryParams);
-
       this.edit = queryParams['edit'];
     });
 
-    // this.Activatedroute.url.subscribe((urlSegments) => {
-    //   console.log(urlSegments);
-
-    // console.log(this.activatedRoute.snapshot.params);
-    // console.log(this.activatedRoute.snapshot.queryParams);
-    // });
-
+    // this.getUSerSubcription();
+    this.getPro_functionStatus();
     this.getProductsDetails();
     this.getIngredientList();
     this.getActivatedModelDetails();
@@ -69,9 +66,12 @@ export class ProductInfoComponent implements OnInit {
             this.details['Ingredient'] = JSON.parse(this.details['Ingredient']);
             this.ingredients = this.details['Ingredient'] || [];
           }
-          this.getPrediction();
 
-          console.log(this.details);
+          if (this.pro_function) {
+            this.getPredictionPro();
+          } else {
+            this.getPrediction();
+          }
         }
 
         this.http_loading = false;
@@ -118,6 +118,46 @@ export class ProductInfoComponent implements OnInit {
     );
   }
 
+  // pro users' prediction
+  getPredictionPro() {
+    this.prediction['loading'] = true;
+
+    this._file.getPredictionPro(this.productId).subscribe(
+      (res) => {
+        console.log(res);
+        console.log(this.ingredients);
+        res = res[0];
+        res[0] = res[0]?.toFixed(2);
+        this.prediction = {
+          predict: res[0],
+          loading: false,
+        };
+        this.calcPredictedIngredients();
+      },
+      (err) => {
+        console.log(err);
+        this.prediction['loading'] = false;
+
+        if (err.status == 400) {
+          this.prediction = {
+            text_p: 'Mapped Error',
+            text_span:
+              'This product has not been mapped with your activated sales report',
+            btn_lable: 'Go to Files',
+            route: '/app/train',
+          };
+        } else if (err.status == 500) {
+          this.prediction = {
+            text_p: 'Mapped Error',
+            text_span: 'Something wend wrong. contact support',
+            btn_lable: '',
+          };
+        }
+      }
+    );
+  }
+
+  // free users' prediction
   getPrediction() {
     this.prediction['loading'] = true;
     this._file.getPredictonsByMonth(this.productId, 1).subscribe(
@@ -229,17 +269,29 @@ export class ProductInfoComponent implements OnInit {
     });
   }
 
-  // pro users' prediction
-  getPredictionPro() {
-    console.log('predicting....');
+  getUSerSubcription() {
+    if (this._auth.loggedIn()) {
+      const user = this._auth.getUserAuth();
+      // this.subscriptionLevel = user?.subscriptionLevel;
 
-    this._file.getPredictionPro(this.productId).subscribe(
-      (res) => {
-        console.log(res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+      return user?.subscriptionLevel * 1;
+    } else return 0;
+  }
+
+  getPro_functionStatus() {
+    if (this.getUSerSubcription() > 0) {
+      this.pro_function = this._auth.getPro_functionStatus();
+    } else this.pro_function = false;
+    console.log(this.pro_function);
+  }
+
+  activateProFunctions() {
+    if (this.getUSerSubcription() > 0) {
+      this._auth.activateProFunctions(!this.pro_function);
+      this.getPro_functionStatus();
+      this.getProductsDetails();
+    } else {
+      alert('Subscribe to a pro plan to get a more accurate prediction.');
+    }
   }
 }

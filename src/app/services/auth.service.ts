@@ -30,6 +30,7 @@ export class AuthService {
   private userId: string;
   private userName: string;
   private role: string;
+  private subscriptionLevel: any;
   private isAuthenticated = false;
 
   private newLogin = new BehaviorSubject(false); //1
@@ -48,6 +49,8 @@ export class AuthService {
   loginUser(details): Observable<any> {
     return this.http.post<any>(this._loginUrl, details).pipe(
       tap((res) => {
+        console.log(res);
+
         const token = res.jwtToken;
         this.token = token;
 
@@ -59,6 +62,7 @@ export class AuthService {
           this.userId = res._uid;
           this.userName = res.userName;
           this.role = res.role;
+          this.subscriptionLevel = res.subscriptionLevel;
           //this.authStatusListener.next(true);
           // this.getLoginStatus(true);
 
@@ -74,7 +78,8 @@ export class AuthService {
             expirationDate,
             this.userId,
             this.userName,
-            this.role
+            this.role,
+            this.subscriptionLevel
           );
           // this._router.navigate(['/dashboard'])
         }
@@ -105,13 +110,19 @@ export class AuthService {
     expirationDate: Date,
     userId: String,
     userName: string,
-    role: string
+    role: string,
+    subscriptionLevel: any
   ) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem(
       'userAuth',
-      JSON.stringify({ userId: userId, userName: userName, role: role })
+      JSON.stringify({
+        userId: userId,
+        userName: userName,
+        role: role,
+        subscriptionLevel: subscriptionLevel,
+      })
     );
   }
 
@@ -194,5 +205,12 @@ export class AuthService {
 
   updateUserPersonalDetails(details) {
     return this.http.post<any>(this._updateUserPersonalDetailsUrl, details);
+  }
+
+  getPro_functionStatus() {
+    return JSON.parse(localStorage.getItem('pro_functions'));
+  }
+  activateProFunctions(status: boolean = true) {
+    localStorage.setItem('pro_functions', `${status}`);
   }
 }
