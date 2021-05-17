@@ -28,11 +28,16 @@ export class PredictComponent implements OnInit {
   productsList = [];
 
   lastMonthDetails: string = '';
+  lastMonth: string = ''; //to display last month from last line
+  noOfRows: number = 0;
 
   sectionUploading: boolean = true;
   sectionMapping: boolean = false;
   sectionSuccess: boolean = false;
   success: boolean = false;
+  http_loading: boolean = false;
+
+  csv_error = {};
 
   constructor(private _uploadFile: FileUploadService) {}
 
@@ -43,7 +48,6 @@ export class PredictComponent implements OnInit {
   getproductsname() {
     this._uploadFile.getproductsName().subscribe(
       (res) => {
-        console.log(res);
         this.productsList = res;
       },
       (err) => {
@@ -68,7 +72,10 @@ export class PredictComponent implements OnInit {
 
       reader.addEventListener('load', (event: any) => {
         const csv = reader.result;
-        const allTextLines = csv.toString().split(/\r|\n|\r/);
+        const allTextLines = csv
+          .toString()
+          .trim()
+          .split(/\r\n|\n|\r/);
         this.csv_header = [];
         // console.log(this.csv_header);
 
@@ -80,20 +87,40 @@ export class PredictComponent implements OnInit {
           HeadersList = allTextLines[0].split(',');
         }
 
-        HeadersList.forEach((element) => {
+        // HeadersList.forEach((element) => {
+        //   if (element) {
+
+        //   }
+
+        //   this.csv_header.push({
+        //     name: element,
+        //     mappedProductID: '',
+        //   });
+        // });
+        for (let [index, element] of HeadersList.entries()) {
+          // if (index == 0 && element != 'Month') {
+          //   console.log(element);
+          //   this.csv_error = {
+          //     message:
+          //       '1st column shoud be "Month".\n Please select another file',
+          //   };
+          //   console.log(this.csv_error);
+          // }
+
           this.csv_header.push({
             name: element,
             mappedProductID: '',
           });
-        });
+        }
 
-        console.log(this.csv_header);
+        // console.log(this.csv_header);
 
         this.lines = [];
 
         for (let i = 1; i < 10; i++) {
           // split content based on comma
           let data = allTextLines[i].split(',');
+
           if (data.length === this.csv_header.length) {
             let tarr = [];
             for (let j = 0; j < this.csv_header.length; j++) {
@@ -105,11 +132,12 @@ export class PredictComponent implements OnInit {
             this.lines.push(tarr);
           }
         }
-        console.table(this.lines);
+        // console.table(this.lines);
 
-        const last_element = allTextLines[allTextLines.length - 1];
-        console.log(last_element);
-        this.lastMonthDetails = last_element;
+        const last_element = allTextLines[allTextLines.length - 1].split(',');
+        this.lastMonth = last_element[0]; //get last month from last line array
+        this.noOfRows = allTextLines.length;
+        this.lastMonthDetails = allTextLines[allTextLines.length - 1];
 
         this.sectionUploading = false;
         this.sectionMapping = true;
@@ -180,6 +208,7 @@ export class PredictComponent implements OnInit {
   }
 
   uploadReport() {
+    this.http_loading = true;
     // if (confirm('Are you sure you want to upload this file ?')) {
     const formData = new FormData();
 
@@ -210,12 +239,14 @@ export class PredictComponent implements OnInit {
           this.sectionUploading = false;
           this.sectionMapping = false;
           this.sectionSuccess = true;
+          this.http_loading = false;
           // this.onSuccess()
           // this.getFiles()
         }
       },
       (err) => {
         console.log(err);
+        this.http_loading = false;
         // this.onError()
       }
     );

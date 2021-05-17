@@ -60,7 +60,6 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'test', component: TestingUiComponent },
-      // { path: 'dashboard', component: DashboardComponent }, // hide
       { path: 'dashboard', component: PredictGenerateComponent },
       { path: 'predict', component: PredictComponent },
       { path: 'train', component: TrainComponent },

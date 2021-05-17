@@ -11,7 +11,7 @@
     <div class="col-md-7">
       <div class="row div-login">
         <div class="col-md-6 m-auto">
-          <form action="" class="form mb-3">
+          <form action="" class="form mb-3" #regForm="ngForm">
             <div class="form-group">
               <h5>Create account</h5>
             </div>
@@ -39,7 +39,17 @@
                 [(ngModel)]="details['userName']"
                 name="userName"
                 class="form-control"
+                autocomplete="off"
+                [class.is-invalid]="userName.invalid && userName.touched"
+                #userName="ngModel"
+                required
               />
+              <small
+                class="invalid-feedback"
+                *ngIf="userName.invalid && userName.touched"
+              >
+                Username is required.
+              </small>
             </div>
             <div class="form-group mt-3">
               <label for="">Email</label>
@@ -49,7 +59,23 @@
                 name="email"
                 class="form-control"
                 autocomplete="off"
+                [class.is-invalid]="emailInput.invalid && emailInput.touched"
+                #emailInput="ngModel"
+                required
+                email
               />
+              <small
+                class="invalid-feedback"
+                *ngIf="emailInput.errors?.required && emailInput.touched"
+              >
+                Email is required.
+              </small>
+              <small
+                class="invalid-feedback"
+                *ngIf="emailInput.errors?.email && emailInput.touched"
+              >
+                Email is invalid.
+              </small>
             </div>
             <div class="row">
               <div class="col-md-6">
@@ -60,7 +86,30 @@
                     [(ngModel)]="details['password']"
                     name="password"
                     class="form-control"
+                    [class.is-invalid]="passInput.invalid && passInput.touched"
+                    #passInput="ngModel"
+                    required
+                    appValidPassword
+                    (input)="cpassInput.control.updateValueAndValidity()"
                   />
+                  <small
+                    class="invalid-feedback"
+                    *ngIf="passInput.errors?.required && passInput.touched"
+                  >
+                    Password is required
+                  </small>
+                  <small
+                    class="invalid-feedback"
+                    *ngIf="
+                      passInput.errors?.notValidPassword &&
+                      !passInput.errors?.required &&
+                      passInput.touched
+                    "
+                  >
+                    Password must at least include 8 characters and contain at
+                    least one uppercase, at least one lowercase character, and
+                    one special character.
+                  </small>
                 </div>
               </div>
               <div class="col-md-6">
@@ -71,7 +120,29 @@
                     [(ngModel)]="details['cPassword']"
                     name="cPassword"
                     class="form-control"
+                    [class.is-invalid]="
+                      cpassInput.invalid && cpassInput.touched
+                    "
+                    #cpassInput="ngModel"
+                    appConfirmEqualValidator="password"
+                    required
                   />
+                  <small
+                    class="invalid-feedback"
+                    *ngIf="cpassInput.errors?.required && cpassInput.touched"
+                  >
+                    Confirm passwords is required
+                  </small>
+                  <small
+                    class="invalid-feedback"
+                    *ngIf="
+                      cpassInput.errors?.notEqual &&
+                      !cpassInput.errors?.required &&
+                      cpassInput.touched
+                    "
+                  >
+                    Passwords and Confirm Password must be same
+                  </small>
                 </div>
               </div>
             </div>
@@ -83,14 +154,15 @@
                 id="flexCheckDefault"
               />
               <label class="form-check-label" for="flexCheckDefault">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry
+                I have read and agree to the <a href="">Terms</a> and
+                <a href="">Privacy Policy</a>
               </label>
             </div>
             <div class="form-group mt-4">
               <button
                 class="ui button btn-signup"
                 [ngClass]="{ 'loading disabled': http_loading }"
+                [disabled]="regForm.invalid || http_loading"
                 (click)="register()"
               >
                 Create account

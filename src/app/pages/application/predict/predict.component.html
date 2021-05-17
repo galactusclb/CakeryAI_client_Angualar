@@ -15,7 +15,7 @@
 <!-- </div> -->
 <div class="main px-5">
   <section>
-    <h2>Prediction</h2>
+    <h2>Upload Sales Report</h2>
     <div class="row mt-3 pt-2 div-progress" style="height: 100px">
       <div class="col-lg-8 mx-auto">
         <div class="row div-steps">
@@ -59,10 +59,11 @@
             <input
               class="file-upload-input"
               type="file"
-              accept=".xlsx, .xls, .csv"
+              accept=".csv"
               #fileInput
               (change)="processFile(fileInput)"
             />
+            <!-- accept=".xlsx, .xls, .csv" -->
             <img
               src="../../../../assets/icons/svg/cloud-computing upload.svg"
               alt=""
@@ -172,11 +173,20 @@
             </tr>
           </tfoot>
         </table>
-
-        <form action="" class="form">
+        <div class="row mt-5">
+          <div class="col">
+            <h4 for="" style="text-align: start">
+              Last month : <span class="ui yellow label">{{ lastMonth }}</span>
+            </h4>
+            <h4 for="" style="text-align: start">
+              Total rows : <span class="ui orange label">{{ noOfRows }}</span>
+            </h4>
+          </div>
+        </div>
+        <form action="" class="form" #uploadForm="ngForm">
           <div class="row div-column-selection">
-            <p class="mt-5 mb-3" style="text-align: start">
-              please, select the month/date column and category column which you
+            <p class="mt-4 mb-3" style="text-align: start">
+              Please, select the month/date column and category column which you
               need to get the prediction
             </p>
             <!-- <div class="col-md mt-1">
@@ -207,7 +217,12 @@
               </select>
             </div> -->
           </div>
-          <div class="row div-column-selection">
+          <div class="ui red message py-4" *ngIf="csv_error['message']">
+            <p class="mt-0">
+              {{ csv_error["message"] }}
+            </p>
+          </div>
+          <div class="row div-column-selection" *ngIf="!csv_error['message']">
             <div
               class="col-md-3"
               *ngFor="let item of csv_header; let i = index"
@@ -218,6 +233,10 @@
                 [name]="item['mappedProductID'] + '_' + i"
                 class="form-select"
                 aria-label="Default select example"
+                [class.is-invalid]="unit.invalid && unit.touched"
+                #unit="ngModel"
+                [appReportUploadingFormValidation]="i == 0 ? 1 : null"
+                required
               >
                 <option value="Month">Month</option>
                 <option
@@ -227,21 +246,54 @@
                   {{ product["productName"] }}
                 </option>
               </select>
+              <small
+                class="invalid-feedback"
+                *ngIf="unit.errors?.required && unit.touched"
+              >
+                <ng-container *ngIf="i == 0">
+                  Please select the Month option
+                </ng-container>
+                <ng-container *ngIf="i > 0">
+                  Please select a matching product
+                </ng-container>
+              </small>
+              <small
+                class="invalid-feedback"
+                *ngIf="
+                  unit.errors?.notMonthSelected &&
+                  !unit.errors?.required &&
+                  unit.touched
+                "
+              >
+                Please select month option
+              </small>
+            </div>
+          </div>
+          <div
+            class="page-footer ui clearing mt-5"
+            *ngIf="csv_error['message']"
+          >
+            <button class="ui orange button" (click)="backToUpload()">
+              Re-upload
+            </button>
+          </div>
+          <div
+            class="page-footer ui clearing mt-5"
+            *ngIf="!csv_error['message']"
+          >
+            <button
+              class="ui green right floated button"
+              (click)="uploadReport()"
+              [ngClass]="{ 'loading disabled': http_loading }"
+              [disabled]="uploadForm.invalid || http_loading"
+            >
+              Save product
+            </button>
+            <div class="ui basic right floated button" (click)="backToUpload()">
+              Cancel
             </div>
           </div>
         </form>
-        <div class="page-footer ui clearing mt-5">
-          <div
-            class="ui green right floated button"
-            [ngClass]="{ 'loading disabled': http_loading }"
-            (click)="uploadReport()"
-          >
-            Save product
-          </div>
-          <div class="ui basic right floated button" (click)="backToUpload()">
-            Cancel
-          </div>
-        </div>
       </div>
       <div class="col-md-8 mx-auto" *ngIf="sectionSuccess">
         <app-testing-ui></app-testing-ui>

@@ -11,7 +11,7 @@
     <div class="col-md-7">
       <div class="row div-login">
         <div class="col-md-6 m-auto">
-          <form action="" class="form mb-3">
+          <form action="" class="form mb-3" #loginForm="ngForm">
             <div class="form-group">
               <h5>Login</h5>
             </div>
@@ -24,22 +24,48 @@
               </div>
             </div>
             <div class="form-group mt-3">
-              <label for="">Username</label>
-              <input
-                type="text"
-                [(ngModel)]="details['userName']"
-                name="userName"
-                class="form-control"
-              />
+              <span class="">Username</span>
+              <div class="row mt-1">
+                <div class="col-lg">
+                  <input
+                    type="text"
+                    [(ngModel)]="details['userName']"
+                    name="userName"
+                    class="form-control"
+                    [class.is-invalid]="userName.invalid && userName.touched"
+                    #userName="ngModel"
+                    required
+                  />
+                  <small
+                    class="invalid-feedback"
+                    *ngIf="userName.invalid && userName.touched"
+                  >
+                    Username is required.
+                  </small>
+                </div>
+              </div>
             </div>
             <div class="form-group mt-3">
               <label for="">Password</label>
-              <input
-                type="password"
-                [(ngModel)]="details['password']"
-                name="password"
-                class="form-control"
-              />
+              <div class="row mt-1">
+                <div class="col-lg">
+                  <input
+                    type="password"
+                    [(ngModel)]="details['password']"
+                    name="password"
+                    class="form-control"
+                    [class.is-invalid]="password.invalid && password.touched"
+                    #password="ngModel"
+                    required
+                  />
+                  <small
+                    class="invalid-feedback"
+                    *ngIf="password.invalid && password.touched"
+                  >
+                    Password is required.
+                  </small>
+                </div>
+              </div>
             </div>
             <div class="form-check mt-4">
               <input
@@ -56,6 +82,7 @@
               <button
                 class="ui button btn-signup"
                 [ngClass]="{ 'loading disabled': http_loading }"
+                [disabled]="loginForm.invalid || http_loading"
                 (click)="loginUser()"
               >
                 Login

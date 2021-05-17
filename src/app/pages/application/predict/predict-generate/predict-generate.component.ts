@@ -16,6 +16,8 @@ export class PredictGenerateComponent implements OnInit {
   products = [];
   csvFile = [];
 
+  pinnedCakeList = [];
+
   totalReports: number = 0;
 
   httpLoading_chart: boolean = false;
@@ -194,7 +196,26 @@ export class PredictGenerateComponent implements OnInit {
 
         if (this.modelInfo?.['headers']) {
           this.modelInfo['headers'] = JSON.parse(this.modelInfo?.['headers']);
+
+          this.modelInfo['headers'].forEach((product) => {
+            if (product['mappedProductID'] != 'Month') {
+              product['productName'] = this.getMappedProductName(
+                product['mappedProductID']
+              );
+              this.pinnedCakeList.push(product);
+
+              // // set mapped product name for csv column products
+              // this.pinnedCakeList.forEach((product) => {
+              //   product['productName'] = this.getMappedProductName(
+              //     product['mappedProductID']
+              //   );
+              // });
+            }
+          });
         }
+
+        console.log('pinned cakes', this.pinnedCakeList);
+
         this.httpLoading_summary['activeReport'] = {
           loading: false,
         };
@@ -340,5 +361,16 @@ export class PredictGenerateComponent implements OnInit {
     });
 
     return mapped;
+  }
+
+  getMappedProductName(productID) {
+    let name = '';
+
+    this.products.forEach((element) => {
+      if (element['_id'] == productID) {
+        name = element['productName'];
+      }
+    });
+    return name;
   }
 }

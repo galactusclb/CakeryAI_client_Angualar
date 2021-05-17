@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -7,6 +8,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+  @ViewChild('loginForm', { static: false }) public submitForm: NgForm;
   details = {};
 
   errorMessage: any;

@@ -34,6 +34,9 @@ import { TestingUiComponent } from './testing-ui/testing-ui.component';
 import { UserAccountComponent } from './pages/application/profile/user-account/user-account.component';
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
+import { ConfirmEqualValidatorDirective } from './extra/directives/confirm-equal-validator.directive';
+import { ValidPasswordDirective } from './extra/directives/valid-password.directive';
+import { ReportUploadingFormValidationDirective } from './extra/directives/report-uploading-form-validation.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +63,9 @@ import { ForgetPasswordComponent } from './pages/forget-password/forget-password
     UserAccountComponent,
     PasswordResetComponent,
     ForgetPasswordComponent,
+    ConfirmEqualValidatorDirective,
+    ValidPasswordDirective,
+    ReportUploadingFormValidationDirective,
   ],
   imports: [
     BrowserModule,

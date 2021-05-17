@@ -2,7 +2,7 @@
   <section>
     <h2>Add Ingredients</h2>
     <div class="div-form mt-3">
-      <form class="form">
+      <form class="form" #addForm="ngForm">
         <div class="row">
           <div class="col-md-6 neuo mx-3 ms-0">
             <div
@@ -15,7 +15,9 @@
             >
               <i class="close icon" (click)="closeAlert()"></i>
               <div class="header">Ingredient detail added succesfully.</div>
-              <p>You may now log-in with the username you have chosen</p>
+              <p>
+                You may now can see your all ingredients in ingredients page
+              </p>
             </div>
             <p>Ingredient info</p>
             <div class="row">
@@ -26,7 +28,16 @@
                   class="form-control"
                   [(ngModel)]="details['ingredientName']"
                   name="ingredientName"
+                  [class.is-invalid]="ingredient.invalid && ingredient.touched"
+                  #ingredient="ngModel"
+                  required
                 />
+                <small
+                  class="invalid-feedback"
+                  *ngIf="ingredient.invalid && ingredient.touched"
+                >
+                  Ingredient is required.
+                </small>
               </div>
               <div class="col-md-4 form-group">
                 <label for="Measure type">Measure type</label>
@@ -36,6 +47,9 @@
                   class="form-select"
                   [(ngModel)]="details['measureType']"
                   name="measureType"
+                  [class.is-invalid]="unit.invalid && unit.touched"
+                  #unit="ngModel"
+                  required
                 >
                   <option value="kg">kg</option>
                   <option value="g">g</option>
@@ -44,6 +58,12 @@
                   <option value="l">ml</option>
                   <option value="l">Unit</option>
                 </select>
+                <small
+                  class="invalid-feedback"
+                  *ngIf="unit.invalid && unit.touched"
+                >
+                  Measure type is required.
+                </small>
               </div>
             </div>
             <div class="form-footer mt-3">
@@ -54,7 +74,12 @@
                 >
                   Cancel
                 </button>
-                <button class="btn btn-done" (click)="addIngredientDetails()">
+                <button
+                  class="ui button btn-done"
+                  (click)="addIngredientDetails()"
+                  [ngClass]="{ 'loading disabled': http_loading }"
+                  [disabled]="addForm.invalid || http_loading"
+                >
                   Done
                 </button>
               </div>
