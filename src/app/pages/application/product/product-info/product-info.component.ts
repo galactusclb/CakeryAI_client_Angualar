@@ -61,11 +61,17 @@ export class ProductInfoComponent implements OnInit {
           this.notFound = true;
         } else {
           this.details = res[0];
+          console.log(this.details);
 
           if (this.details['Ingredient']) {
             this.details['Ingredient'] = JSON.parse(this.details['Ingredient']);
             this.ingredients = this.details['Ingredient'] || [];
           }
+
+          console.log(
+            'has model : ',
+            this.hasTrainingModel(this.details['productName'])
+          );
 
           if (this.pro_function) {
             this.getPredictionPro();
@@ -108,6 +114,16 @@ export class ProductInfoComponent implements OnInit {
         this.modelInfo['lastMonth'] = moment(lastMonthDetails[0]).format(
           'MMMM YYYY'
         );
+
+        if (this.modelInfo?.['headers']) {
+          this.modelInfo['headers'] = JSON.parse(this.modelInfo?.['headers']);
+        }
+
+        if (this.modelInfo?.['preTrainedModelURL']) {
+          this.modelInfo['preTrainedModelURL'] = JSON.parse(
+            this.modelInfo?.['preTrainedModelURL']
+          );
+        }
       },
       (err) => {
         console.log(err);
@@ -293,5 +309,12 @@ export class ProductInfoComponent implements OnInit {
     } else {
       alert('Subscribe to a pro plan to get a more accurate prediction.');
     }
+  }
+
+  hasTrainingModel(product) {
+    if (this.modelInfo?.['preTrainedModelURL']) {
+      return this.modelInfo?.['preTrainedModelURL'].hasOwnProperty(product);
+    }
+    return false;
   }
 }
