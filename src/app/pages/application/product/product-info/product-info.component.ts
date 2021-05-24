@@ -46,10 +46,10 @@ export class ProductInfoComponent implements OnInit {
     });
 
     // this.getUSerSubcription();
-    this.getPro_functionStatus();
-    this.getProductsDetails();
-    this.getIngredientList();
     this.getActivatedModelDetails();
+    this.getPro_functionStatus();
+
+    this.getIngredientList();
   }
 
   getProductsDetails() {
@@ -68,10 +68,10 @@ export class ProductInfoComponent implements OnInit {
             this.ingredients = this.details['Ingredient'] || [];
           }
 
-          console.log(
-            'has model : ',
-            this.hasTrainingModel(this.details['productName'])
-          );
+          // console.log(
+          //   'has model : ',
+          //   this.hasTrainingModel(this.details['_id'])
+          // );
 
           if (this.pro_function) {
             this.getPredictionPro();
@@ -124,6 +124,8 @@ export class ProductInfoComponent implements OnInit {
             this.modelInfo?.['preTrainedModelURL']
           );
         }
+
+        this.getProductsDetails();
       },
       (err) => {
         console.log(err);
@@ -136,41 +138,61 @@ export class ProductInfoComponent implements OnInit {
 
   // pro users' prediction
   getPredictionPro() {
-    this.prediction['loading'] = true;
-
-    this._file.getPredictionPro(this.productId).subscribe(
-      (res) => {
-        console.log(res);
-        console.log(this.ingredients);
-        res = res[0];
-        res[0] = res[0]?.toFixed(2);
-        this.prediction = {
-          predict: res[0],
-          loading: false,
-        };
-        this.calcPredictedIngredients();
-      },
-      (err) => {
-        console.log(err);
-        this.prediction['loading'] = false;
-
-        if (err.status == 400) {
+    console.log('has model : ', this.hasTrainingModel(this.details['_id']));
+    if (
+      !this.hasTrainingModel(this.details['_id']) ||
+      this.modelInfo['status'] != 'complete'
+    ) {
+      this.prediction = {
+        text_p: 'No training model found',
+        text_span: 'This activated sales report has not been trained yet',
+        btn_lable: 'Go to Files',
+        route: '/app/train',
+      };
+    } else {
+      this.prediction['loading'] = true;
+      this._file.getPredictionPro(this.productId).subscribe(
+        (res) => {
+          console.log(res);
+          console.log(this.ingredients);
+          res = res[0];
+          res[0] = res[0]?.toFixed(2);
           this.prediction = {
-            text_p: 'Mapped Error',
-            text_span:
-              'This product has not been mapped with your activated sales report',
-            btn_lable: 'Go to Files',
-            route: '/app/train',
+            predict: res[0],
+            loading: false,
           };
-        } else if (err.status == 500) {
-          this.prediction = {
-            text_p: 'Mapped Error',
-            text_span: 'Something wend wrong. contact support',
-            btn_lable: '',
-          };
+          this.calcPredictedIngredients();
+        },
+        (err) => {
+          console.log(err);
+          this.prediction['loading'] = false;
+
+          if (err.status == 400) {
+            this.prediction = {
+              text_p: 'Mapped Error',
+              text_span:
+                'This product has not been mapped with your activated sales report',
+              btn_lable: 'Go to Files',
+              route: '/app/train',
+            };
+          } else if (err.status == 404) {
+            const obj = JSON.parse(err.error);
+
+            this.prediction = {
+              text_p: obj?.['Error'],
+              text_span: obj?.['message'],
+              btn_lable: '',
+            };
+          } else if (err.status == 500) {
+            this.prediction = {
+              text_p: 'Mapped Error',
+              text_span: 'Something wend wrong. contact support',
+              btn_lable: '',
+            };
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   // free users' prediction
@@ -311,10 +333,26 @@ export class ProductInfoComponent implements OnInit {
     }
   }
 
-  hasTrainingModel(product) {
-    if (this.modelInfo?.['preTrainedModelURL']) {
-      return this.modelInfo?.['preTrainedModelURL'].hasOwnProperty(product);
+  hasTrainingModel(productId) {
+    console.log('cf : ', productId);
+
+    var productName;
+
+    for (let i = 0; i < this.modelInfo?.['headers'].length; i++) {
+      if (this.modelInfo?.['headers'][i]['mappedProductID'] == productId) {
+        productName = this.modelInfo?.['headers'][i]['name'];
+        break;
+      }
     }
+
+    console.log(productName);
+
+    for (let i = 0; i < this.modelInfo?.['preTrainedModelURL'].length; i++) {
+      if (this.modelInfo?.['preTrainedModelURL'][i]['product'] == productName) {
+        return true;
+      }
+    }
+
     return false;
   }
 }

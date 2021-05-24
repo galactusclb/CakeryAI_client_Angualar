@@ -7,37 +7,6 @@
     <div class="active section">Product</div>
   </div>
   <section class="mt-3">
-    <!-- <div class="row header">
-      <div class="col col-12">
-        <h2>{{ productName }}</h2>
-        <div class="top-right-button-container">
-          <button
-            class="ui button px-4 py-2"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Actions
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item">Delete</a>
-            </li>
-            <li>
-              <a class="dropdown-item">Train </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                data-bs-toggle="modal"
-                data-bs-target="#popupEdit"
-                >Edit</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div> -->
     <div class="page-header">
       <div class="header-left">
         <div class="btn-back" routerLink="/app/products/list">
@@ -49,12 +18,11 @@
           class="toggle-btn ms-3"
           [ngClass]="{ active: pro_function == true }"
         >
-          <div class="circle" (click)="activateProFunctions()"></div>
-          <!-- (click)=" 
-                        changeReportsActiveSettings(
-                          item['_id'],
-                        )
-                      " -->
+          <div
+            class="circle"
+            [class.click-disabled]="prediction['loading']"
+            (click)="activateProFunctions()"
+          ></div>
         </div>
         <i class="chess king yellow icon ms-2"></i>
         Prediction
@@ -309,7 +277,10 @@
                 <button class="ui yellow label me-2">
                   {{ item["ingredients_details"] }}
                 </button>
-                <span>{{ item["predicted"] }} {{ item["measure_type"] }}</span>
+                <span
+                  >{{ item["predicted"] | number: "1.0-2" }}
+                  {{ item["measure_type"] }}</span
+                >
               </div>
             </div>
           </div>
