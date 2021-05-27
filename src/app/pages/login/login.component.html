@@ -16,7 +16,15 @@
               <h5>Login</h5>
             </div>
             <div
-              class="form-group has-danger error-message"
+              class="form-group has-danger error-message mt-2"
+              *ngIf="isExpiredSession"
+            >
+              <div class="form-control-feedback">
+                Your session has expired.Please log in again.
+              </div>
+            </div>
+            <div
+              class="form-group has-danger error-message mt-2"
               *ngIf="errorMessage"
             >
               <div class="form-control-feedback">

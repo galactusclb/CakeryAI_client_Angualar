@@ -32,7 +32,12 @@
           <a routerLinkActive="active-route" class="nav-link">Serives</a>
         </li>
         <li class="nav-item ms-3">
-          <a routerLinkActive="active-route" class="nav-link">News</a>
+          <a
+            routerLink="subscription"
+            routerLinkActive="active-route"
+            class="nav-link"
+            >Premium</a
+          >
         </li>
         <li class="nav-item ms-3">
           <a routerLinkActive="active-route" class="nav-link">AboutUs</a>
@@ -132,8 +137,14 @@
             <a class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a>
             <a class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a> 
             <div class="dropdown-divider"></div>-->
+            <a
+              style="cursor: pointer"
+              routerLink="/app/profile/user"
+              class="dropdown-item"
+              ><i class="user outline icon"></i> Account</a
+            >
             <a style="cursor: pointer" (click)="logOut()" class="dropdown-item"
-              ><i class="material-icons">&#xE8AC;</i> Logout</a
+              ><i class="power off icon"></i> Logout</a
             >
           </div>
         </div>

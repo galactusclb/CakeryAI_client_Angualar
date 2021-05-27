@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError, mapTo } from 'rxjs/operators';
 import * as moment from 'moment';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 
 import { environment } from '../../environments/environment';
 
@@ -36,7 +36,11 @@ export class AuthService {
   private newLogin = new BehaviorSubject(false); //1
   newLoginStatus = this.newLogin.asObservable(); //2
 
-  constructor(private http: HttpClient, private _router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private _router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   registerUser(user) {
     return this.http.post<any>(this._registerUrl, user);
@@ -49,7 +53,7 @@ export class AuthService {
   loginUser(details): Observable<any> {
     return this.http.post<any>(this._loginUrl, details).pipe(
       tap((res) => {
-        console.log(res);
+        // console.log(res);
 
         const token = res.jwtToken;
         this.token = token;
@@ -89,19 +93,26 @@ export class AuthService {
     );
   }
 
-  logout() {
+  logout(isSessionExpired?: boolean) {
     this.token = null;
     this.isAuthenticated = false;
     this.clearAuthData();
     this.userId = null;
     clearTimeout(this.tokenTimer);
     this.getLoginStatus(true); //5
-    this._router.navigate(['/login']);
+    this._router.navigate(['/login'], {
+      queryParams: {
+        ...(isSessionExpired ? { expire: true } : {}), // for after session expire
+        ...(this.getCurrentRouteForRetunr() && isSessionExpired
+          ? { redirectTo: this.getCurrentRouteForRetunr() }
+          : {}), // for set redirect
+      },
+    });
   }
 
   private setAuthTimer(duration: number) {
     this.tokenTimer = setTimeout(() => {
-      this.logout();
+      this.logout(true);
     }, duration * 1000);
   }
 
@@ -192,6 +203,8 @@ export class AuthService {
   }
 
   getuserdetails() {
+    // console.log(this.state.url);
+
     return this.http.get<any>(this._getuserdetailsUrl);
   }
 
@@ -212,5 +225,10 @@ export class AuthService {
   }
   activateProFunctions(status: boolean = true) {
     localStorage.setItem('pro_functions', `${status}`);
+  }
+
+  getCurrentRouteForRetunr() {
+    var snapshot = this.activatedRoute.snapshot['_routerState'];
+    return snapshot?.url;
   }
 }

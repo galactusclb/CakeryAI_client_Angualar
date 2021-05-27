@@ -35,7 +35,7 @@
                 <th scope="col">Date</th>
                 <th scope="col">Mapped products</th>
                 <th scope="col">Last month</th>
-                <th scope="col">Status</th>
+                <th scope="col">Pro Prediction</th>
                 <th scope="col">Activate</th>
                 <th scope="col"></th>
               </tr>
@@ -86,8 +86,13 @@
                       class="spinner loading icon"
                       *ngIf="item['status'] == 'training'"
                     ></i>
-                    {{ item["status"] }}</span
-                  >
+                    <ng-container *ngIf="item['status'] == 'complete'"
+                      >Ready</ng-container
+                    >
+                    <ng-container *ngIf="item['status'] != 'complete'">{{
+                      item["status"]
+                    }}</ng-container>
+                  </span>
                 </td>
                 <td>
                   <!-- {{ item["activate"] }} -->

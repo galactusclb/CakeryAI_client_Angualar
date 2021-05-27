@@ -37,6 +37,8 @@ import { ForgetPasswordComponent } from './pages/forget-password/forget-password
 import { ConfirmEqualValidatorDirective } from './extra/directives/confirm-equal-validator.directive';
 import { ValidPasswordDirective } from './extra/directives/valid-password.directive';
 import { ReportUploadingFormValidationDirective } from './extra/directives/report-uploading-form-validation.directive';
+import { UserSubscriptionComponent } from './pages/application/profile/user-subscription/user-subscription.component';
+import { SubscriptionComponent } from './pages/subscription/subscription.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +68,8 @@ import { ReportUploadingFormValidationDirective } from './extra/directives/repor
     ConfirmEqualValidatorDirective,
     ValidPasswordDirective,
     ReportUploadingFormValidationDirective,
+    UserSubscriptionComponent,
+    SubscriptionComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,53 @@
+<div class="row page-body mt-4 pb-5">
+  <div class="col-md-6">
+    <div class="page-header">
+      <h2 class="mb-1">Subscriptions & payments</h2>
+      <span>Keep track of purchases and subscription status</span>
+    </div>
+    <div class="sub-section mt-5" *ngIf="details['subscriptionLevel'] == 0">
+      <h4>Your Plan</h4>
+      <div class="row mt-3 me-2">
+        <div class="col-md-12 form-group">
+          <label for="subscription type" class="topic-label">Free</label>
+          <button
+            class="ui green button right floated"
+            routerLink="subscription"
+          >
+            Upgrade
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="sub-section mt-5" *ngIf="details['subscriptionLevel'] > 0">
+      <h4>Your Plan</h4>
+      <div class="row mt-5 me-2">
+        <div class="col-md-12 form-group sub-details">
+          <label for="subscription type" class="topic">
+            <ng-container *ngIf="details['subscriptionLevel'] == 1"
+              >Plus</ng-container
+            >
+            <ng-container *ngIf="details['subscriptionLevel'] == 2"
+              >Pro</ng-container
+            >
+          </label>
+          <label for="subscription type " class="details">
+            <ng-container *ngIf="details['subscriptionLevel'] == 1"
+              >$9 per month</ng-container
+            >
+            <ng-container *ngIf="details['subscriptionLevel'] == 2"
+              >$49 per month</ng-container
+            >
+          </label>
+        </div>
+      </div>
+      <div class="row mt-5 me-2">
+        <div class="col-md-12 form-group sub-details">
+          <label for="subscription type" class="topic">Billing</label>
+          <label for="subscription type " class="details"
+            >Subscription ends on Jun 17 2021 (21 Days)</label
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

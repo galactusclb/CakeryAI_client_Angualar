@@ -22,6 +22,8 @@ import { TestingUiComponent } from './testing-ui/testing-ui.component';
 import { UserAccountComponent } from './pages/application/profile/user-account/user-account.component';
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
+import { UserSubscriptionComponent } from './pages/application/profile/user-subscription/user-subscription.component';
+import { SubscriptionComponent } from './pages/subscription/subscription.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'subscription',
+    component: SubscriptionComponent,
   },
   {
     path: 'login',
@@ -68,13 +74,29 @@ const routes: Routes = [
         path: 'products',
         children: [
           { path: '', redirectTo: 'list', pathMatch: 'full' },
-          { path: 'list', component: ProductListComponent },
-          { path: 'product/:id', component: ProductInfoComponent },
+          {
+            path: 'list',
+            component: ProductListComponent,
+            // data: { redirectTo: ['list'] },
+          },
+          {
+            path: 'product/:id',
+            component: ProductInfoComponent,
+          },
           { path: 'new/form', component: ProductAddByInsertComponent },
           { path: 'new/upload', component: ProductAddByUploadComponent },
-          { path: 'ingredients', component: IngredientListComponent },
-          { path: 'ingredients/new', component: IngredientAddComponent },
+          {
+            path: 'ingredients',
+            component: IngredientListComponent,
+            // data: { redirectTo: ['ingredients'] },
+          },
+          {
+            path: 'ingredients/new',
+            component: IngredientAddComponent,
+            // data: { redirectTo: ['ingredients/new'] },
+          },
         ],
+        // canActivateChild: [AuthChildGuard],
         canActivate: [AuthGuard],
       },
       {
@@ -83,11 +105,13 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'user', pathMatch: 'full' },
           { path: 'user', component: UserAccountComponent },
+          { path: 'subscription', component: UserSubscriptionComponent },
         ],
       },
     ],
     canActivate: [AuthGuard],
   },
+  { path: '**', component: HomeComponent },
 ];
 
 @NgModule({

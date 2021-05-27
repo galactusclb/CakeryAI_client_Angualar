@@ -21,7 +21,7 @@
                 alt=""
                 class="icon"
               /> -->
-              <i class="bi bi-house-door-fill"></i>
+              <i class="icon home"></i>
               Dashboard
             </a>
             <ul
@@ -37,43 +37,44 @@
                   >Dashboard</a
                 >
               </li>
-              <li>
-                <a
-                  [routerLink]="['/app/profile']"
-                  routerLinkActive="router-active"
-                  >Profile</a
-                >
-              </li>
             </ul>
           </li>
-          <li [class.active]="isActive('expenditure')">
+          <li [class.active]="isActive('profile')">
             <a
               href="#pageSubmenu"
               data-bs-toggle="collapse"
               aria-controls="collapseExample"
               aria-expanded="false"
               class="dropdown-toggle"
-              [attr.aria-expanded]="isActive('expenditure') ? true : false"
+              [attr.aria-expanded]="isActive('profile') ? true : false"
             >
               <!-- <img
                 src="../../../assets/icons/svg/user.svg"
                 alt=""
                 class="icon"
               /> -->
-              <i class="bi bi-brightness-high-fill"></i>
-              Daily
+              <i class="icon user"></i>
+              Setting and Billing
             </a>
             <ul
               class="collapse lisst-unstyled"
               id="pageSubmenu"
               data-bs-parent="#sidebar"
-              [class.show]="isActive('expenditure')"
+              [class.show]="isActive('profile')"
             >
               <li>
-                <a [routerLink]="['/app/breakages']">Breakages</a>
+                <a
+                  [routerLink]="['/app/profile/user']"
+                  routerLinkActive="router-active"
+                  >Profile</a
+                >
               </li>
               <li>
-                <a [routerLink]="['/app/expenditure']">Expenditure</a>
+                <a
+                  [routerLink]="['/app/profile/subscription']"
+                  routerLinkActive="router-active"
+                  >Subscription</a
+                >
               </li>
             </ul>
           </li>
@@ -101,10 +102,18 @@
               [class.show]="isActive('employee')"
             >
               <li>
-                <a [routerLink]="['/app/predict']">Upload</a>
+                <a
+                  [routerLink]="['/app/predict']"
+                  routerLinkActive="router-active"
+                  >Upload</a
+                >
               </li>
               <li>
-                <a [routerLink]="['/app/train']">Train</a>
+                <a
+                  [routerLink]="['/app/train']"
+                  routerLinkActive="router-active"
+                  >Train</a
+                >
               </li>
               <!-- <li>
                 <a [routerLink]="['/app/output']">Predictions</a>
@@ -135,10 +144,18 @@
               [class.show]="isActive('products')"
             >
               <li>
-                <a [routerLink]="['/app/products/list']">Products</a>
+                <a
+                  [routerLink]="['/app/products/list']"
+                  routerLinkActive="router-active"
+                  >Products</a
+                >
               </li>
               <li>
-                <a [routerLink]="['/app/products/ingredients']">Ingredients</a>
+                <a
+                  [routerLink]="['/app/products/ingredients']"
+                  routerLinkActive="router-active"
+                  >Ingredients</a
+                >
               </li>
             </ul>
           </li>
@@ -181,9 +198,15 @@
               <div class="dropdown-divider"></div>-->
               <a
                 style="cursor: pointer"
+                routerLink="/app/profile/user"
                 class="dropdown-item"
+                ><i class="user outline icon"></i> Account</a
+              >
+              <a
+                style="cursor: pointer"
                 (click)="logOut()"
-                ><i class="material-icons">&#xE8AC;</i> Logout</a
+                class="dropdown-item"
+                ><i class="power off icon"></i> Logout</a
               >
             </div>
           </div>

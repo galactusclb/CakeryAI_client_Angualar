@@ -21,5 +21,23 @@
       padding-bottom: 5px;
       border-bottom: 2px solid #e8e8e8;
     }
+
+    .sub-details {
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e8e8e8;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+
+      .topic {
+        font-size: 1.2rem;
+        font-weight: lighter;
+      }
+      .details {
+        // float: right;
+        font-size: 1.1rem;
+        font-weight: lighter;
+      }
+    }
   }
 }

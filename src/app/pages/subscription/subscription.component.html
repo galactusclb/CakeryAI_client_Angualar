@@ -1,0 +1,208 @@
+<div class="container-fluid p-0">
+  <section class="div-content pricing py-5">
+    <div class="container">
+      <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Subscription Plans</h1>
+      </div>
+      <div class="row pricing-cards">
+        <!-- Free Tier -->
+        <div class="col-lg-3">
+          <!-- loading placeholder -->
+          <div class="ui raised segment" *ngIf="httploading">
+            <div class="ui placeholder">
+              <div class="image header">
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+              <div class="paragraph">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-5 mb-lg-0" *ngIf="!httploading">
+            <div class="card-body">
+              <h5 class="card-title text-muted text-uppercase text-center">
+                Free
+              </h5>
+              <h6 class="card-price text-center">
+                $0<span class="period">/month</span>
+              </h6>
+              <hr />
+              <ul class="fa-ul">
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Single
+                  User
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>5GB
+                  Storage
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Unlimited
+                  Public Projects
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Community
+                  Access
+                </li>
+                <li class="text-muted">
+                  <span class="fa-li"><i class="x icon"></i></span>Unlimited
+                  Private Projects
+                </li>
+                <li class="text-muted">
+                  <span class="fa-li"><i class="x icon"></i></span>Dedicated
+                  Phone Support
+                </li>
+                <li class="text-muted">
+                  <span class="fa-li"><i class="x icon"></i></span>Free
+                  Subdomain
+                </li>
+                <li class="text-muted">
+                  <span class="fa-li"><i class="x icon"></i></span>Monthly
+                  Status Reports
+                </li>
+              </ul>
+              <button
+                class="fluid ui button py-3"
+                [ngClass]="{
+                  disabled: user['subscriptionLevel'] == 0 || isLogged()
+                }"
+                *ngIf="user['subscriptionLevel'] < 1 || !isLogged()"
+                routerLink="/login"
+              >
+                <ng-container *ngIf="!isLogged()">Get Started</ng-container>
+                <ng-container
+                  *ngIf="user['subscriptionLevel'] < 1 && isLogged()"
+                  >Active</ng-container
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Plus Tier -->
+        <div class="col-lg-3">
+          <div class="card mb-5 mb-lg-0">
+            <div class="card-body">
+              <h5 class="card-title text-muted text-uppercase text-center">
+                Plus
+              </h5>
+              <h6 class="card-price text-center">
+                $9<span class="period">/month</span>
+              </h6>
+              <hr />
+              <ul class="fa-ul">
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span
+                  ><strong>5 Users</strong>
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>50GB
+                  Storage
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Unlimited
+                  Public Projects
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Community
+                  Access
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Unlimited
+                  Private Projects
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Dedicated
+                  Phone Support
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Free
+                  Subdomain
+                </li>
+                <li class="text-muted">
+                  <span class="fa-li"><i class="x icon"></i></span>Monthly
+                  Status Reports
+                </li>
+              </ul>
+              <button
+                class="fluid ui button py-3"
+                [ngClass]="{ disabled: user['subscriptionLevel'] == 1 }"
+                (click)="buyPlan(1)"
+              >
+                <ng-container *ngIf="user['subscriptionLevel'] != 1"
+                  >Get Started</ng-container
+                >
+                <ng-container *ngIf="user['subscriptionLevel'] == 1"
+                  >Active</ng-container
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Pro Tier -->
+        <div class="col-lg-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-muted text-uppercase text-center">
+                Pro
+              </h5>
+              <h6 class="card-price text-center">
+                $49<span class="period">/month</span>
+              </h6>
+              <hr />
+              <ul class="fa-ul">
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span
+                  ><strong>Unlimited Users</strong>
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>150GB
+                  Storage
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Unlimited
+                  Public Projects
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Community
+                  Access
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Unlimited
+                  Private Projects
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Dedicated
+                  Phone Support
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span
+                  ><strong>Unlimited</strong> Free Subdomains
+                </li>
+                <li>
+                  <span class="fa-li"><i class="check icon"></i></span>Monthly
+                  Status Reports
+                </li>
+              </ul>
+              <button
+                class="fluid ui button py-3"
+                [ngClass]="{ disabled: user['subscriptionLevel'] == 2 }"
+                (click)="buyPlan(2)"
+              >
+                <ng-container *ngIf="user['subscriptionLevel'] != 2"
+                  >Get Started</ng-container
+                >
+                <ng-container *ngIf="user['subscriptionLevel'] == 2"
+                  >Active</ng-container
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

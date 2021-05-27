@@ -71,10 +71,18 @@ export class ApplicationComponent implements OnInit {
     }
   }
 
-  isActive(path: any): boolean {
+  isActive(path: any, paths?: []): boolean {
     // console.log(this.router.isActive('/app/' + path, true));
+    // if(paths){
 
-    return this.router.isActive('/app/' + path, true);
+    // }
+
+    // return this.router.isActive('/app/' + path, true);
+
+    // console.log(this._auth.getCurrentRouteForRetunr());
+    var currentURL = this._auth.getCurrentRouteForRetunr();
+    currentURL = currentURL.split('/');
+    return currentURL.includes(path);
   }
 
   logOut() {
