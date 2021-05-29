@@ -39,6 +39,7 @@ import { ValidPasswordDirective } from './extra/directives/valid-password.direct
 import { ReportUploadingFormValidationDirective } from './extra/directives/report-uploading-form-validation.directive';
 import { UserSubscriptionComponent } from './pages/application/profile/user-subscription/user-subscription.component';
 import { SubscriptionComponent } from './pages/subscription/subscription.component';
+import { LoadedDirective } from './extra/directives/loaded.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,7 @@ import { SubscriptionComponent } from './pages/subscription/subscription.compone
     ReportUploadingFormValidationDirective,
     UserSubscriptionComponent,
     SubscriptionComponent,
+    LoadedDirective,
   ],
   imports: [
     BrowserModule,
