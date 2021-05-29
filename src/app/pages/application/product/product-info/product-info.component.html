@@ -90,9 +90,9 @@
             <div class="col-6 form-group">
               <label for="vendor">Ingredient</label>
             </div>
-            <div class="col-2 form-group">
+            <!-- <div class="col-2 form-group">
               <label for="vendor">Measure</label>
-            </div>
+            </div> -->
             <div class="col-2 form-group">
               <label for="vendor">Amount</label>
             </div>
@@ -110,11 +110,15 @@
             <div class="ingredients-item col-6 form-group">
               <span>{{ item["ingredients_details"] }}</span>
             </div>
-            <div class="col-2 form-group">
+            <!-- <div class="col-2 form-group">
               <span>{{ item["measure_type"] }}</span>
-            </div>
+            </div> -->
             <div class="col-2 form-group">
-              <span>{{ item["amount"] }}</span>
+              <!-- <span>{{ item["amount"] }}</span> -->
+              <span class="ui image yellow label">
+                {{ item["amount"] || 0 }}
+                <div class="detail">{{ item["measure_type"] }}</div>
+              </span>
             </div>
             <div class="col form-group" *ngIf="edit" (click)="removeItem(i)">
               <button class="ui red icon button delete">
@@ -278,7 +282,7 @@
                   {{ item["ingredients_details"] }}
                 </button>
                 <span
-                  >{{ item["predicted"] | number: "1.0-2" }}
+                  >{{ item["predicted"] || 0 | number: "1.0-2" }}
                   {{ item["measure_type"] }}</span
                 >
               </div>

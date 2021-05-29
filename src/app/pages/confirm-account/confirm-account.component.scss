@@ -1,113 +1,122 @@
-@import '../../shared_scss/colorPalette.scss';
+@import "../../shared_scss/colorPalette.scss";
 
-.main{
-    height: 100vh;
+.main {
+  height: 100vh;
 
-    section{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100% ;
-        width: 100%;
+  section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
 
-        .row{
-            width: 100%;
-            text-align: center;
+    .row {
+      width: 100%;
+      text-align: center;
 
-            .div-message{
-                background: $white-3;
-                padding: 0;
-                padding-bottom: 30px;
+      .div-message {
+        background: $white-3;
+        padding: 0;
+        padding-bottom: 30px;
 
-                .message-header{
-                    padding: 40px 20px;
-                    background: lighten($color: $primary-color, $amount: 10) ;
-    
-                    h5{
-                        color: #fff;
-                        font-weight: bold;
-                        margin: 0;
-                    }
-                }
-                .message-body{
-                    padding: 40px 20px 30px;
-                    
-                    .status{
-                        color: #FEC43E;
-                    }
-                    img{
-                        width: 80px;
-                        height: 80px;
-                        filter: invert(89%) sepia(11%) saturate(4864%) hue-rotate(328deg) brightness(109%) contrast(99%);
-                    }
-                    .verifying{
-                        // width: 120px;
-                        // height: 50px;
-                        // background: green;
-                    }
-    
-                    button{
-                        background: #FEC43E;
-                        border: 2px solid #FEC43E;
-                        color: #fff;
-                        padding: 7px 17px;
-                        transition: all .3s ease;
-                        i{
-                            margin-left: 5px;
-                            font-size: 18px;
-                        }
-    
-                        &:hover{
-                            background: #fff;
-                            color: #FEC43E;
-                            i{
-                                color: #FEC43E;
-                            }
-                        }
-                    }
-                }
-    
-                .faild{
-                    .status{
-                        color: #E95E71;
-                    }
-                    img{
-                        filter: invert(47%) sepia(86%) saturate(923%) hue-rotate(315deg) brightness(95%) contrast(92%);
-                    }
-                    button{
-                        background: #E95E71;
-                        border: 2px solid #E95E71;
-    
-                        &:hover{
-                            background: #fff;
-                            color: #E95E71;
-                            i{
-                                color: #E95E71;
-                            }
-                        }
-                    }
-                }
-                .success{
-                    .status{
-                        color: #3DCCA0;
-                    }
-                    img{
-                        filter: invert(71%) sepia(18%) saturate(1295%) hue-rotate(111deg) brightness(93%) contrast(93%);
-                    }
-    
-                    button{
-                        background: #3DCCA0;
-                        border: 2px solid #3DCCA0;
-                        &:hover{
-                            background: #fff;
-                            color: #3DCCA0;
-                            i{
-                                color: #3DCCA0;
-                            }
-                        }
-                    }
-                }
-            }            
+        .message-header {
+          padding: 40px 20px;
+          background: lighten($color: $primary-color, $amount: 10);
+
+          h5 {
+            color: #fff;
+            font-weight: lighter;
+            font-size: 1.7rem;
+            margin: 0;
+          }
         }
+        .message-body {
+          padding: 40px 20px 30px;
+
+          label {
+            display: block;
+            font-size: 1.2rem;
+          }
+
+          .status {
+            color: #fec43e;
+          }
+          img {
+            width: 80px;
+            height: 80px;
+            filter: invert(89%) sepia(11%) saturate(4864%) hue-rotate(328deg)
+              brightness(109%) contrast(99%);
+          }
+          .verifying {
+            // width: 120px;
+            // height: 50px;
+            // background: green;
+          }
+
+          button {
+            background: #fec43e;
+            border: 2px solid #fec43e;
+            color: #fff;
+            padding: 7px 17px;
+            transition: all 0.3s ease;
+            i {
+              margin-left: 5px;
+              font-size: 18px;
+            }
+
+            &:hover {
+              background: #fff;
+              color: #fec43e;
+              i {
+                color: #fec43e;
+              }
+            }
+          }
+        }
+
+        .faild {
+          .status {
+            color: #e95e71;
+          }
+          img {
+            filter: invert(47%) sepia(86%) saturate(923%) hue-rotate(315deg)
+              brightness(95%) contrast(92%);
+          }
+          button {
+            background: #e95e71;
+            border: 2px solid #e95e71;
+
+            &:hover {
+              background: #fff;
+              color: #e95e71;
+              i {
+                color: #e95e71;
+              }
+            }
+          }
+        }
+        .success {
+          .status {
+            color: #3dcca0;
+          }
+          img {
+            filter: invert(71%) sepia(18%) saturate(1295%) hue-rotate(111deg)
+              brightness(93%) contrast(93%);
+          }
+
+          button {
+            background: #3dcca0;
+            border: 2px solid #3dcca0;
+            &:hover {
+              background: #fff;
+              color: #3dcca0;
+              i {
+                color: #3dcca0;
+              }
+            }
+          }
+        }
+      }
     }
+  }
 }

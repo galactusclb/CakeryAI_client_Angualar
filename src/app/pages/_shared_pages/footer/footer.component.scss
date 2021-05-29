@@ -1,6 +1,28 @@
-@import '../../../shared_scss/colorPalette.scss';
+@import "../../../shared_scss/colorPalette.scss";
 
-.div-footer{
-    background: $footer-color;
-    height: 250px;
+.div-footer {
+  background: $footer-color;
+  height: 250px;
+
+  .container {
+    max-width: 960px;
+    font-family: "DM Sans";
+
+    img {
+      width: 35px;
+      filter: invert(87%) sepia(0%) saturate(1221%) hue-rotate(145deg)
+        brightness(81%) contrast(92%);
+    }
+
+    h5 {
+      color: #b0b0b0;
+      font-size: 1.4rem;
+      font-weight: lighter;
+    }
+    a {
+      line-height: 1.8rem;
+      color: #b0b0b0;
+      font-size: 0.9rem;
+    }
+  }
 }
