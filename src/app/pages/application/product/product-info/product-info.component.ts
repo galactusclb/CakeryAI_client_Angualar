@@ -115,6 +115,10 @@ export class ProductInfoComponent implements OnInit {
           'MMMM YYYY'
         );
 
+        this.modelInfo['nextMonth'] = moment(lastMonthDetails[0])
+          .add(1, 'months')
+          .format('MMMM YYYY');
+
         if (this.modelInfo?.['headers']) {
           this.modelInfo['headers'] = JSON.parse(this.modelInfo?.['headers']);
         }
@@ -347,9 +351,13 @@ export class ProductInfoComponent implements OnInit {
 
     console.log(productName);
 
-    for (let i = 0; i < this.modelInfo?.['preTrainedModelURL'].length; i++) {
-      if (this.modelInfo?.['preTrainedModelURL'][i]['product'] == productName) {
-        return true;
+    if (this.modelInfo?.['preTrainedModelURL']) {
+      for (let i = 0; i < this.modelInfo?.['preTrainedModelURL'].length; i++) {
+        if (
+          this.modelInfo?.['preTrainedModelURL'][i]['product'] == productName
+        ) {
+          return true;
+        }
       }
     }
 

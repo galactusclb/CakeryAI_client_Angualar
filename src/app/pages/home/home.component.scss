@@ -2,6 +2,7 @@
 
 .main {
   min-height: 100vh;
+  font-family: "DM sans";
   // overflow-y: scroll;
   // scroll-snap-type: mandatory; /* for older browsers */
   // scroll-snap-points-y: repeat(100vh); /* for older browsers */
@@ -10,7 +11,7 @@
   // background: linear-gradient(0deg,  $primary-gradiant-color, $primary-color);
 
   section {
-    min-height: 100vh;
+    min-height: 80vh;
     // scroll-snap-align: start;
     position: relative;
   }
@@ -109,7 +110,7 @@
   }
 
   .section-services {
-    padding-top: 100px;
+    padding-top: 50px;
 
     h4 {
       text-align: center;
@@ -177,7 +178,7 @@
   }
 
   .section-process {
-    padding-top: 100px;
+    padding-top: 50px;
 
     h4 {
       text-align: center;
@@ -271,6 +272,45 @@
           }
         }
       }
+    }
+  }
+
+  .section-forecast {
+    h1 {
+      font-size: 3.5rem;
+      font-weight: lighter;
+    }
+    p {
+      font-weight: lighter;
+    }
+
+    button {
+      background: $primary-color;
+      color: $primary-color-text;
+    }
+  }
+
+  .section-details {
+    h1 {
+      max-width: 900px;
+      font-size: 3rem;
+      font-weight: lighter;
+      line-height: 3.5rem;
+    }
+    p {
+      font-weight: lighter;
+      font-size: 1.3rem;
+      color: rgba($color: #000000, $alpha: 0.6);
+      line-height: 1.9rem;
+
+      &.last {
+        font-size: 2rem;
+      }
+    }
+
+    button {
+      background: $primary-color;
+      color: $primary-color-text;
     }
   }
 }
